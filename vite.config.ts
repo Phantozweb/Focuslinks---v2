@@ -4,7 +4,16 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  // On GitHub Actions, derive the base path from the repo name so assets
+  // resolve correctly on project Pages URLs like
+  // https://<owner>.github.io/<repo>/
+  const base =
+    process.env.GITHUB_ACTIONS === 'true' && process.env.GITHUB_REPOSITORY
+      ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
+      : '/';
+
   return {
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
