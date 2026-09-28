@@ -53,14 +53,14 @@ export default function App() {
 
   const [activeStory, setActiveStory] = useState<ClinicalStory | null>(null);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState<boolean>(false);
-  const [createPostMode, setCreatePostMode] = useState<'pearl' | 'article' | 'case' | 'poll'>('pearl');
+  const [createPostMode, setCreatePostMode] = useState<'pearl' | 'media' | 'article' | 'case' | 'poll'>('pearl');
   const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [activeFilter, setActiveFilter] = useState<string>('All Threads');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const handleOpenCreatePost = (mode: 'pearl' | 'article' | 'case' | 'poll' = 'pearl') => {
+  const handleOpenCreatePost = (mode: 'pearl' | 'media' | 'article' | 'case' | 'poll' = 'pearl') => {
     setCreatePostMode(mode);
     setIsCreatePostOpen(true);
   };
@@ -275,6 +275,7 @@ export default function App() {
       content: postData.content || '',
       tags: postData.tags || ['#OptometryPearls'],
       images: postData.images,
+      imageAlts: postData.imageAlts,
       clinicalMetadata: postData.clinicalMetadata,
       poll: postData.poll,
       cardCategory: postData.cardCategory || 'pearl',

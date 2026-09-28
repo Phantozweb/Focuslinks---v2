@@ -4,3 +4,7 @@ export { ConsultDetailDrawer } from './ConsultDetailDrawer';
 export { AskConsultModal } from './AskConsultModal';
 export { ConsultTopicPills } from './ConsultTopicPills';
 export { TopicCardsGallery } from './TopicCardsGallery';
+export { TopicHubView } from './TopicHubView';
+export { TopicHubLeaderboard } from './TopicHubLeaderboard';
+export { HubCard } from './HubCard';
+export { resolveHubIcon } from './hubIcons';

@@ -145,6 +145,8 @@ export interface PostPoll {
   }[];
   totalVotes: number;
   userVotedOptionId?: string;
+  endsIn?: string; // e.g. "2 days left"
+  multipleChoice?: boolean;
 }
 
 export interface ClinicalArticleSection {
@@ -169,8 +171,9 @@ export interface ClinicalPost {
   content: string;
   tags: string[];
   images?: string[];
+  imageAlts?: string[]; // alt text per image (accessibility)
   aspectRatio?: 'tall' | 'square' | 'wide' | 'panoramic';
-  cardCategory?: 'slit-lamp' | 'oct' | 'topography' | 'poll' | 'pearl' | 'grand-rounds' | 'article';
+  cardCategory?: 'slit-lamp' | 'oct' | 'topography' | 'poll' | 'pearl' | 'grand-rounds' | 'article' | 'media';
   pearlHeadline?: string;
   articleMetadata?: ClinicalArticleMetadata;
   savedCollection?: string;
@@ -340,6 +343,42 @@ export interface QuestionTopic {
   recentActivity?: string;
   imageUrl?: string;
   isStudentFriendly?: boolean;
+  categoryId: string; // parent hub category (TopicCategory.id)
+  weeklyAsks?: number; // new asks this week (hub stats)
+  acceptanceRate?: number; // % of questions with an accepted answer (hub stats)
+  hubRules?: string[]; // posting rules shown in the hub About tab
+}
+
+/* ------------------------------------------------------------------
+   Consult Hub categories — group topic hubs into browsable sections
+   ------------------------------------------------------------------ */
+export interface TopicCategory {
+  id: string;
+  name: string;
+  tagline: string; // one-line description of the category
+  iconName: string; // lucide icon name, resolved by the consumer
+  gradient: string; // Tailwind gradient stops, e.g. 'from-rose-500 to-orange-400'
+  accentText: string; // Tailwind text color classes for accents, e.g. 'text-rose-600 dark:text-rose-400'
+}
+
+/* ------------------------------------------------------------------
+   Topic Hub leaderboard — top contributors per topic per period
+   ------------------------------------------------------------------ */
+export interface TopicLeaderboardEntry {
+  id: string;
+  topicId: string;
+  period: 'week' | 'month' | 'all-time';
+  doctorName: string;
+  doctorCredentials: string;
+  doctorAvatar: string;
+  doctorRole: string; // e.g. 'Cornea Specialist · Miami, FL'
+  points: number;
+  answersCount: number;
+  acceptedAnswers: number;
+  pearlsShared: number;
+  badgeTitle: string; // e.g. 'Scleral Lens Guru'
+  trend: 'up' | 'down' | 'steady';
+  isCurrentUser?: boolean;
 }
 
 export interface QuestionAnswerComment {

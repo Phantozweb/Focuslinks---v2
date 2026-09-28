@@ -33,7 +33,10 @@ import { ConsultCard } from './ConsultCard';
 import { ConsultDetailDrawer } from './ConsultDetailDrawer';
 import { AskConsultModal } from './AskConsultModal';
 import { TopicCardsGallery } from './TopicCardsGallery';
+import { ConsultTopicPills } from './ConsultTopicPills';
+import { TopicHubView } from './TopicHubView';
 import { DoctorAvatar } from '../common/DoctorAvatar';
+import { MOCK_TOPIC_CATEGORIES } from '../../data/mockQaData';
 
 interface ConsultsViewProps {
   questions: ClinicalQuestion[];
@@ -70,9 +73,12 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
   const [filterType, setFilterType] = useState<ConsultFilterType>('relevant');
   const [isAskModalOpen, setIsAskModalOpen] = useState(false);
   const [selectedDetailConsult, setSelectedDetailConsult] = useState<ClinicalQuestion | null>(null);
+  // Full hub space: when set, the hub view replaces the browse content
+  const [openedHubId, setOpenedHubId] = useState<string | null>(null);
 
   // Filter and sort consults
   const filteredConsults = useMemo(() => {
@@ -133,8 +139,53 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
     ? questions.find((q) => q.id === selectedDetailConsult.id) || selectedDetailConsult
     : null;
 
+  // The hub currently opened (null = browse mode; browse filters stay untouched so
+  // back navigation restores the gallery with the selected category preserved)
+  const openedHub = useMemo(
+    () => topics.find((t) => t.id === openedHubId) ?? null,
+    [topics, openedHubId]
+  );
+
+  // Hub browsing: category scoping + hub search (search matches hub names, descriptions & tags)
+  const isSearchActive = searchQuery.trim().length > 0;
+  const visibleHubTopics = useMemo(() => {
+    if (isSearchActive) {
+      const query = searchQuery.toLowerCase();
+      return topics.filter(
+        (t) =>
+          t.name.toLowerCase().includes(query) ||
+          t.description.toLowerCase().includes(query) ||
+          (t.trendingTags ?? []).some((tag) => tag.toLowerCase().includes(query))
+      );
+    }
+    if (selectedCategoryId === 'all') return topics;
+    return topics.filter((t) => t.categoryId === selectedCategoryId);
+  }, [topics, isSearchActive, searchQuery, selectedCategoryId]);
+
   return (
     <div className="w-full space-y-6">
+
+      {openedHub ? (
+        /* ============ FULL HUB SPACE (Feed / Q&A / Leaderboard / About) ============ */
+        <TopicHubView
+          key={openedHub.id}
+          topic={openedHub}
+          topics={topics}
+          categories={MOCK_TOPIC_CATEGORIES}
+          questions={questions}
+          currentUser={currentUser}
+          onBack={() => setOpenedHubId(null)}
+          onOpenHub={setOpenedHubId}
+          onOpenAskModal={() => setIsAskModalOpen(true)}
+          onToggleFollowTopic={onToggleFollowTopic}
+          onVoteQuestion={onVoteQuestion}
+          onViewDoctorProfile={onViewDoctorProfile}
+          onToggleBookmark={onToggleBookmark}
+          onToggleFollowQuestion={onToggleFollowQuestion}
+          onSelectQuestion={(question) => setSelectedDetailConsult(question)}
+        />
+      ) : (
+        <>
       
       {/* Consults Hero Command Banner */}
       <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white shadow-xl overflow-hidden border border-blue-900/40">
@@ -177,7 +228,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search consults by diagnosis, drug (e.g. Lotilaner), OCT findings, or doctor..."
+              placeholder="Search consults, hubs, diagnoses, drugs (e.g. Lotilaner), or doctors..."
               className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 text-white placeholder:text-neutral-400 text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-400 transition-all font-medium"
             />
             {searchQuery && (
@@ -192,13 +243,19 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
         </div>
       </div>
 
-      {/* Seamless Specialty Topic Cards Hub (Cards of Topics with All, Most Popular, Recommended, New & Trending, Following) */}
+      {/* Categorized Specialty Hub Browser — category rail + trending strip + hub grid */}
       <TopicCardsGallery
         topics={topics}
+        categories={MOCK_TOPIC_CATEGORIES}
         selectedTopicId={selectedTopicId}
+        selectedCategoryId={selectedCategoryId}
+        onSelectCategory={setSelectedCategoryId}
         onSelectTopic={setSelectedTopicId}
+        onOpenHub={setOpenedHubId}
         onToggleFollowTopic={onToggleFollowTopic}
         onSelectTag={(tag) => setSearchQuery(tag)}
+        visibleTopics={isSearchActive ? visibleHubTopics : undefined}
+        isSearchActive={isSearchActive}
       />
 
       {/* Main 2-Column Responsive Layout:
@@ -209,7 +266,19 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
         
         {/* Main Column: Consults Stream (lg:col-span-8) */}
         <div className="lg:col-span-8 space-y-4">
-          
+
+          {/* Category-synced Topic Hub Filter Pills */}
+          <ConsultTopicPills
+            topics={topics}
+            categories={MOCK_TOPIC_CATEGORIES}
+            selectedCategoryId={selectedCategoryId}
+            onSelectCategory={setSelectedCategoryId}
+            selectedTopicId={selectedTopicId}
+            onSelectTopic={setSelectedTopicId}
+            onOpenHub={setOpenedHubId}
+            onToggleFollowTopic={onToggleFollowTopic}
+          />
+
           {/* Quick Consult Prompt Box */}
           <div
             onClick={() => setIsAskModalOpen(true)}
@@ -511,6 +580,8 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
         </div>
 
       </div>
+        </>
+      )}
 
       {/* Initiate Consult Modal */}
       <AskConsultModal
