@@ -179,7 +179,7 @@ export const CircleWorkspace: React.FC<CircleWorkspaceProps> = ({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-4 pb-20 md:pb-16 px-2 sm:px-4">
+    <div className="w-full space-y-4">
       {/* Toast Notification */}
       <AnimatePresence>
         {(downloadToast || shareToast) && (
@@ -495,7 +495,7 @@ export const CircleWorkspace: React.FC<CircleWorkspaceProps> = ({
         <div
           className={`${
             showMembersDrawer ? 'lg:col-span-6 xl:col-span-6' : 'lg:col-span-9 xl:col-span-9'
-          } bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 p-4 sm:p-5 flex flex-col justify-between shadow-sm min-h-[640px]`}
+          } bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 p-4 sm:p-5 flex flex-col justify-between shadow-sm min-h-[480px] lg:min-h-[640px]`}
         >
           {/* Active Channel Header */}
           <div className="pb-3 border-b border-neutral-100 dark:border-neutral-800 flex items-center justify-between gap-3">

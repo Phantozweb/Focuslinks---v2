@@ -238,7 +238,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
         <div className="absolute inset-0 bg-[radial-gradient(#8080800d_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative">
         
         {/* Back navigation button */}
         <motion.button

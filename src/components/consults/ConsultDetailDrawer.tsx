@@ -113,7 +113,7 @@ export const ConsultDetailDrawer: React.FC<ConsultDetailDrawerProps> = ({
       />
 
       {/* Slide-out Full Height Drawer (Tablet/Desktop: slide from right 640px to 800px; Mobile: full width) */}
-      <div className="relative w-full max-w-2xl sm:max-w-3xl h-full bg-white dark:bg-[#101014] border-l border-neutral-200 dark:border-neutral-800 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
+      <div className="relative w-full sm:max-w-2xl lg:max-w-3xl h-full bg-white dark:bg-[#101014] border-l border-neutral-200 dark:border-neutral-800 shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
         
         {/* Top Sticky Header */}
         <div className="sticky top-0 z-20 px-5 py-4 bg-white/95 dark:bg-[#101014]/95 backdrop-blur-md border-b border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-3">

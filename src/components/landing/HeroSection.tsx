@@ -71,7 +71,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Desktop Two-Column Layout (Left & Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
@@ -111,7 +111,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
               transition={{ duration: 0.45, delay: 0.1 }}
               className="space-y-3.5"
             >
-              <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
+              <h1 className="text-display-lg xl:text-display-xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
                 The Global Platform for{' '}
                 <span className="glossy-shine-text-light dark:glossy-shine-text-dark font-black">
                   Optometrists

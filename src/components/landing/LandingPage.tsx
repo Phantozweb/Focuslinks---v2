@@ -45,7 +45,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-[#0c0c10] text-neutral-900 dark:text-neutral-100 transition-colors selection:bg-blue-600 selection:text-white font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-dvh bg-neutral-50 dark:bg-[#0c0c10] text-neutral-900 dark:text-neutral-100 transition-colors selection:bg-blue-600 selection:text-white font-['Plus_Jakarta_Sans',sans-serif]">
       {/* 1. Sleek Sticky Navbar */}
       <LandingNavbar
         darkMode={darkMode}

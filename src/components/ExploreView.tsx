@@ -431,7 +431,7 @@ export const ExploreView: React.FC<ExploreViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto pb-28 md:pb-16 space-y-5">
+    <div className="w-full space-y-5">
       {/* ============================================================== */}
       {/* 1. SEARCH-FIRST EXPLORE HEADER (Focused & Clean)                */}
       {/* ============================================================== */}
@@ -611,7 +611,7 @@ export const ExploreView: React.FC<ExploreViewProps> = ({
       {/* 2. RESPONSIVE EXPLORE GRID (2 COLUMNS IN MOBILE AS REQUESTED!)  */}
       {/* ============================================================== */}
       {viewDensity === 'grid' ? (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3.5 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3.5 md:gap-4">
           {filteredExplorePosts.map((post) => {
             const isSaved = !!savedVaultIds[post.id];
             const isLiked = !!postLikesMap[post.id];
@@ -694,7 +694,7 @@ export const ExploreView: React.FC<ExploreViewProps> = ({
 
                   {/* Compact snippet */}
                   {post.chairsideTakeaway && (
-                    <p className="text-[10px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed hidden xs:block">
+                    <p className="text-[10px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed hidden sm:block">
                       {post.chairsideTakeaway}
                     </p>
                   )}

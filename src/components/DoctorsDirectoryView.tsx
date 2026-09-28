@@ -158,7 +158,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 pb-28 md:pb-16">
+    <div className="w-full space-y-6">
       {/* Top Banner: Doctor Profiles & Global Referral Network */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-900 via-indigo-950 to-neutral-900 p-6 sm:p-7 text-white shadow-sm border border-neutral-800">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
@@ -494,7 +494,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
           </button>
         </div>
       ) : viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5">
           {filteredAndSortedDoctors.map((doc) => {
             const isConnected = connectedDoctorIds.has(doc.id);
             return (

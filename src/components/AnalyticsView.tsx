@@ -168,7 +168,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   ];
 
   return (
-    <div className="space-y-6 pb-12 animate-in fade-in duration-200">
+    <div className="w-full space-y-6 pb-12 animate-in fade-in duration-200">
       
       {/* Top Banner & Header */}
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-neutral-900 via-[#12121a] to-blue-950 p-6 sm:p-8 text-white border border-neutral-800/80 shadow-xl">
@@ -184,7 +184,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                 OD Verified
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            <h1 className="text-display-md font-black tracking-tight text-white">
               Clinical Impact & Growth Hub
             </h1>
             <p className="text-xs sm:text-sm text-neutral-300 max-w-xl font-normal leading-relaxed">
@@ -222,7 +222,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       </div>
 
       {/* 4 Core Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((st) => {
           const Icon = st.icon;
           return (

@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-20 w-full border-b border-neutral-200/80 dark:border-neutral-800/90 bg-white/85 dark:bg-[#0c0c11]/85 backdrop-blur-xl transition-colors">
-      <div className="w-full px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-12 h-16 flex items-center justify-between gap-3">
         
         {/* Left Section: Mobile Brand (< lg) OR Desktop Breadcrumb / Search (lg+) */}
         <div className="flex items-center gap-2 sm:gap-3 lg:gap-6 min-w-0">
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
             {onOpenMobileMenu && (
               <button
                 onClick={onOpenMobileMenu}
-                className="h-9 w-9 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                className="h-10 w-10 lg:h-9 lg:w-9 rounded-xl flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
                 title="Open Navigation Menu"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Omnisearch Bar */}
-          <div className="relative hidden md:block w-48 lg:w-64 xl:w-80">
+          <div className="relative hidden md:block w-48 lg:w-64 xl:w-80 2xl:w-96">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
             <input
               type="text"
@@ -140,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Mobile Search Toggle */}
           <button
             onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-            className="md:hidden flex items-center justify-center h-9 w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            className="md:hidden flex items-center justify-center h-10 w-10 lg:h-9 lg:w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
             title="Search Cases"
           >
             <Search className="h-4 w-4" />
@@ -182,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Notifications Drawer Trigger */}
           <button
             onClick={onOpenNotifications}
-            className="relative flex items-center justify-center h-9 w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="relative flex items-center justify-center h-10 w-10 lg:h-9 lg:w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
             title="Clinical Notifications"
           >
             <Bell className="h-4 w-4" />
@@ -196,7 +196,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Dark Mode Toggle */}
           <button
             onClick={onToggleDarkMode}
-            className="flex items-center justify-center h-9 w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="flex items-center justify-center h-10 w-10 lg:h-9 lg:w-9 rounded-xl text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
             title={darkMode ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
           >
             {darkMode ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-neutral-600" />}

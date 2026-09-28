@@ -135,7 +135,7 @@ export const InstagramGalleryView: React.FC<InstagramGalleryViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-5 pb-28 md:pb-16">
+    <div className="w-full space-y-5">
       {/* Ophthalmic Visual Showcase Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white dark:bg-[#18181b] p-4 sm:p-5 border border-neutral-200 dark:border-neutral-800 shadow-2xs">
         <div>
@@ -177,7 +177,7 @@ export const InstagramGalleryView: React.FC<InstagramGalleryViewProps> = ({
       </div>
 
       {/* Visual Grid (Advanced Responsive Gallery) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-4">
         {filteredItems.map((item) => {
           const isLiked = likedMap[item.id];
           return (

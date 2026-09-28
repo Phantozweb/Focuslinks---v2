@@ -51,7 +51,7 @@ export const NotificationsDrawer: React.FC<NotificationsDrawerProps> = ({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-            className="w-screen max-w-md bg-white dark:bg-[#18181b] border-l border-neutral-200 dark:border-neutral-800 shadow-2xl flex flex-col"
+            className="w-full sm:max-w-md bg-white dark:bg-[#18181b] border-l border-neutral-200 dark:border-neutral-800 shadow-2xl flex flex-col"
           >
             {/* Drawer Header */}
             <div className="p-5 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between bg-neutral-50/70 dark:bg-[#141416]">

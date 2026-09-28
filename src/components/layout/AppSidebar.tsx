@@ -112,7 +112,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   ];
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 xl:w-72 h-screen sticky top-0 border-r border-neutral-200/80 dark:border-neutral-800/80 bg-white/90 dark:bg-[#0c0c11]/90 backdrop-blur-xl shrink-0 z-30 transition-all select-none">
+    <aside className="hidden lg:flex flex-col w-64 xl:w-72 2xl:w-80 h-dvh sticky top-0 border-r border-neutral-200/80 dark:border-neutral-800/80 bg-white/90 dark:bg-[#0c0c11]/90 backdrop-blur-xl shrink-0 z-30 transition-all select-none">
       
       {/* Top Brand Logo */}
       <div className="p-4 xl:p-5 border-b border-neutral-200/70 dark:border-neutral-800/70 flex items-center justify-between">

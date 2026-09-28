@@ -134,7 +134,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
     : null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
+    <div className="w-full space-y-6">
       
       {/* Consults Hero Command Banner */}
       <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white shadow-xl overflow-hidden border border-blue-900/40">
@@ -149,7 +149,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
               <span>Clinical Consults • The Peer Brain Trust</span>
             </div>
             
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
+            <h1 className="text-display-md font-black tracking-tight">
               Peer Consults & Second Opinions
             </h1>
             

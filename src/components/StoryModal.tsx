@@ -16,13 +16,13 @@ export const StoryModal: React.FC<StoryModalProps> = ({ story, onClose, onViewDo
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.94 }}
           transition={{ duration: 0.2 }}
-          className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-[#18181b] border border-neutral-200 dark:border-neutral-800"
+          className="relative w-full sm:max-w-2xl h-dvh sm:h-auto sm:max-h-[90dvh] overflow-y-auto overscroll-contain sm:overflow-hidden rounded-none sm:rounded-2xl bg-white shadow-2xl dark:bg-[#18181b] border border-neutral-200 dark:border-neutral-800"
         >
           {/* Header bar */}
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800/80 px-5 py-3.5 bg-neutral-50/50 dark:bg-[#141416]">

@@ -135,7 +135,7 @@ export const DirectoryScene: React.FC<DirectorySceneProps> = ({
               className={`p-3.5 bg-white dark:bg-[#121217] border rounded-2xl flex items-start gap-3 shadow-2xs relative overflow-hidden ${
                 item.isElena 
                   ? 'border-blue-500/80 shadow-xs' 
-                  : 'border-neutral-200/50 dark:border-neutral-850'
+                  : 'border-neutral-200/50 dark:border-neutral-800'
               }`}
             >
               {item.tag && (

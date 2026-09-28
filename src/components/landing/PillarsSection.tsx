@@ -59,7 +59,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
 
   return (
     <section className="py-16 sm:py-24 bg-neutral-100/60 dark:bg-[#0e0e12]/60 border-y border-neutral-200/80 dark:border-neutral-800/80 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200/60 dark:border-blue-800/60">
             Four Core Pillars

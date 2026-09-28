@@ -8,7 +8,7 @@ interface LandingFooterProps {
 export const LandingFooter: React.FC<LandingFooterProps> = ({ onEnterApp }) => {
   return (
     <footer className="w-full border-t border-neutral-200/80 dark:border-neutral-800/80 bg-white dark:bg-[#0c0c0f] py-12 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-neutral-100 dark:border-neutral-800/80">
           {/* Logo & Vision */}
           <div className="flex items-center gap-3">

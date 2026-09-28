@@ -69,7 +69,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   ];
 
   return (
-    <div className="space-y-6 pb-12 animate-in fade-in duration-200">
+    <div className="w-full space-y-6 pb-12 animate-in fade-in duration-200">
       
       {/* Toast Notification */}
       {isSavedToast && (

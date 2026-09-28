@@ -625,7 +625,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-[#0c0c11] text-neutral-900 dark:text-neutral-100 transition-colors selection:bg-blue-500 selection:text-white flex">
+    <div className="min-h-dvh bg-neutral-50 dark:bg-[#0c0c11] text-neutral-900 dark:text-neutral-100 transition-colors selection:bg-blue-500 selection:text-white flex">
       {/* 1. Desktop Left Sidebar Navigation Rail */}
       <AppSidebar
         currentTab={currentTab}
@@ -679,8 +679,9 @@ export default function App() {
           onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
         />
 
-        {/* Main Content Area */}
-        <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-24 lg:pb-12">
+        {/* Main Content Area — the single width/gutter owner for every view.
+            Fluid up to 1600px with scaling gutters; views render w-full inside. */}
+        <main className="flex-1 w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 pt-4 sm:pt-6 pb-28 lg:pb-12">
           {currentTab === 'feed' && (
             <FeedView
               posts={displayPosts}

@@ -92,7 +92,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
   const doctorPosts = posts.filter((p) => p.author.id === profile.id);
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-5 pb-28 md:pb-16">
+    <div className="w-full max-w-[1200px] mx-auto space-y-5">
       {/* Context Bar: Personalized for My Profile vs Colleague View */}
       {isCurrentUser ? (
         <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-transparent border border-blue-500/20 text-xs shadow-2xs">

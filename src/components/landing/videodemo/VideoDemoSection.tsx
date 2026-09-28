@@ -166,7 +166,7 @@ export const VideoDemoSection: React.FC = () => {
         <div className="absolute inset-0 bg-[radial-gradient(#8080800a_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative">
         
         {/* Header Block designed to be extremely clear & simple */}
         <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
@@ -284,7 +284,7 @@ export const VideoDemoSection: React.FC = () => {
             </div>
 
             {/* Video player control deck */}
-            <div className="w-full max-w-[340px] mt-6 bg-neutral-100 dark:bg-[#111116] border border-neutral-200/70 dark:border-neutral-850 rounded-2xl p-4 space-y-3.5 shadow-md select-none">
+            <div className="w-full max-w-[340px] mt-6 bg-neutral-100 dark:bg-[#111116] border border-neutral-200/70 dark:border-neutral-800 rounded-2xl p-4 space-y-3.5 shadow-md select-none">
               
               {/* Seek bar line controller */}
               <div className="space-y-1">

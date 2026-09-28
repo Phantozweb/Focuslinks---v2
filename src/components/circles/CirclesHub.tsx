@@ -95,7 +95,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
   }, [events]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-7 pb-20 md:pb-16 px-3 sm:px-4">
+    <div className="w-full space-y-7">
       {/* Top Hero Banner - Global Optometry Community Hub Header */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 via-neutral-950 to-blue-950 text-white p-6 sm:p-8 md:p-10 shadow-2xl border border-neutral-800">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -440,7 +440,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
 
         {/* Communities Grid - Facebook Groups Style Cards */}
         {filteredAndSortedGroups.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {filteredAndSortedGroups.map((group) => {
               return (
                 <div

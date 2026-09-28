@@ -71,7 +71,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200/70 dark:border-neutral-800/70 bg-white/85 dark:bg-[#0b0b10]/85 backdrop-blur-xl transition-colors">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-16 flex items-center justify-between gap-4">
         
         {/* BRAND LOGO — Minimal & Sophisticated */}
         <div 

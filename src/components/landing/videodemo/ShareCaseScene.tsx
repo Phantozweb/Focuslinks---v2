@@ -21,7 +21,7 @@ export const ShareCaseScene: React.FC<ShareCaseSceneProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="p-3 bg-neutral-100/50 dark:bg-neutral-900/30 rounded-2xl border border-neutral-200/40 dark:border-neutral-850/30 flex items-center gap-3 shadow-3xs"
+        className="p-3 bg-neutral-100/50 dark:bg-neutral-900/30 rounded-2xl border border-neutral-200/40 dark:border-neutral-800/30 flex items-center gap-3 shadow-3xs"
       >
         <img src={drElena.avatar} className="h-8 w-8 rounded-full object-cover border border-blue-500/10 shrink-0" />
         <div>

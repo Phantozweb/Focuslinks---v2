@@ -90,7 +90,7 @@ export const PlatformFeatures: React.FC<PlatformFeaturesProps> = ({ onEnterApp }
   const CurrentIcon = current.icon;
 
   return (
-    <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
       <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
         <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200/60 dark:border-blue-800/60">
           Core Capabilities

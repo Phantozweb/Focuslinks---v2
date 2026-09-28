@@ -27,7 +27,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-[#121215]/95 backdrop-blur-xl border-t border-neutral-200/90 dark:border-neutral-800/90 px-2 py-1.5 shadow-lg safe-area-pb"
+      className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-[#121215]/95 backdrop-blur-xl border-t border-neutral-200/90 dark:border-neutral-800/90 px-2 pt-1.5 shadow-lg safe-area-pb"
     >
       <div className="flex items-center justify-around max-w-md mx-auto relative">
         {/* Feed Tab */}

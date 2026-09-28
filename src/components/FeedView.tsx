@@ -124,7 +124,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto pb-28 md:pb-16 space-y-6">
+    <div className="w-full space-y-6">
       {/* ============================================================== */}
       {/* 1. CLINICAL PEARLS (DAILY ROTATING OPTOMETRIC CASES)          */}
       {/* ============================================================== */}
@@ -409,7 +409,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
       {/* 3. DEFAULT PURE MASONRY FEED (NO TOGGLE OPTIONS)               */}
       {/* Dynamic ophthalmic ratios: tall, square, wide, polls, formulas */}
       {/* ============================================================== */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 2xl:columns-5 gap-4 space-y-4">
         {filteredPosts.map((post) => {
           const hasImage = post.images && post.images.length > 0;
           const isPoll = !!post.poll;

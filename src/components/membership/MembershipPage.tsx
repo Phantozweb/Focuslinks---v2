@@ -225,7 +225,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 text-left relative selection:bg-blue-600 selection:text-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-14 text-left relative overflow-x-clip selection:bg-blue-600 selection:text-white">
       {/* Subtle Background Lighting */}
       <div className="absolute top-16 left-1/4 w-[450px] h-[450px] bg-gradient-to-tr from-blue-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-[900px] right-8 w-[380px] h-[380px] bg-gradient-to-tr from-sky-500/5 via-blue-500/8 to-transparent rounded-full blur-3xl pointer-events-none" />

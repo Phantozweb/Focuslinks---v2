@@ -6,7 +6,7 @@ interface MobilePhoneFrameProps {
 
 export const MobilePhoneFrame: React.FC<MobilePhoneFrameProps> = ({ children }) => {
   return (
-    <div className="relative mx-auto w-[310px] h-[610px] sm:w-[330px] sm:h-[650px] bg-[#09090d] rounded-[50px] p-3.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-neutral-800 dark:border-neutral-900 ring-1 ring-neutral-700/30 flex flex-col justify-between overflow-hidden select-none group">
+    <div className="relative mx-auto w-[310px] h-[610px] sm:w-[330px] sm:h-[650px] max-w-[calc(100vw-2.5rem)] bg-[#09090d] rounded-[50px] p-3.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] border-4 border-neutral-800 dark:border-neutral-900 ring-1 ring-neutral-700/30 flex flex-col justify-between overflow-hidden select-none group">
       
       {/* 3D Glass Reflection Overlay Sweep */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none z-40 rounded-[36px]" />
