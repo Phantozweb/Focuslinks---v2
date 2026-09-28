@@ -49,7 +49,7 @@ export interface DoctorProfile {
 export interface SpecialtyEndorsement {
   id: string;
   name: string;
-  category: 'Anterior Segment' | 'Posterior Segment' | 'Specialty Lenses' | 'Pediatrics & Myopia' | 'Technology & Surgery';
+  category: 'Anterior Segment' | 'Posterior Segment' | 'Specialty Lenses' | 'Pediatrics & Myopia' | 'Technology & Surgery' | 'Low Vision & Rehab' | 'Practice & Leadership' | 'Primary Care';
   endorsementsCount: number;
   userEndorsed?: boolean;
   endorsers: {

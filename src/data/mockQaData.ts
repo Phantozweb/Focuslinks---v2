@@ -1622,7 +1622,7 @@ For those who have deployed this:
     topicId: 'topic-ai',
     topicName: 'AI & Digital Health',
     tags: ['AI', 'Autonomous DR', 'TeleOptometry', 'Liability', 'Care Coordination'],
-    author: OTHER_DOCTORS[9], // Dr. David Kim
+    author: OTHER_DOCTORS[6], // Dr. Jonathan Reyes
     createdAt: '2 days ago',
     upvotes: 54,
     downvotes: 0,
@@ -1713,7 +1713,7 @@ Where does the evidence and practice actually land in 2025?
       {
         id: 'ans-rim1-2',
         questionId: 'q-retinaimaging-1',
-        author: OTHER_DOCTORS[9], // Dr. David Kim
+        author: OTHER_DOCTORS[7], // Dr. Maya Lin
         createdAt: '3 days ago',
         content: `Co-sign. One practical add: whatever you send, attach BOTH the UWF montage AND a 3x3 / 6x6 macula OCT cube report. In our network the retina group's triage nurse converts every referral to "yes/no/when" from two things — CMT with DME status and any neovascular signal. Severity scale debates dissolve when those two numbers are on page 1.`,
         upvotes: 18,
