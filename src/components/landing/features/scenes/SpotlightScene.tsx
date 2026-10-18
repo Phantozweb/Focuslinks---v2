@@ -9,18 +9,20 @@ import {
   ChevronRight,
   Eye,
 } from 'lucide-react';
-import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor } from './chrome';
-import { enterStyle, phase, easeOutCubic, easeOutBack, tickNumber } from '../sceneKit';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, AdHook, KineticBeat, AdPunchline } from './chrome';
+import { enterStyle, phase, easeOutCubic, easeOutBack, tickNumber, adTiming, contentClock } from '../sceneKit';
 import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * SPOTLIGHT — native replica of the real "Clinical Stories & Highlights" rail
- * and the StoryModal case file. Real story: "Slit Lamp: Salzmann Nodule"
- * (62yo F, Salzmann's Nodular Degeneration) from MOCK_STORIES.
- * Duration 10s.
+ * SPOT 04 — SPOTLIGHT (13.5s ad, see brag-output/brag-plan.md)
+ * HOOK: "A perfect pearl dies in your camera roll." → real story rail →
+ * StoryModal case file (Slit Lamp: Salzmann Nodule, 62yo F) → applaud → 24h.
  */
-export const SpotlightScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 10000;
+export const SpotlightScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 13500;
+  const CONTENT_DURATION = 10000;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   // tap story 1 at 1.6s → modal in 2.1-2.9s → applaud at 7.1s → close at 8.7s
   const modalP = easeOutCubic(phase(t, 2100, 2900));
@@ -66,6 +68,31 @@ export const SpotlightScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/feed" accent="bg-fuchsia-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 04: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="24 hours"
+          line="A perfect pearl dies in your camera roll."
+          accent="fuchsia"
+          spotNo="04"
+        />
+        <KineticBeat
+          t={tG}
+          start={8700}
+          end={PUNCH_AT - 200}
+          line="Live for 24 hours. Watched forever in your network."
+          accent="fuchsia"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Spotlight"
+          tagline="Share it before it expires."
+          cta="Open Spotlight"
+          accent="fuchsia"
+        />
+
         <AppHeaderBar breadcrumb="Feed" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4">
@@ -321,14 +348,15 @@ export const SpotlightScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 1900, 'Daily rounds from your connected network'],
-            [1900, 4000, 'Open a case file — the full workup inside'],
-            [4000, 6600, 'Presentation → diagnosis → management'],
-            [6600, 8700, 'Applaud & share with peers'],
-            [8700, 10000, 'Post your own — pearl, photo, case or poll'],
+            [0, 2500, 'A perfect pearl dies in your camera roll.'],
+            [2500, 4600, 'Spotlight — stories for your connected network'],
+            [4600, 7400, 'Open the case file — the full workup inside'],
+            [7400, 9300, 'Applauds from the ODs who watched'],
+            [9300, 11300, 'Live for 24 hours. Then it is gone.'],
+            [11300, 13500, 'FocusLinks Spotlight — share it before it expires.'],
           ]}
         />
       </div>

@@ -13,18 +13,20 @@ import {
   Flame,
   Bell,
 } from 'lucide-react';
-import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, SceneToast } from './chrome';
-import { enterStyle, phase, easeOutCubic, tickNumber } from '../sceneKit';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, SceneToast, AdHook, KineticBeat, AdPunchline } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber, adTiming, contentClock } from '../sceneKit';
 
 /**
- * CIRCLES — native replica of the real "Clinical Circles" hub.
- * Story: event info used to be scattered across chats & inboxes →
- * one central board with real events (Scleral Symposium, Myopia Summit),
- * one-tap RSVP, then the Grand Rounds circle itself.
- * Real data from MOCK_CLINICAL_EVENTS / MOCK_GROUPS. Duration 11s.
+ * SPOT 02 — CIRCLES (14.5s ad, see brag-output/brag-plan.md)
+ * HOOK: event info buried in group chats (ghost bubbles) → central board proof.
+ * Real events: Scleral Symposium (Oct 14 · 2.0 COPE · 342), Myopia Summit
+ * (Oct 17 · 3.5 COPE · 518). Real data from MOCK_CLINICAL_EVENTS / MOCK_GROUPS.
  */
-export const CirclesScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 11000;
+export const CirclesScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 14500;
+  const CONTENT_DURATION = 11000;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   // pain-point scatter chips dissolve at ~1.7-2.3s
   const scatterOut = 1 - phase(t, 1700, 2300);
@@ -38,6 +40,32 @@ export const CirclesScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/circles" accent="bg-indigo-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 02: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="Every OD knows this"
+          line="Your next grand rounds is buried in a group chat."
+          accent="emerald"
+          spotNo="02"
+          bubbles={['which event??', 'was it Oct 14 or 17?', 'link pls', "who's going?"]}
+        />
+        <KineticBeat
+          t={tG}
+          start={9900}
+          end={PUNCH_AT - 200}
+          line="One board. Every event. Zero scroll-back."
+          accent="emerald"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Circles"
+          tagline="Never ask 'which event, when?' again."
+          cta="Open Circles"
+          accent="emerald"
+        />
+
         <AppHeaderBar breadcrumb="Circles" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2.5">
@@ -248,14 +276,15 @@ export const CirclesScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 1700, 'Circles — clinical communities that actually stay in sync'],
-            [1700, 3300, 'No more event info scattered across chats'],
-            [3300, 6200, 'One central board: date, time, CE credits, RSVP'],
-            [6200, 8300, 'Every circle event, in one place'],
-            [8300, 11000, 'Join, share knowledge & get reminders'],
+            [0, 2500, 'Your next grand rounds is buried in a group chat.'],
+            [2500, 4700, 'FocusLinks Circles — one central event board'],
+            [4700, 7300, 'Scleral Symposium · Oct 14 · 342 going — one tap to RSVP'],
+            [7300, 10100, 'Every circle, every event — date, time, RSVPs'],
+            [10100, 12200, 'Reminders before doors open'],
+            [12200, 14500, "FocusLinks Circles — never ask 'which event, when?' again."],
           ]}
         />
       </div>

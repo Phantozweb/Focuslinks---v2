@@ -18,18 +18,25 @@ import {
   SceneToast,
   VerifiedShield,
   DistanceChip,
+  AdHook,
+  KineticBeat,
+  AdPunchline,
 } from './chrome';
-import { enterStyle, phase, easeOutCubic, typedText, tickNumber } from '../sceneKit';
+import { enterStyle, phase, easeOutCubic, typedText, tickNumber, adTiming, contentClock } from '../sceneKit';
 import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * DIRECTORY — native replica of the real "Peer Directory" screen.
+ * SPOT 01 — DIRECTORY (13.5s ad, see brag-output/brag-plan.md)
+ * HOOK "The right specialist exists…" → real Peer Directory proof → punchline.
  * Real data: Dr. Amara Thorne (99% · Apex Ophthalmic Consultants, Boston)
  * and Dr. Maya Lin (93% · UW Medicine Eye Institute, Seattle).
- * Duration 10s.
  */
-export const DirectoryScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 10000;
+export const DirectoryScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 13500;
+  const CONTENT_DURATION = 10000;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  // proof content keeps its authored timings, speed-squeezed into the ad contract
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   const query = typedText(t, 500, 2100, 'glaucoma');
   const showCaret = t % 700 < 380;
@@ -76,6 +83,31 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/directory" accent="bg-blue-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 01: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="The referral problem"
+          line="The right specialist exists. Finding them is the hard part."
+          accent="blue"
+          spotNo="01"
+        />
+        <KineticBeat
+          t={tG}
+          start={8600}
+          end={PUNCH_AT - 200}
+          line="Verified. Ranked. One tap away."
+          accent="blue"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Directory"
+          tagline="Your network, worldwide."
+          cta="Open Directory"
+          accent="blue"
+        />
+
         <AppHeaderBar breadcrumb="Directory" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2.5">
@@ -274,14 +306,15 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 1900, 'A verified global directory of optometrists'],
-            [1900, 4000, 'Filter by specialty — Glaucoma & Neuro'],
-            [4000, 5800, 'Real profiles: credentials, clinic, concordance'],
-            [5800, 7900, 'One tap to connect'],
-            [7900, 10000, 'Open clinical CVs — referrals & co-management'],
+            [0, 2500, 'The right specialist exists. Finding them is the hard part.'],
+            [2500, 4600, 'Peer Directory — 1,284 verified optometrists, on-call'],
+            [4600, 6600, 'Type. Filter. Two perfect matches.'],
+            [6600, 9200, 'Real profiles — credentials, concordance, distance'],
+            [9200, 11300, 'One tap to connect. Open the CV. Done.'],
+            [11300, 13500, 'FocusLinks Directory — your network, worldwide.'],
           ]}
         />
       </div>

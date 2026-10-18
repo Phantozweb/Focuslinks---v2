@@ -1,18 +1,19 @@
 import React from 'react';
 import { Camera, Heart, MessageCircle, X } from 'lucide-react';
-import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor } from './chrome';
-import { enterStyle, phase, easeOutCubic, tickNumber } from '../sceneKit';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, AdHook, KineticBeat, AdPunchline } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber, adTiming, contentClock } from '../sceneKit';
 import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * EXPLORE — native replica of the real "Ophthalmic Diagnostic & Clinical
- * Imagery" gallery (InstagramGalleryView) with its case detail modal.
- * Real tiles: Salzmann biomicroscopy, AS-OCT vault clearance, Ortho-K
- * fluorescein, EDI-OCT drusen, Pellucid topography, meibography.
- * Duration 10.5s.
+ * SPOT 05 — EXPLORE (14s ad, see brag-output/brag-plan.md)
+ * HOOK: "Everything the community knows. One wall." → real imagery wall →
+ * case detail modal (260µm vault findings, 199 likes) → live poll fill.
  */
-export const ExploreScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 10500;
+export const ExploreScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 14000;
+  const CONTENT_DURATION = 10500;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   const tiles = [
     {
@@ -72,6 +73,31 @@ export const ExploreScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/explore" accent="bg-amber-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 05: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="Cases · Pearls · Polls · Articles"
+          line="Everything the community knows. One wall."
+          accent="amber"
+          spotNo="05"
+        />
+        <KineticBeat
+          t={tG}
+          start={9200}
+          end={PUNCH_AT - 200}
+          line="Scroll less. Find more."
+          accent="amber"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Explore"
+          tagline="The community's entire brain, browsable."
+          cta="Open Explore"
+          accent="amber"
+        />
+
         <AppHeaderBar breadcrumb="Explore" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2">
@@ -236,14 +262,15 @@ export const ExploreScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 2000, 'A living wall of clinical imaging'],
-            [2000, 4600, 'OCT, topography, fluorescein, meibography'],
-            [4600, 6900, 'Hover any case — likes & discussion'],
-            [6900, 9300, 'Tap: full diagnosis & lens data inside'],
-            [9300, 10500, 'From your connections & the community'],
+            [0, 2500, 'Everything the community knows. One wall.'],
+            [2500, 4700, 'Explore — cases, pearls, polls, articles'],
+            [4700, 7400, 'Filter by modality. Hover any case.'],
+            [7400, 9700, 'Open it — full diagnosis & lens data inside'],
+            [9700, 11800, 'Live polls, 325 votes and counting'],
+            [11800, 14000, 'FocusLinks Explore — scroll less, find more.'],
           ]}
         />
       </div>

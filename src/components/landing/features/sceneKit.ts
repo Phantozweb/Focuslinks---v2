@@ -92,3 +92,28 @@ export const formatSceneTime = (ms: number) => {
   const s = Math.floor(ms / 1000) % 60;
   return `00:${s < 10 ? '0' : ''}${s}`;
 };
+
+/* ---------- brag ad-timing helpers ---------- */
+
+/**
+ * Ad spot timing contract (see brag-output/brag-plan.md):
+ *   HOOK 0 → 2400  ·  WIPE 2400 → 3050  ·  PROOF 3050 → D-2100  ·  PUNCH D-2100 → D
+ */
+export const adTiming = (duration: number) => {
+  const HOOK_END = 2400;
+  const REVEAL_END = HOOK_END + 650;
+  const PUNCH_AT = duration - 2100;
+  return { HOOK_END, REVEAL_END, PUNCH_AT };
+};
+
+/**
+ * Content clock: maps the real ad clock onto the scene's original proof timeline.
+ * The proof content (typed queries, clicks, counters) keeps its authored timings
+ * but plays `speed ×` faster so the ad contract (hook + punchline) fits around it.
+ */
+export const contentClock = (
+  t: number,
+  revealEnd: number,
+  punchAt: number,
+  contentDur: number,
+) => Math.max(0, Math.min((t - revealEnd) * (contentDur / (punchAt - revealEnd)), contentDur));

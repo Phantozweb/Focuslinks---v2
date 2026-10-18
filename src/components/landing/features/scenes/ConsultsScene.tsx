@@ -9,18 +9,20 @@ import {
   MessageSquare,
   Users,
 } from 'lucide-react';
-import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, VerifiedShield } from './chrome';
-import { enterStyle, phase, easeOutCubic, tickNumber } from '../sceneKit';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, VerifiedShield, AdHook, KineticBeat, AdPunchline } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber, adTiming, contentClock } from '../sceneKit';
 import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * CONSULTS — native replica of the real "Peer Consults & Second Opinions" screen.
- * Real data: hub pills from MOCK_TOPICS + the real q-retina-1 consult
- * (CSR vs occult Type 1 CNV) with Dr. Sirenjeev's accepted answer.
- * Duration 11.5s.
+ * SPOT 03 — CONSULTS (15s ad, see brag-output/brag-plan.md)
+ * HOOK: "The OCT doesn't look right. Who do you ask?" → hub → real q-retina-1
+ * consult (CSR vs occult Type 1 CNV) with Dr. Sirenjeev's accepted answer.
  */
-export const ConsultsScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 11500;
+export const ConsultsScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 15000;
+  const CONTENT_DURATION = 11500;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   const hubs = [
     { name: 'Retina & Macula', color: 'bg-amber-500', followers: '4,820' },
@@ -39,6 +41,31 @@ export const ConsultsScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/consults" accent="bg-violet-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 03: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="11:47 PM · Clinic tomorrow"
+          line="The OCT doesn't look right. Who do you ask?"
+          accent="violet"
+          spotNo="03"
+        />
+        <KineticBeat
+          t={tG}
+          start={10300}
+          end={PUNCH_AT - 200}
+          line="19 hubs. One brain trust."
+          accent="violet"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Consults"
+          tagline="Answers from ODs who've seen it before."
+          cta="Open Consults"
+          accent="violet"
+        />
+
         <AppHeaderBar breadcrumb="Consults" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2.5">
@@ -251,14 +278,15 @@ export const ConsultsScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 2000, 'Nineteen specialty hubs of verified peers'],
-            [2000, 4400, 'Real case: chronic CSR vs occult Type 1 CNV'],
-            [4400, 7300, 'Fellows answer — the best rises by upvotes'],
-            [7300, 9500, 'Accepted answers, peer-endorsed'],
-            [9500, 11500, 'Ask ODs — contribute to any hub'],
+            [0, 2500, "The OCT doesn't look right. Who do you ask?"],
+            [2500, 4800, '19 specialty hubs — pick Retina & Macula'],
+            [4800, 7600, 'Post the case — 4,820 retina ODs see it'],
+            [7600, 10700, 'Peer-endorsed answers rise to consensus'],
+            [10700, 12800, 'Ask at 11PM. Read the answer by breakfast.'],
+            [12800, 15000, "FocusLinks Consults — answers from ODs who've seen it."],
           ]}
         />
       </div>

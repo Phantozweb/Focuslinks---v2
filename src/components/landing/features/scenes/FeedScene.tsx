@@ -15,18 +15,20 @@ import {
   Check,
   ArrowUp,
 } from 'lucide-react';
-import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, VerifiedShield } from './chrome';
-import { enterStyle, phase, easeOutCubic, tickNumber, easeOutBack } from '../sceneKit';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, VerifiedShield, AdHook, KineticBeat, AdPunchline } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber, easeOutBack, adTiming, contentClock } from '../sceneKit';
 import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * FEED — native replica of the real FocusLinks feed: For You / Following /
- * Vault stream selector, the LinkedIn-style composer with 5 post types, and
- * real masonry posts (Marcus Chen's equipment day + the myopia poll).
- * Duration 10s.
+ * SPOT 06 — FEED (13.5s ad, see brag-output/brag-plan.md)
+ * HOOK: "Built from your connections. Nothing else." → stream selector →
+ * Marcus Chen's equipment day post → live myopia poll (325 votes) → vault.
  */
-export const FeedScene: React.FC<{ t: number }> = ({ t }) => {
-  const DURATION = 10000;
+export const FeedScene: React.FC<{ t: number }> = ({ t: tG }) => {
+  const DURATION = 13500;
+  const CONTENT_DURATION = 10000;
+  const { REVEAL_END, PUNCH_AT } = adTiming(DURATION);
+  const t = contentClock(tG, REVEAL_END, PUNCH_AT, CONTENT_DURATION);
 
   const following = t >= 1100;
   const likeP = easeOutCubic(phase(t, 4800, 5300));
@@ -62,6 +64,31 @@ export const FeedScene: React.FC<{ t: number }> = ({ t }) => {
   return (
     <DemoWindow url="focuslinks.app/feed" accent="bg-sky-500">
       <div className="flex flex-col h-full relative">
+        {/* — brag spot 06: hook → proof → punchline — */}
+        <AdHook
+          t={tG}
+          revealAt={2400}
+          eyebrow="Your timeline"
+          line="Built from your connections. Nothing else."
+          accent="sky"
+          spotNo="06"
+        />
+        <KineticBeat
+          t={tG}
+          start={8700}
+          end={PUNCH_AT - 200}
+          line="Your people. Your pace. Only optometry."
+          accent="sky"
+        />
+        <AdPunchline
+          t={tG}
+          start={PUNCH_AT}
+          feature="Feed"
+          tagline="Where your circle talks shop."
+          cta="Open Feed"
+          accent="sky"
+        />
+
         <AppHeaderBar breadcrumb="Feed" />
 
         <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2">
@@ -295,14 +322,15 @@ export const FeedScene: React.FC<{ t: number }> = ({ t }) => {
         </div>
 
         <SceneCaption
-          t={t}
+          t={tG}
           duration={DURATION}
           beats={[
-            [0, 2000, 'A timeline built by who you follow'],
-            [2000, 4200, 'Post pearls, photos, articles, polls & cases'],
-            [4200, 6600, 'Cases & OCTs from your connections'],
-            [6600, 8800, 'Vote in live diagnostic polls'],
-            [8800, 10000, 'Save to your clinical vault'],
+            [0, 2500, 'Built from your connections. Nothing else.'],
+            [2500, 4600, 'Feed — For You, Following, or your Vault'],
+            [4600, 7300, 'Cases and wins from the people you chose'],
+            [7300, 9300, 'Like it. Vault it. Vote in the poll.'],
+            [9300, 11300, 'Two new posts — never miss the discussion'],
+            [11300, 13500, 'FocusLinks Feed — where your circle talks shop.'],
           ]}
         />
       </div>

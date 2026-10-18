@@ -5,17 +5,14 @@ import {
   Pause,
   RotateCcw,
   Repeat,
-  Search,
-  Users,
-  MessageSquareQuote,
-  Clock3,
-  Compass,
-  Rss,
   ArrowRight,
   Zap,
+  Clapperboard,
+  ChevronRight,
   MousePointerClick,
 } from 'lucide-react';
 import { formatSceneTime, clamp01 } from './sceneKit';
+import { SPOT_ACCENT, SpotAccent } from './scenes/chrome';
 import { DirectoryScene } from './scenes/DirectoryScene';
 import { CirclesScene } from './scenes/CirclesScene';
 import { ConsultsScene } from './scenes/ConsultsScene';
@@ -27,158 +24,102 @@ interface FeatureShowcaseProps {
   onEnterApp: (destination?: 'feed' | 'consults' | 'qa' | 'gallery' | 'groups' | 'doctors') => void;
 }
 
-interface FeatureDef {
+/**
+ * THE SHOWREEL — six brag-style advertisement spots, one per feature.
+ * Creative contract: brag-output/brag-plan.md (hook → proof → punchline).
+ * No tabs, no feature cards: one screening-room player + a chapter filmstrip.
+ */
+
+interface SpotDef {
   id: string;
+  no: string;
   name: string;
-  tag: string;
-  title: string;
-  description: string;
-  bullets: string[];
+  hook: string;
   cta: string;
   destination: 'feed' | 'consults' | 'gallery' | 'groups' | 'doctors';
   duration: number;
-  icon: React.ElementType;
-  iconClass: string;
-  tileClass: string;
-  activeClass: string;
-  dotClass: string;
+  accent: SpotAccent;
   Scene: React.FC<{ t: number }>;
 }
 
-const FEATURES: FeatureDef[] = [
+const SPOTS: SpotDef[] = [
   {
     id: 'directory',
+    no: '01',
     name: 'Directory',
-    tag: 'Worldwide optometrist directory',
-    title: 'Find the right colleague in seconds',
-    description:
-      'Search a global directory of verified optometrists. Filter by specialty, credentials and location, open real profiles with experience and endorsements, and send connection requests that turn into referrals, mentorship and co-management.',
-    bullets: [
-      'Credential-verified profiles with badges',
-      'Filter by specialty, city and clinical focus',
-      'One tap to connect, view or message',
-    ],
+    hook: 'The right specialist exists.',
     cta: 'Open Directory',
     destination: 'doctors',
-    duration: 10000,
-    icon: Search,
-    iconClass: 'text-blue-600 dark:text-blue-400',
-    tileClass: 'bg-blue-500/10 border-blue-200/60 dark:border-blue-900/60',
-    activeClass: 'border-blue-500 bg-blue-50/70 dark:bg-blue-950/30 shadow-blue-500/10',
-    dotClass: 'bg-blue-500',
+    duration: 13500,
+    accent: 'blue',
     Scene: DirectoryScene,
   },
   {
     id: 'circles',
+    no: '02',
     name: 'Circles',
-    tag: 'Community groups & events',
-    title: 'Your community — and every event, in one place',
-    description:
-      'Join circles built around your clinical interests, post to members who actually get it, and rely on one central event board. Every circle event has a date, time and RSVP list — no more "which event, when?" lost in chat threads.',
-    bullets: [
-      'Interest-based circles with real member counts',
-      'Central event board — date, time, RSVPs',
-      'Reminders so nobody misses an event',
-    ],
+    hook: 'Buried in a group chat.',
     cta: 'Open Circles',
     destination: 'groups',
-    duration: 11000,
-    icon: Users,
-    iconClass: 'text-emerald-600 dark:text-emerald-400',
-    tileClass: 'bg-emerald-500/10 border-emerald-200/60 dark:border-emerald-900/60',
-    activeClass: 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/30 shadow-emerald-500/10',
-    dotClass: 'bg-emerald-500',
+    duration: 14500,
+    accent: 'emerald',
     Scene: CirclesScene,
   },
   {
     id: 'consults',
+    no: '03',
     name: 'Consults',
-    tag: 'Specialty hubs · Q&A · upvotes',
-    title: 'Rising questions, answered by fellows',
-    description:
-      'Contribute to any hub by posting your queries — Retina, Glaucoma, Cornea, Myopia and 15 more. Fellow optometrists answer, the community upvotes the best opinions, and top consensus rises so everyone learns from it.',
-    bullets: [
-      '19 specialty hubs to ask and browse',
-      'Peer answers ranked by community upvotes',
-      'Hub leaderboards reward contributors',
-    ],
+    hook: 'Who do you ask?',
     cta: 'Open Consults',
     destination: 'consults',
-    duration: 11500,
-    icon: MessageSquareQuote,
-    iconClass: 'text-violet-600 dark:text-violet-400',
-    tileClass: 'bg-violet-500/10 border-violet-200/60 dark:border-violet-900/60',
-    activeClass: 'border-violet-500 bg-violet-50/70 dark:bg-violet-950/30 shadow-violet-500/10',
-    dotClass: 'bg-violet-500',
+    duration: 15000,
+    accent: 'violet',
     Scene: ConsultsScene,
   },
   {
     id: 'spotlight',
+    no: '04',
     name: 'Spotlight',
-    tag: '24-hour knowledge stories',
-    title: 'Share a pearl that lives for 24 hours',
-    description:
-      'Post quick pearls, case wins and walk-throughs to your Spotlight. They auto-advance like a story player, are visible only to your connected network, and disappear after 24 hours — low-pressure sharing, high-value learning.',
-    bullets: [
-      'Auto-advancing story player',
-      'Visible only to your connected network',
-      'Self-deletes after 24 hours',
-    ],
+    hook: 'Share it before it expires.',
     cta: 'Open Spotlight',
     destination: 'feed',
-    duration: 10000,
-    icon: Clock3,
-    iconClass: 'text-fuchsia-600 dark:text-fuchsia-400',
-    tileClass: 'bg-fuchsia-500/10 border-fuchsia-200/60 dark:border-fuchsia-900/60',
-    activeClass: 'border-fuchsia-500 bg-fuchsia-50/70 dark:bg-fuchsia-950/30 shadow-fuchsia-500/10',
-    dotClass: 'bg-fuchsia-500',
+    duration: 13500,
+    accent: 'fuchsia',
     Scene: SpotlightScene,
   },
   {
     id: 'explore',
+    no: '05',
     name: 'Explore',
-    tag: 'Everything, in one wall',
-    title: 'Cases, pearls, polls — one mixed wall',
-    description:
-      'Explore mixes every post type the community shares — clinical cases, quick pearls, live polls and articles — into one scrollable wall. Filter by post type, spot what is trending, and open anything straight into the full discussion.',
-    bullets: [
-      'Mixed post types in one grid',
-      'Filter by cases, pearls, polls, articles',
-      'One tap opens the full post',
-    ],
+    hook: 'One wall. Every post.',
     cta: 'Open Explore',
     destination: 'gallery',
-    duration: 10500,
-    icon: Compass,
-    iconClass: 'text-amber-600 dark:text-amber-400',
-    tileClass: 'bg-amber-500/10 border-amber-200/60 dark:border-amber-900/60',
-    activeClass: 'border-amber-500 bg-amber-50/70 dark:bg-amber-950/30 shadow-amber-500/10',
-    dotClass: 'bg-amber-500',
+    duration: 14000,
+    accent: 'amber',
     Scene: ExploreScene,
   },
   {
     id: 'feed',
+    no: '06',
     name: 'Feed',
-    tag: 'Personalised from your connections',
-    title: 'A timeline built by who you follow',
-    description:
-      'The feed only shows what matters to you — cases, questions and wins from the people you connected with, newest first. New-post alerts mean you never miss what your circle is discussing.',
-    bullets: [
-      'Connections-first personalised ordering',
-      'New-post alerts from your circle',
-      'Like, discuss and save to your vault',
-    ],
+    hook: 'Only your circle.',
     cta: 'Open Feed',
     destination: 'feed',
-    duration: 10000,
-    icon: Rss,
-    iconClass: 'text-sky-600 dark:text-sky-400',
-    tileClass: 'bg-sky-500/10 border-sky-200/60 dark:border-sky-900/60',
-    activeClass: 'border-sky-500 bg-sky-50/70 dark:bg-sky-950/30 shadow-sky-500/10',
-    dotClass: 'bg-sky-500',
+    duration: 13500,
+    accent: 'sky',
     Scene: FeedScene,
   },
 ];
+
+/** Static Tailwind classes per spot accent (section chrome only — scenes own theirs). */
+const SPOT_UI: Record<SpotAccent, { fill: string; cta: string; text: string }> = {
+  blue: { fill: 'bg-blue-500', cta: 'bg-blue-600 hover:bg-blue-500', text: 'text-blue-400' },
+  emerald: { fill: 'bg-emerald-500', cta: 'bg-emerald-600 hover:bg-emerald-500', text: 'text-emerald-400' },
+  violet: { fill: 'bg-violet-500', cta: 'bg-violet-600 hover:bg-violet-500', text: 'text-violet-400' },
+  fuchsia: { fill: 'bg-fuchsia-500', cta: 'bg-fuchsia-600 hover:bg-fuchsia-500', text: 'text-fuchsia-400' },
+  amber: { fill: 'bg-amber-500', cta: 'bg-amber-500 hover:bg-amber-400', text: 'text-amber-400' },
+  sky: { fill: 'bg-sky-500', cta: 'bg-sky-600 hover:bg-sky-500', text: 'text-sky-400' },
+};
 
 /* ---------- animated Connect / Learn / Grow headline ---------- */
 
@@ -226,10 +167,10 @@ const AnimatedTriad: React.FC = () => {
   );
 };
 
-/* ---------- the section ---------- */
+/* ---------- the screening room ---------- */
 
 export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) => {
-  const [featureIdx, setFeatureIdx] = useState(0);
+  const [spotIdx, setSpotIdx] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [autoTour, setAutoTour] = useState(true);
@@ -240,9 +181,13 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduced = useReducedMotion();
 
-  const feature = FEATURES[featureIdx];
-  const duration = feature.duration;
-  const Scene = feature.Scene;
+  const spot = SPOTS[spotIdx];
+  const duration = spot.duration;
+  const Scene = spot.Scene;
+  const ui = SPOT_UI[spot.accent];
+  const accentHex = SPOT_ACCENT[spot.accent].hex;
+  const nextSpot = SPOTS[(spotIdx + 1) % SPOTS.length];
+  const totalReel = SPOTS.reduce((a, s) => a + s.duration, 0);
 
   autoTourRef.current = autoTour;
 
@@ -266,7 +211,7 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);
 
-  // master clock — drives the active scene frame-by-frame, advances the tour on wrap
+  // master clock — drives the active spot frame-by-frame, advances the tour on wrap
   useEffect(() => {
     if (!playing || !inView) return;
     let raf = 0;
@@ -278,7 +223,7 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
       if (elapsedRef.current >= duration) {
         elapsedRef.current = 0;
         if (autoTourRef.current && !reduced) {
-          setFeatureIdx((i) => (i + 1) % FEATURES.length);
+          setSpotIdx((i) => (i + 1) % SPOTS.length);
         }
       }
       setElapsed(elapsedRef.current);
@@ -288,8 +233,14 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
     return () => cancelAnimationFrame(raf);
   }, [playing, inView, duration, reduced]);
 
-  const selectFeature = (idx: number) => {
-    setFeatureIdx(idx);
+  const selectSpot = (idx: number) => {
+    if (idx === spotIdx) {
+      elapsedRef.current = 0;
+      setElapsed(0);
+      setPlaying(true);
+      return;
+    }
+    setSpotIdx(idx);
     elapsedRef.current = 0;
     setElapsed(0);
     setPlaying(true);
@@ -302,238 +253,211 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
   };
 
   const progressPct = clamp01(elapsed / duration) * 100;
-  const nextFeature = FEATURES[(featureIdx + 1) % FEATURES.length];
+
+  /** how full each filmstrip chapter should be */
+  const chapterFill = (idx: number) => {
+    if (idx < spotIdx) return 100;
+    if (idx > spotIdx) return 0;
+    return progressPct;
+  };
 
   return (
     <section
       ref={sectionRef}
       id="features"
-      className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 font-['Plus_Jakarta_Sans',sans-serif]"
+      className="py-16 sm:py-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 font-['Plus_Jakarta_Sans',sans-serif]"
     >
       {/* header */}
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200/60 dark:border-blue-800/60">
-          <Zap className="h-3 w-3" />
-          Platform Features
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-700 dark:text-neutral-200 uppercase tracking-[0.22em] bg-neutral-100 dark:bg-white/[0.06] px-3.5 py-1.5 rounded-full border border-neutral-200/80 dark:border-white/10">
+          <Clapperboard className="h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400" />
+          The Showreel
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight mt-4 leading-tight">
           Features we designed for optometrists to <AnimatedTriad />
         </h2>
         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-4">
-          Six spaces built for everyday optometric practice — pick one and watch the real
-          interface in action, frame-by-frame.
+          Six short spots. One storyline each —{' '}
+          <span className="font-bold text-neutral-800 dark:text-neutral-200">hook, proof, punchline</span>{' '}
+          — played by the real interface with real data. Not a video file: every frame is
+          recoded, seekable and alive.
         </p>
       </div>
 
-      {/* feature cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 mb-8">
-        {FEATURES.map((f, idx) => {
-          const Icon = f.icon;
-          const isActive = idx === featureIdx;
-          return (
-            <button
-              key={f.id}
-              onClick={() => selectFeature(idx)}
-              aria-pressed={isActive}
-              className={`group relative rounded-2xl border p-3.5 text-left transition-all duration-300 cursor-pointer overflow-hidden ${
-                isActive
-                  ? `${f.activeClass} shadow-lg scale-[1.02]`
-                  : 'bg-white dark:bg-[#15151b] border-neutral-200/80 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 shadow-sm'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-2.5">
-                <span className={`h-8 w-8 rounded-xl border flex items-center justify-center ${f.tileClass}`}>
-                  <Icon className={`h-4 w-4 ${f.iconClass}`} />
-                </span>
-                <span className="text-[9px] font-black font-mono text-neutral-300 dark:text-neutral-600">
-                  0{idx + 1}
-                </span>
-              </div>
-              <h3
-                className={`text-[13px] font-black tracking-tight ${
-                  isActive ? 'text-neutral-900 dark:text-white' : 'text-neutral-700 dark:text-neutral-200'
+      {/* ======== cinema frame ======== */}
+      <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-[#0a0a0f] border border-neutral-800/80 shadow-2xl shadow-neutral-900/30 dark:shadow-none p-3 sm:p-5">
+        {/* cinema top bar */}
+        <div className="flex items-center justify-between gap-3 px-1.5 pb-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-60" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500" />
+            </span>
+            <span className="text-[10px] font-black uppercase tracking-[0.22em] text-white shrink-0">
+              Spot {spot.no} / 06
+            </span>
+            <span className="h-3.5 w-px bg-white/15 shrink-0" />
+            <span className={`text-[10px] font-black uppercase tracking-[0.18em] shrink-0 ${ui.text}`}>
+              {spot.name}
+            </span>
+            <span className="hidden md:block text-[10.5px] font-medium text-neutral-500 truncate">
+              — "{spot.hook}"
+            </span>
+          </div>
+          <span className="font-mono text-[10px] font-bold text-neutral-400 bg-white/[0.06] border border-white/10 px-2 py-1 rounded-lg shrink-0">
+            <span className="text-white">{formatSceneTime(elapsed)}</span>
+            <span className="mx-1 text-neutral-600">/</span>
+            {formatSceneTime(duration)}
+          </span>
+        </div>
+
+        {/* the spot itself — crossfading between chapters */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={spot.id}
+            initial={reduced ? false : { opacity: 0, scale: 0.988 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={reduced ? undefined : { opacity: 0, scale: 0.99 }}
+            transition={{ duration: 0.26 }}
+          >
+            <Scene t={elapsed} />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* deck */}
+        <div className="mt-3.5 rounded-2xl bg-white/[0.04] border border-white/10 p-3.5 select-none">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="0.1"
+            value={progressPct}
+            onChange={seek}
+            aria-label={`Seek ${spot.name} spot`}
+            className="w-full h-1 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-0"
+            style={{
+              background: `linear-gradient(to right, ${accentHex} ${progressPct}%, rgba(255,255,255,0.14) ${progressPct}%, rgba(255,255,255,0.14) 100%)`,
+            }}
+          />
+          <div className="flex items-center justify-between mt-3">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPlaying((p) => !p)}
+                aria-label={playing ? 'Pause showreel' : 'Play showreel'}
+                className="h-8 w-8 rounded-full bg-white text-neutral-900 hover:bg-neutral-200 transition-colors cursor-pointer flex items-center justify-center"
+              >
+                {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 fill-current ml-0.5" />}
+              </button>
+              <button
+                onClick={() => {
+                  elapsedRef.current = 0;
+                  setElapsed(0);
+                  setPlaying(true);
+                }}
+                aria-label="Replay this spot from the hook"
+                className="h-8 w-8 rounded-full border border-white/15 text-neutral-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer flex items-center justify-center"
+              >
+                <RotateCcw className="h-3 w-3" />
+              </button>
+              <button
+                onClick={() => setAutoTour((a) => !a)}
+                aria-pressed={autoTour}
+                title="Auto tour: play the whole reel, spot after spot"
+                className={`h-8 px-2.5 rounded-full border text-[9px] font-black uppercase tracking-wide transition-colors cursor-pointer inline-flex items-center gap-1.5 ${
+                  autoTour
+                    ? 'border-white/25 bg-white/10 text-white'
+                    : 'border-white/15 text-neutral-500 hover:text-neutral-300'
                 }`}
               >
-                {f.name}
-              </h3>
-              <p className="text-[9.5px] font-medium text-neutral-400 dark:text-neutral-500 mt-0.5 leading-snug line-clamp-2 hidden sm:block">
-                {f.tag}
-              </p>
-
-              {/* story-style progress bar on the active card */}
-              <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-neutral-100 dark:bg-neutral-800">
-                <span
-                  className={`block h-full ${f.dotClass} transition-none`}
-                  style={{ width: isActive ? `${progressPct}%` : '0%' }}
-                />
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* showcase player */}
-      <div className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#101014] shadow-xl shadow-neutral-100/50 dark:shadow-none overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12">
-          {/* story panel */}
-          <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col border-b lg:border-b-0 lg:border-r border-neutral-200/80 dark:border-neutral-800">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={feature.id}
-                initial={reduced ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduced ? undefined : { opacity: 0, y: -8 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col h-full"
-              >
-                <span
-                  className={`inline-flex items-center gap-1.5 self-start px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${feature.tileClass} ${feature.iconClass}`}
-                >
-                  <feature.icon className="h-3 w-3" />
-                  {feature.tag}
-                </span>
-
-                <h3 className="text-xl sm:text-2xl font-extrabold text-neutral-900 dark:text-white tracking-tight mt-3.5 leading-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mt-2.5">
-                  {feature.description}
-                </p>
-
-                <ul className="mt-5 space-y-2.5">
-                  {feature.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2.5">
-                      <span className={`mt-1 h-2 w-2 rounded-full shrink-0 ${feature.dotClass}`} />
-                      <span className="text-xs sm:text-[13px] font-medium text-neutral-700 dark:text-neutral-200">{b}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto pt-6">
-                  <button
-                    onClick={() => onEnterApp(feature.destination)}
-                    className="px-5 py-3 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-xs sm:text-sm font-bold inline-flex items-center gap-2 shadow-md transition-all hover:scale-[1.02] cursor-pointer"
-                  >
-                    {feature.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                  <p className="mt-3 text-[10px] font-medium text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
-                    <MousePointerClick className="h-3 w-3" />
-                    Real interface, real data — recoded frame-by-frame. Not a video file.
-                  </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* video panel */}
-          <div className="lg:col-span-7 bg-neutral-100/70 dark:bg-[#0a0a0e] p-5 sm:p-7 flex flex-col justify-center">
-            {/* player header strip */}
-            <div className="flex items-center justify-between mb-3.5">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${feature.dotClass}`} />
-                  <span className={`relative inline-flex rounded-full h-2 w-2 ${feature.dotClass}`} />
-                </span>
-                <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-                  Feature 0{featureIdx + 1} / 06 · {feature.name}
-                </span>
-              </div>
-              <span className="text-[8.5px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />
-                Demo
-              </span>
+                <Repeat className="h-3 w-3" />
+                <span className="hidden sm:inline">Auto tour</span>
+              </button>
             </div>
-
-            {/* the scene itself, cross-fading on feature switch */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={feature.id}
-                initial={reduced ? false : { opacity: 0, scale: 0.985 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={reduced ? undefined : { opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.28 }}
-              >
-                <Scene t={elapsed} />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* deck */}
-            <div className="mt-4 bg-white dark:bg-[#111116] border border-neutral-200/70 dark:border-neutral-800 rounded-2xl p-3.5 shadow-sm select-none">
-              <input
-                type="range"
-                min="0"
-                max="100"
-                step="0.1"
-                value={progressPct}
-                onChange={seek}
-                aria-label={`Seek ${feature.name} walkthrough`}
-                className="w-full h-1 rounded-lg appearance-none cursor-pointer accent-blue-600 focus:outline-none focus:ring-0"
-                style={{
-                  background: `linear-gradient(to right, #2563eb ${progressPct}%, #e5e7eb ${progressPct}%, #e5e7eb 100%)`,
-                }}
-              />
-              <div className="flex items-center justify-between mt-2.5">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setPlaying((p) => !p)}
-                    aria-label={playing ? 'Pause walkthrough' : 'Play walkthrough'}
-                    className="h-8 w-8 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center"
-                  >
-                    {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 fill-current ml-0.5" />}
-                  </button>
-                  <button
-                    onClick={() => {
-                      elapsedRef.current = 0;
-                      setElapsed(0);
-                      setPlaying(true);
-                    }}
-                    aria-label="Replay from start"
-                    className="h-8 w-8 rounded-full border border-neutral-200 dark:border-neutral-700 text-neutral-500 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-[#1b1b22] transition-colors cursor-pointer flex items-center justify-center"
-                  >
-                    <RotateCcw className="h-3 w-3" />
-                  </button>
-                  <button
-                    onClick={() => setAutoTour((a) => !a)}
-                    aria-pressed={autoTour}
-                    title="Auto tour: keep playing every feature"
-                    className={`h-8 px-2.5 rounded-full border text-[9px] font-black uppercase tracking-wide transition-colors cursor-pointer inline-flex items-center gap-1 ${
-                      autoTour
-                        ? 'border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
-                        : 'border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500'
-                    }`}
-                  >
-                    <Repeat className="h-3 w-3" />
-                    <span className="hidden sm:inline">Auto tour</span>
-                  </button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] font-bold text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-[#181820] border border-neutral-200/60 dark:border-neutral-800 px-2 py-1 rounded-lg">
-                    <span className="text-neutral-900 dark:text-white">{formatSceneTime(elapsed)}</span>
-                    <span className="mx-1 text-neutral-300 dark:text-neutral-600">/</span>
-                    {formatSceneTime(duration)}
-                  </span>
-                </div>
-              </div>
-              <div className="mt-2.5 pt-2 border-t border-neutral-100 dark:border-neutral-800/70 flex items-center justify-between">
-                <span className="text-[9px] font-bold text-neutral-400 dark:text-neutral-500">
-                  {autoTour && !reduced ? (
-                    <>
-                      Auto tour on · up next{' '}
-                      <span className="text-neutral-700 dark:text-neutral-200 font-black">{nextFeature.name}</span>
-                    </>
-                  ) : (
-                    'Pick any card above to jump to its walkthrough'
-                  )}
-                </span>
-                <span className="text-[8px] font-black uppercase tracking-widest text-neutral-300 dark:text-neutral-600 hidden sm:block">
-                  100% coded · zero video files
-                </span>
-              </div>
+            <div className="flex items-center gap-2.5">
+              <span className="text-[8.5px] font-black uppercase tracking-[0.18em] text-neutral-500 hidden sm:block">
+                {Math.round(totalReel / 1000)}s reel · six spots
+              </span>
+              <span className="text-[8.5px] font-black uppercase tracking-[0.18em] px-2 py-1 rounded-full bg-white text-neutral-900 flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+                Ad spot
+              </span>
             </div>
           </div>
         </div>
+
+        {/* chapter filmstrip — the timeline, not tabs */}
+        <div className="mt-3 grid grid-cols-6 gap-1.5" role="tablist" aria-label="Showreel chapters">
+          {SPOTS.map((s, idx) => {
+            const isActive = idx === spotIdx;
+            const su = SPOT_UI[s.accent];
+            return (
+              <button
+                key={s.id}
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Chapter ${s.no}: ${s.name} — ${s.hook}`}
+                onClick={() => selectSpot(idx)}
+                className={`group relative h-9 sm:h-10 rounded-lg overflow-hidden border transition-colors cursor-pointer ${
+                  isActive ? 'border-white/30 bg-white/[0.07]' : 'border-white/[0.07] bg-white/[0.03] hover:border-white/20'
+                }`}
+              >
+                {/* progress fill */}
+                <span
+                  className={`absolute left-0 top-0 bottom-0 ${su.fill} ${idx < spotIdx ? 'opacity-30' : 'opacity-80'}`}
+                  style={{ width: `${chapterFill(idx)}%` }}
+                />
+                <span className="relative z-10 h-full flex items-center justify-center gap-1.5 px-1">
+                  <span
+                    className={`font-mono text-[8.5px] sm:text-[9px] font-bold ${
+                      isActive ? 'text-white/90' : 'text-neutral-500 group-hover:text-neutral-400'
+                    }`}
+                  >
+                    {s.no}
+                  </span>
+                  <span
+                    className={`hidden sm:block text-[9.5px] font-black tracking-tight truncate ${
+                      isActive ? 'text-white' : 'text-neutral-400 group-hover:text-neutral-200'
+                    }`}
+                  >
+                    {s.name}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* CTA + up next */}
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-1.5">
+          <button
+            onClick={() => onEnterApp(spot.destination)}
+            className={`px-5 py-2.5 rounded-xl text-white text-xs font-bold inline-flex items-center gap-2 shadow-lg transition-all hover:scale-[1.02] cursor-pointer self-start sm:self-auto ${ui.cta}`}
+          >
+            {spot.cta}
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <p className="text-[10px] font-medium text-neutral-500 flex items-center gap-1.5 min-w-0">
+            <ChevronRight className="h-3 w-3 shrink-0 text-neutral-600" />
+            <span className="truncate">
+              Up next ·{' '}
+              <span className="font-black text-neutral-300">
+                {nextSpot.no} {nextSpot.name}
+              </span>{' '}
+              — "{nextSpot.hook}"
+            </span>
+          </p>
+        </div>
       </div>
+
+      {/* share-copy line */}
+      <p className="mt-5 text-center text-[10.5px] font-medium text-neutral-400 dark:text-neutral-500 flex items-center justify-center gap-1.5">
+        <MousePointerClick className="h-3.5 w-3.5 shrink-0" />
+        Real interface, real data — recoded frame-by-frame. Not a video file.
+      </p>
+      <p className="mt-1.5 text-center text-[9px] font-bold uppercase tracking-[0.2em] text-neutral-300 dark:text-neutral-600 flex items-center justify-center gap-1.5">
+        <Zap className="h-3 w-3" />
+        Directed by the brag playbook · hook / proof / punchline
+      </p>
     </section>
   );
 };
