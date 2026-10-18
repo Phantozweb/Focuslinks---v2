@@ -83,16 +83,6 @@ export const typedText = (t: number, start: number, end: number, text: string) =
 export const tickNumber = (t: number, start: number, end: number, a: number, b: number) =>
   Math.round(a + (b - a) * easeOutCubic(phase(t, start, end)));
 
-/** Horizontal fill (0..100%) for progress-style bars. */
-export const fillPct = (t: number, start: number, end: number) =>
-  `${easeInOutCubic(phase(t, start, end)) * 100}%`;
-
-/** Format ms as 00:0s for the player deck. */
-export const formatSceneTime = (ms: number) => {
-  const s = Math.floor(ms / 1000) % 60;
-  return `00:${s < 10 ? '0' : ''}${s}`;
-};
-
 /* ---------- brag ad-timing helpers ---------- */
 
 /**

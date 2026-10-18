@@ -1,17 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import {
-  Play,
-  Pause,
-  RotateCcw,
-  Repeat,
-  ArrowRight,
-  Zap,
-  Clapperboard,
-  ChevronRight,
-  MousePointerClick,
-} from 'lucide-react';
-import { formatSceneTime, clamp01 } from './sceneKit';
+import { ArrowRight, Clapperboard, MousePointerClick, Zap } from 'lucide-react';
+import { StageFrame } from './scenes/chrome';
 import { SPOT_ACCENT, SpotAccent } from './scenes/chrome';
 import { DirectoryScene } from './scenes/DirectoryScene';
 import { CirclesScene } from './scenes/CirclesScene';
@@ -27,7 +17,12 @@ interface FeatureShowcaseProps {
 /**
  * THE SHOWREEL — six brag-style advertisement spots, one per feature.
  * Creative contract: brag-output/brag-plan.md (hook → proof → punchline).
- * No tabs, no feature cards: one screening-room player + a chapter filmstrip.
+ *
+ * Presentation contract (user): zero media-player chrome. The reel
+ * autoplays and loops like a native video embed — no seek bar, no
+ * play/pause, no timecode, no chapter tabs. Every spot is drawn once
+ * on a fixed 1280×720 canvas and uniformly scaled: 16:9 on every
+ * device, the same composition everywhere, nothing ever overlaps.
  */
 
 interface SpotDef {
@@ -112,13 +107,13 @@ const SPOTS: SpotDef[] = [
 ];
 
 /** Static Tailwind classes per spot accent (section chrome only — scenes own theirs). */
-const SPOT_UI: Record<SpotAccent, { fill: string; cta: string; text: string }> = {
-  blue: { fill: 'bg-blue-500', cta: 'bg-blue-600 hover:bg-blue-500', text: 'text-blue-400' },
-  emerald: { fill: 'bg-emerald-500', cta: 'bg-emerald-600 hover:bg-emerald-500', text: 'text-emerald-400' },
-  violet: { fill: 'bg-violet-500', cta: 'bg-violet-600 hover:bg-violet-500', text: 'text-violet-400' },
-  fuchsia: { fill: 'bg-fuchsia-500', cta: 'bg-fuchsia-600 hover:bg-fuchsia-500', text: 'text-fuchsia-400' },
-  amber: { fill: 'bg-amber-500', cta: 'bg-amber-500 hover:bg-amber-400', text: 'text-amber-400' },
-  sky: { fill: 'bg-sky-500', cta: 'bg-sky-600 hover:bg-sky-500', text: 'text-sky-400' },
+const SPOT_UI: Record<SpotAccent, { dot: string; cta: string; text: string }> = {
+  blue: { dot: 'bg-blue-500', cta: 'bg-blue-600 hover:bg-blue-500', text: 'text-blue-400' },
+  emerald: { dot: 'bg-emerald-500', cta: 'bg-emerald-600 hover:bg-emerald-500', text: 'text-emerald-400' },
+  violet: { dot: 'bg-violet-500', cta: 'bg-violet-600 hover:bg-violet-500', text: 'text-violet-400' },
+  fuchsia: { dot: 'bg-fuchsia-500', cta: 'bg-fuchsia-600 hover:bg-fuchsia-500', text: 'text-fuchsia-400' },
+  amber: { dot: 'bg-amber-500', cta: 'bg-amber-500 hover:bg-amber-400', text: 'text-amber-400' },
+  sky: { dot: 'bg-sky-500', cta: 'bg-sky-600 hover:bg-sky-500', text: 'text-sky-400' },
 };
 
 /* ---------- animated Connect / Learn / Grow headline ---------- */
@@ -167,17 +162,14 @@ const AnimatedTriad: React.FC = () => {
   );
 };
 
-/* ---------- the screening room ---------- */
+/* ---------- the embedded reel ---------- */
 
 export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) => {
   const [spotIdx, setSpotIdx] = useState(0);
   const [elapsed, setElapsed] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [autoTour, setAutoTour] = useState(true);
   const [inView, setInView] = useState(true);
 
   const elapsedRef = useRef(0);
-  const autoTourRef = useRef(autoTour);
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduced = useReducedMotion();
 
@@ -186,12 +178,8 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
   const Scene = spot.Scene;
   const ui = SPOT_UI[spot.accent];
   const accentHex = SPOT_ACCENT[spot.accent].hex;
-  const nextSpot = SPOTS[(spotIdx + 1) % SPOTS.length];
-  const totalReel = SPOTS.reduce((a, s) => a + s.duration, 0);
 
-  autoTourRef.current = autoTour;
-
-  // pause when off-screen so the showreel never burns CPU in the background
+  // pause when off-screen so the reel never burns CPU in the background
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
@@ -200,20 +188,18 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
     return () => io.disconnect();
   }, []);
 
-  // reduced motion: start paused on a fully-populated frame
+  // reduced motion: hold a fully-populated "poster" frame, no autoplay
   useEffect(() => {
     if (reduced) {
-      setPlaying(false);
-      setAutoTour(false);
       elapsedRef.current = duration * 0.78;
       setElapsed(elapsedRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduced]);
+  }, [reduced, duration]);
 
-  // master clock — drives the active spot frame-by-frame, advances the tour on wrap
+  // master clock — plays the reel straight through, spot after spot
   useEffect(() => {
-    if (!playing || !inView) return;
+    if (!inView || reduced) return;
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
@@ -222,44 +208,14 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
       elapsedRef.current += delta;
       if (elapsedRef.current >= duration) {
         elapsedRef.current = 0;
-        if (autoTourRef.current && !reduced) {
-          setSpotIdx((i) => (i + 1) % SPOTS.length);
-        }
+        setSpotIdx((i) => (i + 1) % SPOTS.length);
       }
       setElapsed(elapsedRef.current);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [playing, inView, duration, reduced]);
-
-  const selectSpot = (idx: number) => {
-    if (idx === spotIdx) {
-      elapsedRef.current = 0;
-      setElapsed(0);
-      setPlaying(true);
-      return;
-    }
-    setSpotIdx(idx);
-    elapsedRef.current = 0;
-    setElapsed(0);
-    setPlaying(true);
-  };
-
-  const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ms = (parseFloat(e.target.value) / 100) * duration;
-    elapsedRef.current = ms;
-    setElapsed(ms);
-  };
-
-  const progressPct = clamp01(elapsed / duration) * 100;
-
-  /** how full each filmstrip chapter should be */
-  const chapterFill = (idx: number) => {
-    if (idx < spotIdx) return 100;
-    if (idx > spotIdx) return 0;
-    return progressPct;
-  };
+  }, [inView, duration, reduced]);
 
   return (
     <section
@@ -277,18 +233,35 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
           Features we designed for optometrists to <AnimatedTriad />
         </h2>
         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-4">
-          Six short spots. One storyline each —{' '}
+          Six scripted spots —{' '}
           <span className="font-bold text-neutral-800 dark:text-neutral-200">hook, proof, punchline</span>{' '}
-          — played by the real interface with real data. Not a video file: every frame is
-          recoded, seekable and alive.
+          — performed by the real interface with real data. It plays like a video because every
+          frame is coded.
         </p>
       </div>
 
-      {/* ======== cinema frame ======== */}
-      <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-[#0a0a0f] border border-neutral-800/80 shadow-2xl shadow-neutral-900/30 dark:shadow-none p-3 sm:p-5">
-        {/* cinema top bar */}
-        <div className="flex items-center justify-between gap-3 px-1.5 pb-3">
-          <div className="flex items-center gap-2.5 min-w-0">
+      {/* ======== cinema frame — pure embedded video, zero controls ======== */}
+      <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-[#0a0a0f] border border-neutral-800/80 shadow-2xl shadow-neutral-900/30 dark:shadow-none p-2 sm:p-4">
+        <div className="rounded-[1.35rem] sm:rounded-2xl overflow-hidden">
+          <StageFrame>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={spot.id}
+                className="absolute inset-0"
+                initial={reduced ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={reduced ? undefined : { opacity: 0 }}
+                transition={{ duration: 0.28 }}
+              >
+                <Scene t={elapsed} />
+              </motion.div>
+            </AnimatePresence>
+          </StageFrame>
+        </div>
+
+        {/* now-showing strip — the embed's title bar, not a player */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 px-2 sm:px-3 pt-3.5 pb-1">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-60" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500" />
@@ -300,152 +273,18 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
             <span className={`text-[10px] font-black uppercase tracking-[0.18em] shrink-0 ${ui.text}`}>
               {spot.name}
             </span>
-            <span className="hidden md:block text-[10.5px] font-medium text-neutral-500 truncate">
+            <span className="text-[10.5px] font-medium text-neutral-500 truncate min-w-0">
               — "{spot.hook}"
             </span>
           </div>
-          <span className="font-mono text-[10px] font-bold text-neutral-400 bg-white/[0.06] border border-white/10 px-2 py-1 rounded-lg shrink-0">
-            <span className="text-white">{formatSceneTime(elapsed)}</span>
-            <span className="mx-1 text-neutral-600">/</span>
-            {formatSceneTime(duration)}
-          </span>
-        </div>
-
-        {/* the spot itself — crossfading between chapters */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={spot.id}
-            initial={reduced ? false : { opacity: 0, scale: 0.988 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={reduced ? undefined : { opacity: 0, scale: 0.99 }}
-            transition={{ duration: 0.26 }}
-          >
-            <Scene t={elapsed} />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* deck */}
-        <div className="mt-3.5 rounded-2xl bg-white/[0.04] border border-white/10 p-3.5 select-none">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="0.1"
-            value={progressPct}
-            onChange={seek}
-            aria-label={`Seek ${spot.name} spot`}
-            className="w-full h-1 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-0"
-            style={{
-              background: `linear-gradient(to right, ${accentHex} ${progressPct}%, rgba(255,255,255,0.14) ${progressPct}%, rgba(255,255,255,0.14) 100%)`,
-            }}
-          />
-          <div className="flex items-center justify-between mt-3">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setPlaying((p) => !p)}
-                aria-label={playing ? 'Pause showreel' : 'Play showreel'}
-                className="h-8 w-8 rounded-full bg-white text-neutral-900 hover:bg-neutral-200 transition-colors cursor-pointer flex items-center justify-center"
-              >
-                {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 fill-current ml-0.5" />}
-              </button>
-              <button
-                onClick={() => {
-                  elapsedRef.current = 0;
-                  setElapsed(0);
-                  setPlaying(true);
-                }}
-                aria-label="Replay this spot from the hook"
-                className="h-8 w-8 rounded-full border border-white/15 text-neutral-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer flex items-center justify-center"
-              >
-                <RotateCcw className="h-3 w-3" />
-              </button>
-              <button
-                onClick={() => setAutoTour((a) => !a)}
-                aria-pressed={autoTour}
-                title="Auto tour: play the whole reel, spot after spot"
-                className={`h-8 px-2.5 rounded-full border text-[9px] font-black uppercase tracking-wide transition-colors cursor-pointer inline-flex items-center gap-1.5 ${
-                  autoTour
-                    ? 'border-white/25 bg-white/10 text-white'
-                    : 'border-white/15 text-neutral-500 hover:text-neutral-300'
-                }`}
-              >
-                <Repeat className="h-3 w-3" />
-                <span className="hidden sm:inline">Auto tour</span>
-              </button>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <span className="text-[8.5px] font-black uppercase tracking-[0.18em] text-neutral-500 hidden sm:block">
-                {Math.round(totalReel / 1000)}s reel · six spots
-              </span>
-              <span className="text-[8.5px] font-black uppercase tracking-[0.18em] px-2 py-1 rounded-full bg-white text-neutral-900 flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
-                Ad spot
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* chapter filmstrip — the timeline, not tabs */}
-        <div className="mt-3 grid grid-cols-6 gap-1.5" role="tablist" aria-label="Showreel chapters">
-          {SPOTS.map((s, idx) => {
-            const isActive = idx === spotIdx;
-            const su = SPOT_UI[s.accent];
-            return (
-              <button
-                key={s.id}
-                role="tab"
-                aria-selected={isActive}
-                aria-label={`Chapter ${s.no}: ${s.name} — ${s.hook}`}
-                onClick={() => selectSpot(idx)}
-                className={`group relative h-9 sm:h-10 rounded-lg overflow-hidden border transition-colors cursor-pointer ${
-                  isActive ? 'border-white/30 bg-white/[0.07]' : 'border-white/[0.07] bg-white/[0.03] hover:border-white/20'
-                }`}
-              >
-                {/* progress fill */}
-                <span
-                  className={`absolute left-0 top-0 bottom-0 ${su.fill} ${idx < spotIdx ? 'opacity-30' : 'opacity-80'}`}
-                  style={{ width: `${chapterFill(idx)}%` }}
-                />
-                <span className="relative z-10 h-full flex items-center justify-center gap-1.5 px-1">
-                  <span
-                    className={`font-mono text-[8.5px] sm:text-[9px] font-bold ${
-                      isActive ? 'text-white/90' : 'text-neutral-500 group-hover:text-neutral-400'
-                    }`}
-                  >
-                    {s.no}
-                  </span>
-                  <span
-                    className={`hidden sm:block text-[9.5px] font-black tracking-tight truncate ${
-                      isActive ? 'text-white' : 'text-neutral-400 group-hover:text-neutral-200'
-                    }`}
-                  >
-                    {s.name}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* CTA + up next */}
-        <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-1.5">
           <button
             onClick={() => onEnterApp(spot.destination)}
-            className={`px-5 py-2.5 rounded-xl text-white text-xs font-bold inline-flex items-center gap-2 shadow-lg transition-all hover:scale-[1.02] cursor-pointer self-start sm:self-auto ${ui.cta}`}
+            style={{ boxShadow: `0 8px 24px -8px ${accentHex}66` }}
+            className={`px-4 py-2 rounded-xl text-white text-xs font-bold inline-flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer shrink-0 self-start sm:self-auto ${ui.cta}`}
           >
             {spot.cta}
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3.5 w-3.5" />
           </button>
-          <p className="text-[10px] font-medium text-neutral-500 flex items-center gap-1.5 min-w-0">
-            <ChevronRight className="h-3 w-3 shrink-0 text-neutral-600" />
-            <span className="truncate">
-              Up next ·{' '}
-              <span className="font-black text-neutral-300">
-                {nextSpot.no} {nextSpot.name}
-              </span>{' '}
-              — "{nextSpot.hook}"
-            </span>
-          </p>
         </div>
       </div>
 
