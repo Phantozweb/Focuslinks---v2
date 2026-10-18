@@ -277,7 +277,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
             { id: 'advanced', label: 'Advanced Protocols', desc: 'Diagnostic imaging & co-management' },
             { id: 'tips', label: 'Power-User Tips', desc: 'Shortcuts, search & analytics' },
             { id: 'playbooks', label: 'Practice Case Playbooks', desc: 'Keratoconus & therapeutics' },
-            { id: 'faqs', label: 'FAQ & Support Portal', desc: 'Direct support, badges & regional guidelines' }
+            { id: 'faqs', label: 'How-To & Support Portal', desc: 'Direct support, badges & regional guidelines' }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -521,9 +521,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
               >
                 {/* Intro Title */}
                 <div className="max-w-3xl space-y-3">
-                  <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">Clinical FAQ & Support Portal</h3>
+                  <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">How-To & Support Portal</h3>
                   <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                    Search or browse answers on verification, privacy & compliance, co-management workflows, and community reputation.
+                    Search or browse practical how-to answers on verification, privacy & compliance, co-management workflows, and community reputation. For the complete step-by-step help center, open “How To” in the menu or footer.
                   </p>
                 </div>
 
@@ -534,7 +534,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                     <input
                       type="text"
-                      placeholder="Search FAQs (e.g., 'HIPAA', 'India', 'Verification', 'Endorsements')..."
+                      placeholder="Search how-to answers (e.g., 'HIPAA', 'India', 'Verification', 'Endorsements')..."
                       value={faqSearch}
                       onChange={(e) => setFaqSearch(e.target.value)}
                       className="w-full pl-12 pr-5 py-4 bg-neutral-50 dark:bg-[#111116] border border-neutral-200 dark:border-neutral-800 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/80 outline-none transition-all placeholder-neutral-400 dark:placeholder-neutral-500"

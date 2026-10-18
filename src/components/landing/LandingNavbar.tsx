@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { DoctorProfile } from '../../types';
 import { motion, AnimatePresence } from 'motion/react';
+import type { LandingSubView } from './subViews';
 
 interface LandingNavbarProps {
   darkMode: boolean;
@@ -27,8 +28,8 @@ interface LandingNavbarProps {
   onOpenLogin?: () => void;
   currentUser: DoctorProfile;
   isLoggedIn?: boolean;
-  activeSubView?: 'home' | 'about' | 'membership';
-  onChangeSubView?: (view: 'home' | 'about' | 'membership', tab?: 'beginner' | 'advanced' | 'tips' | 'playbooks' | 'faqs') => void;
+  activeSubView?: LandingSubView;
+  onChangeSubView?: (view: LandingSubView, tab?: 'beginner' | 'advanced' | 'tips' | 'playbooks' | 'faqs') => void;
 }
 
 export const LandingNavbar: React.FC<LandingNavbarProps> = ({
@@ -44,17 +45,9 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Smooth scroll handler for FAQ
-  const handleScrollToFaq = () => {
-    if (activeSubView !== 'home' && onChangeSubView) {
-      onChangeSubView('home');
-    }
-    setTimeout(() => {
-      const el = document.getElementById('faq-section');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 150);
+  // How To is a dedicated page now (renamed from the old FAQ scroll target)
+  const openHowTo = () => {
+    onChangeSubView?.('howto');
   };
 
   const handleScrollToAnnouncements = () => {
@@ -137,10 +130,14 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
           </button>
 
           <button
-            onClick={handleScrollToFaq}
-            className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-all cursor-pointer"
+            onClick={openHowTo}
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              activeSubView === 'howto'
+                ? 'bg-white dark:bg-[#20202e] text-neutral-900 dark:text-white shadow-xs font-bold'
+                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white'
+            }`}
           >
-            FAQs
+            How To
           </button>
         </nav>
 
@@ -304,17 +301,21 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    handleScrollToFaq();
+                    openHowTo();
                   }}
-                  className="w-full p-3 rounded-2xl flex items-center justify-between transition-all text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300 cursor-pointer"
+                  className={`w-full p-3 rounded-2xl flex items-center justify-between transition-all text-left cursor-pointer ${
+                    activeSubView === 'howto'
+                      ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold border border-blue-200/60 dark:border-blue-900/40'
+                      : 'hover:bg-neutral-50 dark:hover:bg-neutral-800/60 text-neutral-700 dark:text-neutral-300'
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-teal-500">
                       <HelpCircle className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold">FAQs</p>
-                      <p className="text-[11px] text-neutral-400">Licensing, HIPAA & verification</p>
+                      <p className="text-xs font-bold">How To</p>
+                      <p className="text-[11px] text-neutral-400">Step-by-step help, FAQ & verification</p>
                     </div>
                   </div>
                   <ChevronRight className="h-4 w-4 opacity-40" />
