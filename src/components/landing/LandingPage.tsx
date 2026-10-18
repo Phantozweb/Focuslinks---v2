@@ -5,8 +5,8 @@ import { HeroSection } from './HeroSection';
 import { AboutPage } from './AboutPage';
 import { MembershipPage } from '../membership/MembershipPage';
 import { PillarsSection } from './PillarsSection';
-import { PlatformFeatures } from './PlatformFeatures';
 import { VideoDemoSection } from './videodemo/VideoDemoSection';
+import { FeatureShowcase } from './features/FeatureShowcase';
 import { AnnouncementsSection } from './AnnouncementsSection';
 import { CommunityPreview } from './CommunityPreview';
 import { FaqSection } from './FaqSection';
@@ -86,8 +86,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {/* 3. Four Core Pillars: Connect, Share, Grow, Network */}
             <PillarsSection onEnterApp={onEnterApp} />
 
-            {/* 4. Interactive Core Platform Features */}
-            <PlatformFeatures onEnterApp={onEnterApp} />
+            {/* 4. Interactive Core Platform Features — animated walkthroughs */}
+            <FeatureShowcase onEnterApp={onEnterApp} />
 
             {/* 4.5 Announcements & Updates Section */}
             <AnnouncementsSection />

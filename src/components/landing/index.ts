@@ -3,7 +3,7 @@ export { LandingNavbar } from './LandingNavbar';
 export { HeroSection } from './HeroSection';
 export { AboutPage } from './AboutPage';
 export { PillarsSection } from './PillarsSection';
-export { PlatformFeatures } from './PlatformFeatures';
+export { FeatureShowcase } from './features/FeatureShowcase';
 export { VideoDemoSection } from './videodemo/VideoDemoSection';
 export { AnnouncementsSection } from './AnnouncementsSection';
 export { CommunityPreview } from './CommunityPreview';
