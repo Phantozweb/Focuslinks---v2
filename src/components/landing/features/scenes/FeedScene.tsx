@@ -1,184 +1,308 @@
 import React from 'react';
-import { Heart, MessageCircle, Bookmark, UserCheck, Image as ImageIcon, Rss } from 'lucide-react';
-import { DemoWindow, SceneTopBar, DemoAvatar, SceneCaption } from './chrome';
-import { enterStyle, phase, easeOutCubic, easeOutBack, tickNumber } from '../sceneKit';
+import {
+  Compass,
+  UserCheck,
+  Bookmark,
+  Plus,
+  Sparkles,
+  Images,
+  BookOpen,
+  BarChart2,
+  Stethoscope,
+  Heart,
+  MessageSquare,
+  Repeat2,
+  Check,
+  ArrowUp,
+} from 'lucide-react';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor, VerifiedShield } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber, easeOutBack } from '../sceneKit';
+import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * FEED — "A timeline built only from people you follow."
- * Story: Following vs For-you toggle → connection posts slide in one by one →
- * a like ticks up with a heart pop → "new posts" pill drops in. Duration 10s.
+ * FEED — native replica of the real FocusLinks feed: For You / Following /
+ * Vault stream selector, the LinkedIn-style composer with 5 post types, and
+ * real masonry posts (Marcus Chen's equipment day + the myopia poll).
+ * Duration 10s.
  */
 export const FeedScene: React.FC<{ t: number }> = ({ t }) => {
   const DURATION = 10000;
 
-  const posts = [
-    {
-      name: 'Amara Osei',
-      creds: 'OD, FAAO',
-      kind: 'Case' as const,
-      title: 'Grand Rounds case: 58F, sudden arcuate defect. OCT + field inside.',
-      body: 'Shared the full workup — first 12 answers pointed to the same missed step. What would you have ordered first?',
-      hasImage: true,
-      likeFrom: 41,
-      likeTo: 63,
-      start: 1700,
-    },
-    {
-      name: 'Ken Watanabe',
-      creds: 'Pediatric Myopia',
-      kind: 'Pearl' as const,
-      title: 'Pearl: parents accept myopia control 3× more when you show the axial-length graph.',
-      body: 'Plot it live in the consult. Two minutes, changes the whole conversation.',
-      hasImage: false,
-      likeFrom: 18,
-      likeTo: 27,
-      start: 3100,
-    },
-    {
-      name: 'Lena Fischer',
-      creds: 'B.Optom',
-      kind: 'Poll' as const,
-      title: 'Do you dilate every first-time myope under 12?',
-      body: 'Voting closes tonight — currently 71% yes across 340 clinics.',
-      hasImage: false,
-      likeFrom: 9,
-      likeTo: 14,
-      start: 4500,
-    },
+  const following = t >= 1100;
+  const likeP = easeOutCubic(phase(t, 4800, 5300));
+  const liked = t >= 5000;
+  const likes = liked ? tickNumber(t, 5000, 5600, 96, 97) : 96;
+  const voted = t >= 7200;
+  const votes = voted ? tickNumber(t, 7200, 8200, 325, 326) : 325;
+  const vaulted = t >= 8300;
+  const vaultP = easeOutBack(phase(t, 8300, 8700));
+  const newPostsP = easeOutCubic(phase(t, 8800, 9400));
+
+  const streams = [
+    { id: 'for-you', label: 'For You', icon: <Compass className="h-2.5 w-2.5 text-blue-500" /> },
+    { id: 'following', label: 'Following Optometrists', icon: <UserCheck className="h-2.5 w-2.5 text-indigo-500" /> },
+    { id: 'vault', label: 'Vault (3)', icon: <Bookmark className="h-2.5 w-2.5 text-amber-500 fill-current" /> },
   ];
 
-  // like pop on post 1
-  const likePulse = t > 6300 && t < 7000;
-  const heartPop = easeOutBack(phase(t, 6300, 6700));
+  const pills = [
+    { label: 'Pearl', icon: <Sparkles className="h-3 w-3 text-amber-500" /> },
+    { label: 'Photo', icon: <Images className="h-3 w-3 text-blue-500" /> },
+    { label: 'Article', icon: <BookOpen className="h-3 w-3 text-indigo-500" /> },
+    { label: 'Poll', icon: <BarChart2 className="h-3 w-3 text-purple-500" /> },
+    { label: 'Case File', icon: <Stethoscope className="h-3 w-3 text-emerald-500" /> },
+  ];
 
-  // "new posts" pill
-  const newPill = enterStyle(t, 7600, 8200, -20);
+  const pollOptions = [
+    { text: 'Dual Therapy: Ortho-K + 0.05% Atropine', votes: 142, pct: 46 },
+    { text: 'Dual-Focus / EDOF Soft Lenses (MiSight)', votes: 88, pct: 28 },
+    { text: 'Ortho-K alone, 6-month biometry re-check', votes: 64, pct: 22 },
+    { text: 'DIMS Lenslet Spectacle Lenses', votes: 31, pct: 12 },
+  ];
 
   return (
-    <DemoWindow url="focuslinks.app/feed" accent="bg-blue-500">
-      <div className="flex flex-col h-full">
-        <SceneTopBar
-          title="FocusLinks"
-          right={
-            <span className="flex items-center gap-1 text-[9px] font-bold text-neutral-400 dark:text-neutral-500">
-              <Rss className="h-3 w-3" /> Live
+    <DemoWindow url="focuslinks.app/feed" accent="bg-sky-500">
+      <div className="flex flex-col h-full relative">
+        <AppHeaderBar breadcrumb="Feed" />
+
+        <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2">
+          {/* stream selector — real segmented control */}
+          <div
+            className="flex items-center justify-between gap-2 bg-white/90 dark:bg-[#141420]/90 border border-neutral-200/70 dark:border-white/10 rounded-xl p-1.5 shadow-sm"
+            style={enterStyle(t, 100, 500)}
+          >
+            <div className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800/80 p-0.5 rounded-lg overflow-hidden">
+              {streams.map((s) => {
+                const active = s.id === 'following' ? following : !following && s.id === 'for-you';
+                return (
+                  <span
+                    key={s.id}
+                    className={`px-2 py-1 rounded-md text-[8.5px] font-bold whitespace-nowrap flex items-center gap-1 ${
+                      active
+                        ? 'bg-white dark:bg-[#202024] text-neutral-900 dark:text-white shadow-sm'
+                        : 'text-neutral-500 dark:text-neutral-400'
+                    }`}
+                  >
+                    {s.icon}
+                    <span className="hidden sm:inline">{s.label}</span>
+                    <span className="sm:hidden">{s.label.split(' ')[0]}</span>
+                  </span>
+                );
+              })}
+            </div>
+            <span className="shrink-0 inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-600 text-white text-[8px] font-bold">
+              <Plus className="h-2.5 w-2.5" /> Post to Feed
             </span>
-          }
-        />
-
-        {/* Segmented control + connections row */}
-        <div className="px-4 pt-3 flex items-center gap-2">
-          <div className="flex rounded-xl bg-neutral-100 dark:bg-neutral-900 p-0.5 border border-neutral-200/60 dark:border-neutral-800">
-            <span className="px-3 py-1 rounded-lg bg-white dark:bg-[#1b1b22] text-[9px] font-black text-neutral-900 dark:text-white shadow-sm flex items-center gap-1">
-              <UserCheck className="h-2.5 w-2.5 text-blue-500" /> Following
-            </span>
-            <span className="px-3 py-1 text-[9px] font-bold text-neutral-400">For you</span>
           </div>
-          <span className="ml-auto text-[8.5px] font-bold text-neutral-400 dark:text-neutral-500">
-            personalised from <span className="text-blue-600 dark:text-blue-400 font-black">your connections</span>
-          </span>
-        </div>
 
-        {/* Connection avatar strip */}
-        <div className="px-4 pt-2.5 flex items-center gap-2" style={enterStyle(t, 400, 900, 8)}>
-          <div className="flex -space-x-1.5">
-            {['Amara Osei', 'Ken Watanabe', 'Lena Fischer', 'Rafael Domingo', 'Priya Nair'].map((n) => (
-              <DemoAvatar key={n} name={n} size={22} ring />
-            ))}
+          {/* composer — real recipe with 5 post types */}
+          <div
+            className="rounded-xl border border-neutral-200/70 dark:border-white/10 bg-white/90 dark:bg-[#141420]/90 backdrop-blur-xl p-2 shadow-sm"
+            style={enterStyle(t, 600, 1100)}
+          >
+            <div className="flex items-center gap-2">
+              <DoctorAvatar
+                src="https://images.unsplash.com/photo-1594824813501-4838e82ef573?w=200&auto=format&fit=crop&q=80"
+                alt="Dr. Sirenjeev"
+                className="h-7 w-7 rounded-full ring-2 ring-blue-500/20 shrink-0"
+              />
+              <div className="flex-1 rounded-full border border-neutral-200 dark:border-neutral-700/80 bg-neutral-50 dark:bg-[#1f1f23] px-3 py-1.5 text-[9px] font-medium text-neutral-500 dark:text-neutral-400 truncate">
+                Share a clinical pearl, photo, article, poll, or case file...
+              </div>
+            </div>
+            <div className="grid grid-cols-5 gap-1 mt-1.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800/60">
+              {pills.map((p) => (
+                <span
+                  key={p.label}
+                  className="flex items-center justify-center gap-1 py-1 rounded-lg text-[8px] font-bold text-neutral-700 dark:text-neutral-300"
+                >
+                  {p.icon}
+                  <span className="hidden sm:inline truncate">{p.label}</span>
+                </span>
+              ))}
+            </div>
           </div>
-          <span className="text-[8.5px] font-bold text-neutral-400 dark:text-neutral-500">+38 connections posting today</span>
-        </div>
 
-        {/* Posts */}
-        <div className="flex-1 px-4 pt-2.5 pb-2 space-y-2 overflow-hidden">
-          {posts.map((p, i) => {
-            const style = enterStyle(t, p.start, p.start + 600);
-            const visible = (style.opacity as number) > 0.01;
-            const likes = tickNumber(t, p.start + 800, p.start + 2000, p.likeFrom, p.likeTo);
-            if (!visible) return <div key={p.name} style={{ height: 74 }} />;
-            const kindStyle =
-              p.kind === 'Case'
-                ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 border-rose-200/60 dark:border-rose-900/60'
-                : p.kind === 'Pearl'
-                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-300 border-emerald-200/60 dark:border-emerald-900/60'
-                  : 'bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-300 border-violet-200/60 dark:border-violet-900/60';
-            return (
-              <div
-                key={p.name}
-                style={style}
-                className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2.5 shadow-sm"
-              >
-                <div className="flex items-center gap-2">
-                  <DemoAvatar name={p.name} size={24} />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] font-bold text-neutral-900 dark:text-white">{p.name}</span>
-                      <span className="text-[8px] font-bold text-neutral-400">{p.creds}</span>
-                    </div>
-                    <span className="text-[7.5px] font-bold text-neutral-400 dark:text-neutral-500">connection · 2h</span>
-                  </div>
-                  <span className={`ml-auto text-[7.5px] font-black px-1.5 py-0.5 rounded-full border shrink-0 ${kindStyle}`}>
-                    {p.kind}
+          {/* masonry — 2 columns, real posts */}
+          <div className="columns-2 gap-2">
+            {/* post 1 — media (real post-media-1) */}
+            <div
+              className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/70 dark:border-white/10 bg-white/90 dark:bg-[#141420]/90 backdrop-blur-xl overflow-hidden shadow-sm"
+              style={enterStyle(t, 2400, 3000)}
+            >
+              <div className="relative grid grid-cols-2 gap-px bg-neutral-200 dark:bg-neutral-800">
+                <SceneImg
+                  src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80"
+                  alt="New examination lane"
+                  className="aspect-[4/3] col-span-2"
+                  gradient="from-sky-900 to-neutral-900"
+                />
+                <SceneImg
+                  src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80"
+                  alt="Zeiss SL 120 slit lamp"
+                  className="aspect-square"
+                  gradient="from-blue-900 to-neutral-900"
+                />
+                <SceneImg
+                  src="https://images.unsplash.com/photo-1583912267670-6575ad472688?w=400&auto=format&fit=crop&q=80"
+                  alt="Topcon Maestro2 OCT"
+                  className="aspect-square"
+                  gradient="from-indigo-900 to-neutral-900"
+                />
+                <div className="absolute top-1.5 left-1.5 flex items-center gap-1">
+                  <span className="text-[6.5px] font-bold px-1.5 py-0.5 rounded-md bg-neutral-900/80 backdrop-blur-md text-white border border-white/10 flex items-center gap-0.5">
+                    <Images className="h-2 w-2 text-sky-400" /> 3 photos
+                  </span>
+                  <span className="text-[6.5px] font-bold px-1.5 py-0.5 rounded-md bg-neutral-900/80 backdrop-blur-md text-white border border-white/10 flex items-center gap-0.5">
+                    Zeiss SL 120 · Maestro2
                   </span>
                 </div>
-                <p className="mt-1.5 text-[9.5px] font-bold text-neutral-800 dark:text-neutral-100 leading-snug">{p.title}</p>
-                <p className="text-[8.5px] text-neutral-500 dark:text-neutral-400 leading-snug line-clamp-2">{p.body}</p>
-                {p.hasImage && (
-                  <div className="mt-1.5 h-12 rounded-lg bg-gradient-to-br from-slate-700 via-slate-800 to-slate-950 relative overflow-hidden">
-                    <svg viewBox="0 0 300 48" className="absolute inset-0 w-full h-full opacity-70" aria-hidden="true">
-                      <path d="M10 34 Q80 6 150 30 T290 26" stroke="#38bdf8" strokeWidth="2" fill="none" />
-                      <path d="M20 40 Q100 18 180 36 T290 34" stroke="#0284c7" strokeWidth="1.6" fill="none" opacity="0.6" />
-                      <rect x="150" y="18" width="26" height="14" rx="3" fill="#f43f5e" opacity="0.85" />
-                    </svg>
-                    <span className="absolute bottom-1 left-1.5 text-[7px] font-black text-white/80 flex items-center gap-0.5">
-                      <ImageIcon className="h-2 w-2" /> OCT B-scan
-                    </span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3 mt-1.5 pt-1.5 border-t border-neutral-100 dark:border-neutral-800/70">
-                  {i === 0 ? (
-                    <span
-                      className={`flex items-center gap-1 text-[8.5px] font-black ${likePulse ? 'text-rose-500' : 'text-neutral-400 dark:text-neutral-500'}`}
-                    >
-                      <Heart
-                        className={`h-3 w-3 ${likePulse ? 'fill-rose-500 text-rose-500' : ''}`}
-                        style={{ transform: likePulse ? `scale(${1 + 0.35 * (1 - Math.abs(heartPop - 0.5) * 2)})` : 'scale(1)' }}
+                <span
+                  className={`absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded-full text-[6.5px] font-bold shadow-sm flex items-center gap-0.5 ${
+                    vaulted ? 'bg-amber-500 text-white' : 'bg-neutral-900/80 backdrop-blur-md text-white border border-white/20'
+                  }`}
+                >
+                  <Bookmark className={`h-2 w-2 ${vaulted ? 'fill-current' : ''}`} />
+                  {vaulted ? 'In Vault' : 'Vault'}
+                </span>
+              </div>
+              <div className="p-2 space-y-1.5">
+                <div className="flex items-center justify-between gap-1.5">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <div className="relative shrink-0">
+                      <DoctorAvatar
+                        src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80"
+                        alt="Dr. Marcus Chen"
+                        className="h-5 w-5 rounded-full ring-1 ring-blue-500/20"
                       />
-                      {likes}
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1 text-[8.5px] font-bold text-neutral-400 dark:text-neutral-500">
-                      <Heart className="h-3 w-3" /> {likes}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1 text-[8.5px] font-bold text-neutral-400 dark:text-neutral-500">
-                    <MessageCircle className="h-3 w-3" /> {i === 0 ? 12 : i === 1 ? 5 : 8}
+                      <VerifiedShield className="h-2.5 w-2.5 p-[2px] -bottom-0.5 -right-0.5" badge="h-1.5 w-1.5" />
+                    </div>
+                    <div className="min-w-0 leading-tight">
+                      <span className="block text-[8.5px] font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                        Dr. Marcus Chen
+                      </span>
+                      <span className="block text-[7px] font-medium text-blue-600 dark:text-blue-400">OD, FAAO</span>
+                    </div>
+                  </div>
+                  <span className="text-[7px] text-neutral-400 shrink-0">45 mins ago</span>
+                </div>
+                <p className="text-[8px] text-neutral-700 dark:text-neutral-300 leading-snug line-clamp-2">
+                  New equipment day at Bright Vision Eye Care! Lane 3 refreshed — Zeiss SL 120 slit lamp & Topcon
+                  Maestro2 OCT now live. 📸
+                </p>
+                <div className="flex items-center gap-2.5 text-[7.5px] font-bold text-neutral-500 dark:text-neutral-400 pt-0.5 border-t border-neutral-100 dark:border-neutral-800/60">
+                  <span
+                    className={`flex items-center gap-0.5 ${liked ? 'text-rose-500' : ''}`}
+                    style={liked ? { transform: `scale(${1 + likeP * 0.08})` } : undefined}
+                  >
+                    <Heart className={`h-2.5 w-2.5 ${liked ? 'fill-rose-500 text-rose-500' : ''}`} /> {likes}
                   </span>
-                  <Bookmark className="h-3 w-3 text-neutral-300 dark:text-neutral-600 ml-auto" />
+                  <span className="flex items-center gap-0.5">
+                    <MessageSquare className="h-2.5 w-2.5" /> 9
+                  </span>
+                  <span className="flex items-center gap-0.5">
+                    <Repeat2 className="h-2.5 w-2.5" /> 18
+                  </span>
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
 
-        {/* new-posts pill */}
-        <div
-          className="absolute top-[52px] left-1/2 z-20"
-          style={{ opacity: newPill.opacity as number, transform: `translate(-50%, ${(1 - (newPill.opacity as number)) * -20}px)` }}
-        >
-          <span className="rounded-full bg-blue-600 text-white text-[8.5px] font-black px-3 py-1.5 shadow-lg shadow-blue-600/30 whitespace-nowrap">
-            ↑ 2 new posts from your connections
-          </span>
+            {/* post 2 — poll (real poll post) */}
+            <div
+              className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/70 dark:border-white/10 bg-white/90 dark:bg-[#141420]/90 backdrop-blur-xl overflow-hidden shadow-sm p-2 space-y-1.5"
+              style={enterStyle(t, 2900, 3500)}
+            >
+              <div className="flex items-center justify-between gap-1.5">
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <div className="relative shrink-0">
+                    <DoctorAvatar
+                      src="https://images.unsplash.com/photo-1594824813501-4838e82ef573?w=200&auto=format&fit=crop&q=80"
+                      alt="Dr. Sirenjeev"
+                      className="h-5 w-5 rounded-full ring-1 ring-blue-500/20"
+                    />
+                    <VerifiedShield className="h-2.5 w-2.5 p-[2px] -bottom-0.5 -right-0.5" badge="h-1.5 w-1.5" />
+                  </div>
+                  <div className="min-w-0 leading-tight">
+                    <span className="block text-[8.5px] font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                      Dr. Sirenjeev, OD
+                    </span>
+                    <span className="block text-[7px] font-medium text-blue-600 dark:text-blue-400">OD, FAAO, FSLS</span>
+                  </div>
+                </div>
+                <span className="text-[7px] text-neutral-400 shrink-0">8h</span>
+              </div>
+              <p className="text-[8px] font-bold text-neutral-800 dark:text-neutral-100 leading-snug">
+                Primary first-line myopia intervention for this 10yo with rapid axial elongation:
+              </p>
+              <div className="space-y-1">
+                {pollOptions.map((o, i) => {
+                  const fill = easeOutCubic(phase(t, 6000 + i * 250, 7300 + i * 250));
+                  const isWinner = i === 0;
+                  return (
+                    <div key={o.text} className="relative rounded-md overflow-hidden bg-neutral-100 dark:bg-neutral-800/70 h-[18px]">
+                      <div
+                        className={`absolute inset-y-0 left-0 ${isWinner ? 'bg-blue-500/25' : 'bg-neutral-400/20 dark:bg-neutral-600/25'}`}
+                        style={{ width: `${fill * o.pct * 2}%` }}
+                      />
+                      <div className="relative flex items-center justify-between h-full px-1.5">
+                        <span className={`text-[6.8px] font-semibold truncate ${isWinner ? 'text-blue-700 dark:text-blue-300' : 'text-neutral-600 dark:text-neutral-300'}`}>
+                          {isWinner && voted && <Check className="inline h-2 w-2 mr-0.5 -mt-px" />}
+                          {o.text}
+                        </span>
+                        <span className="text-[6.8px] font-black text-neutral-700 dark:text-neutral-200 shrink-0 pl-1">
+                          {o.pct}%
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex items-center justify-between text-[7px] font-bold text-neutral-500 dark:text-neutral-400">
+                <span>325 votes · 32 comments</span>
+                <span className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
+                  <Bookmark className={`h-2 w-2 ${vaulted ? 'fill-amber-500 text-amber-500' : ''}`} />
+                  {vaulted ? 'In Vault' : 'Vault'}
+                </span>
+              </div>
+              <div className="pt-0.5 border-t border-neutral-100 dark:border-neutral-800/60 flex items-center gap-2.5 text-[7.5px] font-bold text-neutral-500 dark:text-neutral-400">
+                <span className="flex items-center gap-0.5">
+                  <Heart className="h-2.5 w-2.5" /> 112
+                </span>
+                <span className="flex items-center gap-0.5">
+                  <ArrowUp className="h-2.5 w-2.5" /> 325
+                </span>
+                <span className="text-[6.5px] font-semibold text-emerald-600 dark:text-emerald-400 ml-auto">
+                  {votes} votes counted
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* new posts pill — drops from under the header */}
+          <div
+            className="absolute top-2 left-1/2 z-20 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600 text-white text-[9px] font-bold shadow-lg shadow-blue-500/30"
+            style={{ opacity: newPostsP, transform: `translate(-50%, ${(1 - newPostsP) * -22}px)` }}
+          >
+            <ArrowUp className="h-3 w-3" /> 2 new posts from your connections
+          </div>
+
+          <TapCursor
+            moves={[
+              { start: 500, end: 2000, x: 38, y: 12, clickAt: 1100 },
+              { start: 4300, end: 5900, x: 25, y: 74, clickAt: 5000 },
+              { start: 7000, end: 8700, x: 76, y: 88, clickAt: 7200 },
+            ]}
+          />
         </div>
 
         <SceneCaption
           t={t}
           duration={DURATION}
           beats={[
-            [0, 1700, 'Your feed is built from who you connect with'],
-            [1700, 6300, 'Cases, pearls and polls from people you chose to follow'],
-            [6300, 7600, 'One tap to like, discuss or save to your vault'],
-            [7600, 10000, 'New posts land at the top — never miss your circle'],
+            [0, 2000, 'A timeline built by who you follow'],
+            [2000, 4200, 'Post pearls, photos, articles, polls & cases'],
+            [4200, 6600, 'Cases & OCTs from your connections'],
+            [6600, 8800, 'Vote in live diagnostic polls'],
+            [8800, 10000, 'Save to your clinical vault'],
           ]}
         />
       </div>

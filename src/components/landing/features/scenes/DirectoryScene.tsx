@@ -1,155 +1,224 @@
 import React from 'react';
-import { Search, MapPin, SlidersHorizontal, Check, UserPlus, Eye } from 'lucide-react';
-import { DemoWindow, SceneTopBar, DemoAvatar, VerifiedChip, SceneCaption } from './chrome';
+import {
+  Search,
+  ShieldCheck,
+  Check,
+  UserPlus,
+  MessageSquare,
+  ArrowUpRight,
+  SlidersHorizontal,
+  Award,
+} from 'lucide-react';
+import {
+  DemoWindow,
+  AppHeaderBar,
+  SceneCaption,
+  SceneImg,
+  TapCursor,
+  SceneToast,
+  VerifiedShield,
+  DistanceChip,
+} from './chrome';
 import { enterStyle, phase, easeOutCubic, typedText, tickNumber } from '../sceneKit';
+import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * DIRECTORY — "Find the right optometrist in seconds."
- * Story: type a query → filters snap in → matching verified profiles slide up
- * → Connect is tapped and flips to Requested.
+ * DIRECTORY — native replica of the real "Peer Directory" screen.
+ * Real data: Dr. Amara Thorne (99% · Apex Ophthalmic Consultants, Boston)
+ * and Dr. Maya Lin (93% · UW Medicine Eye Institute, Seattle).
  * Duration 10s.
  */
 export const DirectoryScene: React.FC<{ t: number }> = ({ t }) => {
   const DURATION = 10000;
 
-  // Search typing beats
-  const query = typedText(t, 400, 2100, 'retina specialist');
-  const showCaret = t % 800 < 400;
+  const query = typedText(t, 500, 2100, 'glaucoma');
+  const showCaret = t % 700 < 380;
 
-  // Filters pop in after the query lands
-  const filters = ['Retina', 'Ocular Disease', 'Asia'];
-  const resultsCount = tickNumber(t, 2200, 3000, 1284, 36);
+  // chip click at ~2.5s → results
+  const chipActive = t >= 2500;
+  const results = t >= 3100;
+  const count = tickNumber(t, 3100, 3900, 1284, 2);
+
+  // Connect tap on Amara at 5.7s
+  const connected = t >= 6000;
+  const flipP = easeOutCubic(phase(t, 6000, 6500));
+  const pulse = t >= 5200 && t < 6000;
 
   const doctors = [
     {
-      name: 'Amara Osei',
-      creds: 'OD, FAAO',
-      role: 'Vitreoretinal Consultant · Accra',
-      tags: ['Retina', 'OCT Reading'],
-      match: '98% match',
-      start: 3200,
+      name: 'Dr. Amara Thorne',
+      creds: 'OD, MS, FAAO',
+      clinic: 'Apex Ophthalmic Consultants • Boston, MA',
+      specialty: 'Glaucoma & Neuro',
+      concordance: '99% High',
+      distance: '2,680 mi away',
+      tech: 'Spectralis OCT-A · HFA3',
+      avatar: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&auto=format&fit=crop&q=80',
+      isNew: false,
+      start: 3100,
     },
     {
-      name: 'Rafael Domingo',
-      creds: 'OD, MPH',
-      role: 'Medical Retina · Manila',
-      tags: ['Retina', 'Diabetes Clinic'],
-      match: '94% match',
-      start: 3900,
-    },
-    {
-      name: 'Priya Nair',
-      creds: 'B.Optom, FCO',
-      role: 'Retina Imaging Lead · Kochi',
-      tags: ['Retina', 'Fundus Photography'],
-      match: '91% match',
-      start: 4600,
+      name: 'Dr. Maya Lin',
+      creds: 'OD, Resident Fellow 2026',
+      clinic: 'UW Medicine Eye Institute • Seattle, WA',
+      specialty: 'Glaucoma & Neuro',
+      concordance: '93% High',
+      distance: '800 mi away',
+      tech: 'Neuro-Rehab · VN',
+      avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&auto=format&fit=crop&q=80',
+      isNew: true,
+      start: 3600,
     },
   ];
 
-  // Connect CTA: pulse from 6.5s, flip to Requested at 7.4s
-  const connectPulse = t > 6500 && t < 7400;
-  const requested = t >= 7400;
-  const reqP = easeOutCubic(phase(t, 7400, 7900));
+  const chips = ['All Specialties', 'Cornea & Sclerals', 'Pediatric Myopia', 'Glaucoma & Neuro', 'Dry Eye & Aesthetics'];
 
   return (
     <DemoWindow url="focuslinks.app/directory" accent="bg-blue-500">
-      <div className="flex flex-col h-full">
-        <SceneTopBar
-          title="Optometrist Directory"
-          right={
-            <span className="hidden sm:flex items-center gap-1 text-[9px] font-bold text-neutral-400 dark:text-neutral-500">
-              <SlidersHorizontal className="h-3 w-3" /> Filters
-            </span>
-          }
-        />
+      <div className="flex flex-col h-full relative">
+        <AppHeaderBar breadcrumb="Directory" />
 
-        {/* Search field with typed query */}
-        <div className="px-4 pt-3">
-          <div className="h-9 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] flex items-center gap-2 px-3 shadow-sm">
-            <Search className="h-3.5 w-3.5 text-neutral-400 shrink-0" />
-            <span className="text-[11px] text-neutral-800 dark:text-neutral-100 font-medium truncate">
-              {query}
-              <span
-                className="inline-block w-[1.5px] h-3 align-middle bg-blue-500 ml-0.5"
-                style={{ opacity: showCaret ? 1 : 0 }}
-              />
-            </span>
+        <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2.5">
+          {/* slim Peer Directory hero — real banner recipe */}
+          <div
+            className="relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-900 via-indigo-950 to-neutral-900 p-2.5 sm:p-3 text-white shadow-sm border border-neutral-800"
+            style={enterStyle(t, 100, 600)}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[8px] font-semibold border border-blue-400/30">
+                    <ShieldCheck className="h-2.5 w-2.5 text-blue-400" />
+                    Verified Optometrist Network
+                  </span>
+                  <span className="text-[8px] text-neutral-400 hidden sm:inline">
+                    {tickNumber(t, 200, 900, 0, 1284) || '1,284'} Optometrists On-Call
+                  </span>
+                </div>
+                <h3 className="text-[13px] sm:text-sm font-black tracking-tight mt-0.5">Peer Directory</h3>
+              </div>
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/10 border border-white/15 text-[8px] font-bold text-neutral-200 shrink-0">
+                <SlidersHorizontal className="h-2.5 w-2.5" /> Sort: Concordance
+              </span>
+            </div>
           </div>
 
-          {/* Filter chips snap in */}
-          <div className="flex flex-wrap items-center gap-1.5 mt-2.5 min-h-[22px]">
-            {filters.map((f, i) => {
-              const p = easeOutCubic(phase(t, 2300 + i * 220, 2800 + i * 220));
+          {/* omnisearch row */}
+          <div className="flex items-center gap-2" style={enterStyle(t, 300, 800)}>
+            <div className="flex-1 h-8 rounded-lg border border-neutral-200/90 dark:border-neutral-800 bg-white dark:bg-[#15151c] flex items-center gap-1.5 px-2.5 shadow-sm">
+              <Search className="h-3 w-3 text-neutral-400 shrink-0" />
+              <span className="text-[10px] text-neutral-800 dark:text-neutral-100 font-medium truncate">
+                {query}
+                <span
+                  className="inline-block w-[1.5px] h-2.5 align-middle bg-blue-500 ml-0.5"
+                  style={{ opacity: showCaret ? 1 : 0 }}
+                />
+              </span>
+            </div>
+          </div>
+
+          {/* specialty chips — real labels, cursor clicks Glaucoma & Neuro */}
+          <div className="flex items-center gap-1 overflow-hidden">
+            <span className="text-[8px] font-semibold text-neutral-400 shrink-0">Specialty:</span>
+            {chips.map((c, i) => {
+              const isTarget = c === 'Glaucoma & Neuro';
+              const active = chipActive && isTarget;
               return (
                 <span
-                  key={f}
-                  className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/70 dark:border-blue-800/70 text-blue-700 dark:text-blue-300 text-[9px] font-bold"
-                  style={{ opacity: p, transform: `scale(${0.6 + 0.4 * p})` }}
+                  key={c}
+                  className={`px-1.5 sm:px-2 py-1 rounded-lg text-[8.5px] font-medium whitespace-nowrap shrink-0 ${
+                    active
+                      ? 'bg-blue-600 text-white font-semibold shadow-sm'
+                      : 'bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400'
+                  } ${i > 3 ? 'hidden md:inline-block' : ''}`}
+                  style={enterStyle(t, 900 + i * 90, 1500 + i * 90, 8)}
                 >
-                  {f} ✕
+                  {c}
                 </span>
               );
             })}
-            <span
-              className="text-[9px] font-bold text-neutral-400 dark:text-neutral-500 ml-auto"
-              style={enterStyle(t, 2900, 3300, 4)}
-            >
-              <span className="text-blue-600 dark:text-blue-400 font-black">{resultsCount}</span> optometrists
-            </span>
           </div>
-        </div>
 
-        {/* Result cards */}
-        <div className="flex-1 px-4 pt-2.5 pb-3 space-y-2 overflow-hidden">
-          {doctors.map((d) => {
-            const style = enterStyle(t, d.start, d.start + 600);
-            const opacity = (style.opacity as number) || 0;
-            if (opacity <= 0.01) return <div key={d.name} style={{ height: 62 }} />;
-            return (
+          {/* summary bar — real copy */}
+          <div className="flex items-center justify-between text-[9px] text-neutral-500 dark:text-neutral-400">
+            <span>
+              Showing <strong className="text-neutral-900 dark:text-white font-bold">{results ? count : 1284}</strong>{' '}
+              optometrists
+              {chipActive && ' (1 filter applied)'}
+            </span>
+            {chipActive && (
+              <span className="text-blue-600 dark:text-blue-400 font-semibold">Clear all filters</span>
+            )}
+          </div>
+
+          {/* compact doctor cards — real directory card recipe */}
+          <div className="space-y-2">
+            {doctors.map((d) => (
               <div
                 key={d.name}
-                style={style}
-                className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2.5 flex items-center gap-2.5 shadow-sm"
+                className="rounded-xl bg-white dark:bg-[#18181c] border border-neutral-200 dark:border-neutral-800 shadow-sm p-2.5 flex items-center gap-2.5"
+                style={enterStyle(t, d.start, d.start + 550)}
               >
-                <DemoAvatar name={d.name} size={34} />
+                <div className="relative shrink-0">
+                  <DoctorAvatar
+                    src={d.avatar}
+                    alt={d.name}
+                    className="h-11 w-11 rounded-full ring-2 ring-neutral-200 dark:ring-neutral-700"
+                  />
+                  <VerifiedShield className="h-4 w-4 p-[3px] -bottom-0.5 -right-0.5" badge="h-2.5 w-2.5" />
+                </div>
+
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] font-bold text-neutral-900 dark:text-white truncate">{d.name}</span>
-                    <span className="text-[8.5px] font-bold text-neutral-400 dark:text-neutral-500 shrink-0">{d.creds}</span>
-                    <VerifiedChip />
-                  </div>
-                  <div className="flex items-center gap-1 mt-0.5">
-                    <MapPin className="h-2.5 w-2.5 text-neutral-400 shrink-0" />
-                    <span className="text-[9px] text-neutral-500 dark:text-neutral-400 truncate">{d.role}</span>
-                  </div>
-                  <div className="flex gap-1 mt-1">
-                    {d.tags.map((tg) => (
-                      <span
-                        key={tg}
-                        className="px-1.5 py-px rounded bg-neutral-100 dark:bg-neutral-800 text-[8px] font-bold text-neutral-500 dark:text-neutral-300"
-                      >
-                        {tg}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[12px] font-bold text-neutral-900 dark:text-white truncate">{d.name}</span>
+                    {d.isNew && (
+                      <span className="inline-flex items-center gap-0.5 text-[7.5px] font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-900/60 px-1 py-0 rounded">
+                        <Award className="h-2 w-2" /> NEW FELLOW
                       </span>
-                    ))}
+                    )}
+                  </div>
+                  <span className="block text-[9px] font-semibold text-blue-600 dark:text-blue-400 leading-tight">
+                    {d.creds} · {d.specialty}
+                  </span>
+                  <span className="block text-[9px] text-neutral-500 dark:text-neutral-400 truncate leading-tight mt-0.5">
+                    {d.clinic}
+                  </span>
+                  <div className="flex items-center gap-1 mt-1">
+                    <DistanceChip miles={d.distance} />
+                    <span className="hidden sm:inline-flex items-center gap-0.5 text-[8px] font-medium px-1.5 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
+                      {d.tech}
+                    </span>
                   </div>
                 </div>
-                <div className="flex flex-col items-end gap-1.5 shrink-0">
-                  <span className="text-[8px] font-black text-emerald-600 dark:text-emerald-400">{d.match}</span>
-                  {d.name === doctors[0].name ? (
+
+                <div className="shrink-0 text-right space-y-1.5">
+                  <div>
+                    <span className="text-[7px] text-neutral-400 font-medium block leading-none">Peer Concordance</span>
+                    <span className="text-[10px] font-black text-blue-600 dark:text-blue-400">{d.concordance}</span>
+                  </div>
+                  <div className="flex items-center justify-end gap-1">
+                    <span className="h-6 w-6 rounded-lg border border-neutral-200 dark:border-neutral-700/80 bg-white dark:bg-[#202026] flex items-center justify-center text-neutral-500">
+                      <MessageSquare className="h-3 w-3" />
+                    </span>
+                    <span className="h-6 px-2 rounded-lg border border-neutral-200 dark:border-neutral-700/80 bg-white dark:bg-[#202026] text-neutral-900 dark:text-white text-[8px] font-bold flex items-center gap-0.5">
+                      View CV <ArrowUpRight className="h-2 w-2 text-neutral-400" />
+                    </span>
+                    {/* Amara's connect button flips to Connected */}
                     <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[9px] font-black transition-colors ${
-                        requested
-                          ? 'bg-emerald-500 text-white'
-                          : connectPulse
-                            ? 'bg-blue-600 text-white scale-105'
-                            : 'bg-blue-600/90 text-white'
-                      }`}
-                      style={{ transform: connectPulse ? 'scale(1.07)' : 'scale(1)', transition: 'transform 200ms' }}
+                      className={`h-6 px-2 rounded-lg text-[8px] font-bold flex items-center gap-0.5 transition-colors ${
+                        d.name === 'Dr. Amara Thorne' && connected
+                          ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300/40'
+                          : `bg-blue-600 text-white shadow-sm ${pulse && d.name === 'Dr. Amara Thorne' ? 'ring-4 ring-blue-500/30' : ''}`
+                      } ${d.name !== 'Dr. Amara Thorne' ? 'opacity-90' : ''}`}
+                      style={
+                        d.name === 'Dr. Amara Thorne'
+                          ? { transform: `scale(${1 + flipP * 0.06})` }
+                          : undefined
+                      }
                     >
-                      {requested ? (
+                      {d.name === 'Dr. Amara Thorne' && connected ? (
                         <>
-                          <Check className="h-2.5 w-2.5" style={{ opacity: reqP }} /> Requested
+                          <Check className="h-2.5 w-2.5" /> Connected
                         </>
                       ) : (
                         <>
@@ -157,39 +226,62 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t }) => {
                         </>
                       )}
                     </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[9px] font-black border border-neutral-200 dark:border-neutral-700 text-neutral-500 dark:text-neutral-300">
-                      <Eye className="h-2.5 w-2.5" /> View
-                    </span>
-                  )}
+                  </div>
                 </div>
               </div>
-            );
-          })}
+            ))}
 
-          {/* Connection-sent toast */}
-          <div
-            className="rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/70 dark:border-emerald-900/60 px-3 py-2 flex items-center gap-2"
-            style={enterStyle(t, 8000, 8500, 10)}
-          >
-            <span className="h-5 w-5 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
-              <Check className="h-3 w-3 text-white" />
-            </span>
-            <span className="text-[9.5px] font-bold text-emerald-700 dark:text-emerald-300">
-              Connection request sent — Dr. Osei will see it in her notifications
-            </span>
+            {/* CV peek card — hints at the full profile behind the tap */}
+            <div
+              className="rounded-xl border border-dashed border-neutral-300/80 dark:border-neutral-700 bg-white/60 dark:bg-[#141418]/60 p-2.5 flex items-center gap-3"
+              style={enterStyle(t, 7400, 8100)}
+            >
+              <SceneImg
+                src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80"
+                alt="Profile CV preview"
+                className="h-10 w-16 rounded-lg shrink-0"
+              />
+              <div className="min-w-0">
+                <span className="block text-[9px] font-bold text-neutral-800 dark:text-neutral-100">
+                  Director of Glaucoma Services · Harvard Affiliate
+                </span>
+                <span className="block text-[8px] text-neutral-500 dark:text-neutral-400 truncate">
+                  Clinical CV · licenses · endorsements · 32 published cases
+                </span>
+              </div>
+              <span className="ml-auto text-[8px] font-bold text-blue-600 dark:text-blue-400 shrink-0 flex items-center gap-0.5">
+                Open <ArrowUpRight className="h-2.5 w-2.5" />
+              </span>
+            </div>
           </div>
+
+          {/* simulated cursor: click chip → click Connect */}
+          <TapCursor
+            moves={[
+              { start: 2000, end: 3350, x: 62, y: 34, clickAt: 2500 },
+              { start: 5100, end: 6600, x: 86, y: 58, clickAt: 6000 },
+            ]}
+          />
+
+          <SceneToast t={t} start={6500}>
+            <span className="h-4 w-4 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+              <Check className="h-2.5 w-2.5" />
+            </span>
+            <span className="text-[10px] font-bold text-white dark:text-neutral-900">
+              Connected · Dr. Amara Thorne
+            </span>
+          </SceneToast>
         </div>
 
-        {/* progress caption strip */}
         <SceneCaption
           t={t}
           duration={DURATION}
           beats={[
-            [0, 2300, 'Search by specialty, credential or city'],
-            [2300, 3100, 'Stack filters — results narrow instantly'],
-            [3100, 7400, 'Every profile is credential-verified'],
-            [7400, 10000, 'One tap sends a connection request'],
+            [0, 1900, 'A verified global directory of optometrists'],
+            [1900, 4000, 'Filter by specialty — Glaucoma & Neuro'],
+            [4000, 5800, 'Real profiles: credentials, clinic, concordance'],
+            [5800, 7900, 'One tap to connect'],
+            [7900, 10000, 'Open clinical CVs — referrals & co-management'],
           ]}
         />
       </div>

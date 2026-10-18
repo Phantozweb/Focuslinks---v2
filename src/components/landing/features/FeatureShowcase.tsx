@@ -320,8 +320,8 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
           Features we designed for optometrists to <AnimatedTriad />
         </h2>
         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-4">
-          Six spaces built for everyday optometric practice — pick one below and watch a live, coded
-          walkthrough of exactly how it works.
+          Six spaces built for everyday optometric practice — pick one and watch the real
+          interface in action, frame-by-frame.
         </p>
       </div>
 
@@ -419,7 +419,7 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
                   </button>
                   <p className="mt-3 text-[10px] font-medium text-neutral-400 dark:text-neutral-500 flex items-center gap-1.5">
                     <MousePointerClick className="h-3 w-3" />
-                    Walkthroughs are coded simulations of the real interface — not renders.
+                    Real interface, real data — recoded frame-by-frame. Not a video file.
                   </p>
                 </div>
               </motion.div>

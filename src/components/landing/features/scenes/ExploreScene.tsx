@@ -1,221 +1,249 @@
 import React from 'react';
-import { Search, BarChart3, FileText, ImageIcon, ListChecks, ArrowUpRight, Flame } from 'lucide-react';
-import { DemoWindow, SceneTopBar, DemoAvatar, SceneCaption } from './chrome';
-import { enterStyle, phase, easeOutCubic, easeOutBack, tickNumber } from '../sceneKit';
+import { Camera, Heart, MessageCircle, X } from 'lucide-react';
+import { DemoWindow, AppHeaderBar, SceneCaption, SceneImg, TapCursor } from './chrome';
+import { enterStyle, phase, easeOutCubic, tickNumber } from '../sceneKit';
+import { DoctorAvatar } from '../../../common/DoctorAvatar';
 
 /**
- * EXPLORE — "Everything the community posted, in one mix."
- * Story: filter chips pop → a masonry wall of mixed post types (case image,
- * poll, pearl, article) cascades in → poll bar fills live → a tile lifts on
- * hover showing "Open case". Duration 10.5s.
+ * EXPLORE — native replica of the real "Ophthalmic Diagnostic & Clinical
+ * Imagery" gallery (InstagramGalleryView) with its case detail modal.
+ * Real tiles: Salzmann biomicroscopy, AS-OCT vault clearance, Ortho-K
+ * fluorescein, EDI-OCT drusen, Pellucid topography, meibography.
+ * Duration 10.5s.
  */
 export const ExploreScene: React.FC<{ t: number }> = ({ t }) => {
   const DURATION = 10500;
 
-  const chips = ['All', 'Cases', 'Pearls', 'Polls', 'Articles'];
-  const searches = tickNumber(t, 800, 1800, 240, 1284);
+  const tiles = [
+    {
+      title: "Salzmann's Nodular Degeneration Biomicroscopy",
+      modality: 'Slit Lamp',
+      img: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format&fit=crop&q=80',
+      likes: 142,
+      comments: 28,
+    },
+    {
+      title: 'Vault Clearance on 18.0mm Scleral (AS-OCT)',
+      modality: 'AS-OCT / Retina',
+      img: 'https://images.unsplash.com/photo-1583912267670-6575ad472688?w=600&auto=format&fit=crop&q=80',
+      likes: 198,
+      comments: 45,
+    },
+    {
+      title: "Orthokeratology Bull's Eye Fluorescein Pattern",
+      modality: 'Fluorescein',
+      img: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&auto=format&fit=crop&q=80',
+      likes: 215,
+      comments: 39,
+    },
+    {
+      title: 'EDI-OCT Optic Disc Drusen',
+      modality: 'AS-OCT / Retina',
+      img: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&auto=format&fit=crop&q=80',
+      likes: 260,
+      comments: 52,
+    },
+    {
+      title: 'Pellucid Ectasia Topographic Crab-Claw',
+      modality: 'Topography',
+      img: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&auto=format&fit=crop&q=80',
+      likes: 184,
+      comments: 31,
+    },
+    {
+      title: 'Infrared Meibography: Truncation',
+      modality: 'Meibography',
+      img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&auto=format&fit=crop&q=80',
+      likes: 167,
+      comments: 22,
+    },
+  ];
 
-  const pollPct = t < 5800 ? 0 : t < 7600 ? easeOutCubic(phase(t, 5800, 7600)) : 1;
+  const tabs = ['All Visuals', 'Slit Lamp', 'AS-OCT / Retina', 'Fluorescein', 'Topography'];
 
-  const lift = t >= 8200;
-  const liftP = easeOutCubic(phase(t, 8200, 8800));
+  // hover overlay on tile 2 (index 1) from 5.2s, tap at 6.4s → modal 6.9-7.7s
+  const hoverP = easeOutCubic(phase(t, 5200, 5800));
+  const modalP = easeOutCubic(phase(t, 6900, 7700));
+  const modalOut = t >= 9300 ? 1 - easeOutCubic(phase(t, 9300, 9800)) : 1;
+  const modalVisible = t >= 6900 && modalOut > 0.01;
+  const liked = t >= 6400;
+  const likes = liked ? tickNumber(t, 6400, 7000, 198, 199) : 198;
 
   return (
     <DemoWindow url="focuslinks.app/explore" accent="bg-amber-500">
-      <div className="flex flex-col h-full">
-        <SceneTopBar
-          title="Explore"
-          right={
-            <span className="flex items-center gap-1 text-[9px] font-black text-amber-600 dark:text-amber-400">
-              <Flame className="h-3 w-3" /> Trending
-            </span>
-          }
-        />
+      <div className="flex flex-col h-full relative">
+        <AppHeaderBar breadcrumb="Explore" />
 
-        {/* search + chips */}
-        <div className="px-4 pt-3">
-          <div className="flex items-center gap-2">
-            <div className="h-8 flex-1 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] flex items-center gap-2 px-3 shadow-sm">
-              <Search className="h-3 w-3 text-neutral-400" />
-              <span className="text-[10px] font-medium text-neutral-400 dark:text-neutral-500">
-                Search cases, pearls, polls…
-              </span>
-              <span className="ml-auto text-[8.5px] font-black text-neutral-400 dark:text-neutral-500">
-                <span className="text-amber-600 dark:text-amber-400 font-black">{searches}</span> posts
-              </span>
-            </div>
-          </div>
-          <div className="flex gap-1.5 mt-2.5">
-            {chips.map((c, i) => {
-              const isActive = i === 0;
-              const p = easeOutBack(phase(t, 900 + i * 130, 1300 + i * 130));
-              return (
-                <span
-                  key={c}
-                  className={`px-2.5 py-1 rounded-full text-[9px] font-bold border ${
-                    isActive
-                      ? 'bg-amber-500 border-amber-500 text-white shadow-sm'
-                      : 'bg-white dark:bg-[#15151b] border-neutral-200/80 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300'
-                  }`}
-                  style={{ opacity: p, transform: `scale(${0.7 + 0.3 * p})` }}
-                >
-                  {c}
+        <div className="flex-1 overflow-hidden relative p-3 sm:p-4 space-y-2">
+          {/* header — real gallery header recipe */}
+          <div
+            className="flex items-center justify-between gap-2 rounded-xl bg-white dark:bg-[#18181b] p-2 border border-neutral-200 dark:border-neutral-800 shadow-sm"
+            style={enterStyle(t, 100, 600)}
+          >
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <Camera className="h-3.5 w-3.5 text-rose-500 shrink-0" />
+                <span className="text-[10.5px] sm:text-[11.5px] font-bold text-neutral-900 dark:text-neutral-100 truncate">
+                  Ophthalmic Diagnostic & Clinical Imagery
                 </span>
+              </div>
+              <p className="text-[7.5px] text-neutral-500 dark:text-neutral-400 truncate">
+                Slit-lamp photography, topography maps, fluorescein & OCT
+              </p>
+            </div>
+            <span className="shrink-0 flex items-center gap-1 rounded-full bg-gradient-to-r from-rose-500 to-indigo-600 text-white px-2 py-1.5 text-[8px] font-semibold shadow-sm">
+              <Camera className="h-2.5 w-2.5" /> Upload Clinical Visual
+            </span>
+          </div>
+
+          {/* filter tabs — real labels */}
+          <div className="flex items-center gap-1.5 overflow-hidden">
+            {tabs.map((c, i) => (
+              <span
+                key={c}
+                className={`px-2 py-1 rounded-full text-[8px] font-semibold whitespace-nowrap shrink-0 ${
+                  i === 0
+                    ? 'bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 shadow-sm'
+                    : 'bg-white dark:bg-[#18181b] text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-800'
+                }`}
+                style={enterStyle(t, 800 + i * 100, 1300 + i * 100, 8)}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+
+          {/* visual grid — real square tiles */}
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+            {tiles.map((tile, i) => {
+              const isTarget = i === 1;
+              return (
+                <div
+                  key={tile.title}
+                  className="group relative aspect-square overflow-hidden rounded-lg bg-black border border-neutral-200 dark:border-neutral-800 shadow-sm"
+                  style={enterStyle(t, 2200 + i * 180, 2900 + i * 180)}
+                >
+                  <SceneImg
+                    src={tile.img}
+                    alt={tile.title}
+                    className="absolute inset-0 w-full h-full"
+                    gradient="from-neutral-800 to-neutral-950"
+                  />
+                  {/* modality tag — real recipe */}
+                  <div className="absolute top-1 left-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-full text-[6.5px] font-bold text-white uppercase tracking-wider border border-white/15">
+                    {tile.modality}
+                  </div>
+                  {/* hover overlay — real Instagram-style overlay */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end text-white p-1.5"
+                    style={{ opacity: isTarget ? hoverP : 0 }}
+                  >
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <DoctorAvatar
+                        src="https://images.unsplash.com/photo-1594824813501-4838e82ef573?w=100&auto=format&fit=crop&q=80"
+                        alt="Dr. Sirenjeev"
+                        className="h-4 w-4 rounded-full ring-1 ring-white/60"
+                      />
+                      <span className="text-[7px] font-semibold truncate">Dr. Sirenjeev</span>
+                    </div>
+                    <h4 className="text-[7.5px] font-bold line-clamp-2 leading-tight">{tile.title}</h4>
+                    <div className="flex items-center gap-2 mt-1 pt-1 border-t border-white/20 text-[7px] font-semibold">
+                      <span className="flex items-center gap-0.5">
+                        <Heart className={`h-2 w-2 fill-rose-500 text-rose-500 ${liked && isTarget ? 'scale-110' : ''}`} />
+                        {isTarget ? likes : tile.likes}
+                      </span>
+                      <span className="flex items-center gap-0.5">
+                        <MessageCircle className="h-2 w-2" /> {tile.comments}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
-        </div>
 
-        {/* masonry wall — CSS columns for true masonry */}
-        <div className="flex-1 px-4 pt-3 pb-3 columns-2 sm:columns-3 gap-2 [column-fill:balance] overflow-hidden">
-          {/* Case tile with mock OCT gradient image */}
-          {(() => {
-            const base = enterStyle(t, 1900, 2500);
-            return (
+          {/* ---------- case detail modal (real detail recipe) ---------- */}
+          {modalVisible && (
             <div
-              className="break-inside-avoid mb-2 rounded-xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] shadow-sm"
-              style={{ opacity: base.opacity, transform: lift ? `scale(${1 + 0.03 * liftP}) translateY(${-2 * liftP}px)` : base.transform }}
+              className="absolute inset-2 sm:inset-3 z-20 rounded-xl bg-white dark:bg-[#18181b] border border-neutral-200 dark:border-neutral-800 shadow-2xl overflow-hidden flex flex-col sm:flex-row"
+              style={{
+                opacity: Math.min(modalP, modalOut),
+                transform: `scale(${0.95 + Math.min(modalP, modalOut) * 0.05})`,
+                pointerEvents: 'none',
+              }}
             >
-            <div className="h-16 relative bg-gradient-to-br from-slate-800 via-slate-900 to-black">
-              {/* mock OCT arcs */}
-              <svg viewBox="0 0 200 70" className="absolute inset-0 w-full h-full opacity-80" aria-hidden="true">
-                <path d="M20 45 Q100 10 180 45" stroke="#38bdf8" strokeWidth="2.5" fill="none" />
-                <path d="M25 52 Q100 24 175 52" stroke="#0ea5e9" strokeWidth="2" fill="none" opacity="0.7" />
-                <path d="M35 58 Q100 38 165 58" stroke="#0369a1" strokeWidth="1.8" fill="none" opacity="0.5" />
-                <circle cx="112" cy="34" r="4" fill="#f43f5e" opacity="0.9" />
-              </svg>
-              <span className="absolute top-1.5 left-1.5 text-[7.5px] font-black text-white/90 bg-black/40 rounded-full px-1.5 py-0.5 flex items-center gap-0.5">
-                <ImageIcon className="h-2 w-2" /> OCT · Case
-              </span>
-            </div>
-            <div className="p-2">
-              <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight line-clamp-2">
-                Subfoveal fluid — observe or refer? Full OCT workup inside
+              {/* left: high-res image */}
+              <div className="sm:w-3/5 bg-black relative min-h-0 flex-1">
+                <SceneImg
+                  src="https://images.unsplash.com/photo-1583912267670-6575ad472688?w=1000&auto=format&fit=crop&q=80"
+                  alt="AS-OCT vault clearance"
+                  className="absolute inset-0 w-full h-full"
+                  gradient="from-neutral-800 to-neutral-950"
+                />
+                <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-full text-[7.5px] font-bold text-white border border-white/20">
+                  AS-OCT / Retina
+                </div>
+                <X className="absolute top-2 right-2 h-3.5 w-3.5 text-white/80" />
               </div>
-              <div className="flex items-center gap-1.5 mt-1">
-                <DemoAvatar name="Amara Osei" size={14} />
-                <span className="text-[7.5px] font-bold text-neutral-400 truncate">Dr. Amara Osei · 214 views</span>
-              </div>
-            </div>
-          </div>
-          );
-          })()}
-
-          {/* Poll tile with live-filling bar */}
-          <div
-            className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2 shadow-sm"
-            style={enterStyle(t, 2300, 2900)}
-          >
-            <span className="text-[7.5px] font-black text-violet-600 dark:text-violet-400 flex items-center gap-1 mb-1">
-              <BarChart3 className="h-2 w-2" /> POLL · Dry Eye
-            </span>
-            <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight">
-              First-line for evaporative MGD?
-            </div>
-            <div className="mt-1.5 space-y-1">
-              {[
-                ['Lid hygiene + heat', 62],
-                ['Omega-3 only', 14],
-                ['IPL referral', 24],
-              ].map(([label, pct], i) => (
-                <div key={label as string}>
-                  <div className="flex justify-between text-[7.5px] font-bold text-neutral-500 dark:text-neutral-400">
-                    <span>{label}</span>
-                    <span>{Math.round((pct as number) * pollPct)}%</span>
-                  </div>
-                  <div className="h-1 rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${i === 0 ? 'bg-violet-500' : 'bg-violet-300 dark:bg-violet-700'}`}
-                      style={{ width: `${(pct as number) * pollPct}%` }}
-                    />
+              {/* right: clinical details */}
+              <div className="sm:w-2/5 p-2.5 sm:p-3 flex flex-col gap-1.5 bg-white dark:bg-[#18181b] overflow-hidden">
+                <div className="flex items-center gap-1.5 border-b border-neutral-100 dark:border-neutral-800 pb-1.5">
+                  <DoctorAvatar
+                    src="https://images.unsplash.com/photo-1594824813501-4838e82ef573?w=200&auto=format&fit=crop&q=80"
+                    alt="Dr. Sirenjeev"
+                    className="h-6 w-6 rounded-full ring-2 ring-blue-500/20"
+                  />
+                  <div className="min-w-0 leading-tight">
+                    <span className="text-[8.5px] font-bold text-neutral-900 dark:text-neutral-100 truncate block">
+                      Dr. Sirenjeev, OD <span className="text-[7px] text-blue-600 font-semibold">(OD, FAAO, FSLS)</span>
+                    </span>
+                    <span className="text-[7px] text-neutral-400 truncate block">
+                      Vision Vanguard Advanced Cornea & Eye Center
+                    </span>
                   </div>
                 </div>
-              ))}
+                <div>
+                  <span className="text-[6.5px] uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400">
+                    Biomicroscopic Diagnosis
+                  </span>
+                  <h4 className="text-[9px] font-bold text-neutral-900 dark:text-neutral-100 leading-snug">
+                    Post-Graft Irregular Ectasia Optical Clearance
+                  </h4>
+                </div>
+                <div className="p-1.5 rounded-lg bg-neutral-50 dark:bg-[#121215] border border-neutral-200/80 dark:border-neutral-800">
+                  <p className="text-[7.5px] text-neutral-600 dark:text-neutral-300 leading-snug">
+                    Central apical fluid clearance of <b>260µm</b> with harmonious landing zone alignment across 4
+                    quadrants. 18.0mm custom quadrant-specific scleral, BCVA restored to 20/20-2.
+                  </p>
+                </div>
+                <div className="mt-auto flex items-center gap-2 pt-1">
+                  <span className="flex items-center gap-0.5 text-[8px] font-bold text-neutral-600 dark:text-neutral-300">
+                    <Heart className="h-2.5 w-2.5 fill-rose-500 text-rose-500" /> {likes}
+                  </span>
+                  <span className="flex items-center gap-0.5 text-[8px] font-bold text-neutral-600 dark:text-neutral-300">
+                    <MessageCircle className="h-2.5 w-2.5" /> 45 comments
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Pearl tile */}
-          <div
-            className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2 shadow-sm"
-            style={enterStyle(t, 2700, 3300)}
-          >
-            <span className="text-[7.5px] font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1">
-              <ListChecks className="h-2 w-2" /> PEARL
-            </span>
-            <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight">
-              Foggy sclerals? Check the vaulting first, edge then.
-            </div>
-            <div className="flex items-center gap-1.5 mt-1">
-              <DemoAvatar name="Ken Watanabe" size={14} />
-              <span className="text-[7.5px] font-bold text-neutral-400 truncate">Dr. Ken Watanabe</span>
-            </div>
-          </div>
-
-          {/* Article tile */}
-          <div
-            className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2 shadow-sm"
-            style={enterStyle(t, 3100, 3700)}
-          >
-            <span className="text-[7.5px] font-black text-blue-600 dark:text-blue-400 flex items-center gap-1 mb-1">
-              <FileText className="h-2 w-2" /> ARTICLE
-            </span>
-            <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight">
-              Myopia control in 2026: what changed this year
-            </div>
-            <div className="text-[7.5px] font-bold text-neutral-400 mt-1">6 min read · 89 saves</div>
-          </div>
-
-          {/* Case discussion tile */}
-          <div
-            className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2 shadow-sm"
-            style={enterStyle(t, 3500, 4100)}
-          >
-            <span className="text-[7.5px] font-black text-rose-500 flex items-center gap-1 mb-1">
-              <ImageIcon className="h-2 w-2" /> SLIT-LAMP · Case
-            </span>
-            <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight">
-              Krukenberg spindle with IOP 24 — workup order?
-            </div>
-            <div className="flex items-center gap-1.5 mt-1">
-              <DemoAvatar name="Rafael Domingo" size={14} />
-              <span className="text-[7.5px] font-bold text-neutral-400 truncate">32 comments</span>
-            </div>
-          </div>
-
-          {/* pearl 2 */}
-          <div
-            className="break-inside-avoid mb-2 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-[#15151b] p-2 shadow-sm"
-            style={enterStyle(t, 3900, 4500)}
-          >
-            <span className="text-[7.5px] font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mb-1">
-              <ListChecks className="h-2 w-2" /> PEARL
-            </span>
-            <div className="text-[9px] font-bold text-neutral-900 dark:text-white leading-tight">
-              Van Herick at slit lamp: grade it every time, it's free screening
-            </div>
-            <div className="flex items-center gap-1.5 mt-1">
-              <DemoAvatar name="Priya Nair" size={14} />
-              <span className="text-[7.5px] font-bold text-neutral-400 truncate">Dr. Priya Nair</span>
-            </div>
-          </div>
-        </div>
-
-        {/* hover-lift hint */}
-        <div
-          className="absolute bottom-9 left-1/2 -translate-x-1/2 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-[8.5px] font-black px-3 py-1.5 shadow-lg flex items-center gap-1"
-          style={{ opacity: liftP, transform: `translate(-50%, ${(1 - liftP) * 8}px)` }}
-        >
-          Open any post in one tap <ArrowUpRight className="h-2.5 w-2.5" />
+          <TapCursor
+            moves={[
+              { start: 4300, end: 6900, x: 50, y: 52, clickAt: 6400 },
+            ]}
+          />
         </div>
 
         <SceneCaption
           t={t}
           duration={DURATION}
           beats={[
-            [0, 1900, 'One page mixes every post type the community shares'],
-            [1900, 5800, 'Cases, polls, pearls and articles — all in one wall'],
-            [5800, 8200, 'Polls fill live so you see real consensus'],
-            [8200, 10500, 'Tap anything to open the full discussion'],
+            [0, 2000, 'A living wall of clinical imaging'],
+            [2000, 4600, 'OCT, topography, fluorescein, meibography'],
+            [4600, 6900, 'Hover any case — likes & discussion'],
+            [6900, 9300, 'Tap: full diagnosis & lens data inside'],
+            [9300, 10500, 'From your connections & the community'],
           ]}
         />
       </div>
