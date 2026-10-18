@@ -6,15 +6,15 @@ export const CommunityPreview: React.FC = () => {
     {
       quote:
         'FocusLinks gives our profession what we’ve needed for years: a dedicated clinical exchange without the noise, algorithms, or non-clinical clutter of generic apps.',
-      author: 'Dr. Marcus Vance, Optometrist, FAAO',
-      specialty: 'Cornea & Contact Lens Specialist',
+      author: 'Dr. Marcus Vance, Ophthalmologist · Retina',
+      specialty: 'Retina & Macula',
       location: 'Melbourne, Australia',
       avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=120&auto=format&fit=crop&q=80',
     },
     {
       quote:
         'Being able to post anterior OCT scans and discuss complex scleral lens vaults with colleagues across time zones has elevated my everyday patient outcomes.',
-      author: 'Dr. Elena Rostova, Optometrist',
+      author: 'Dr. Elena Rostova, Optometrist, FAAO',
       specialty: 'Ocular Surface & Specialty Lenses',
       location: 'St. Louis, MO, USA',
       avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=120&auto=format&fit=crop&q=80',
@@ -23,7 +23,7 @@ export const CommunityPreview: React.FC = () => {
       quote:
         'The subspecialty circles are pure gold. Whether it is discussing the latest low-concentration atropine trials or scleral lens troubleshooting, the peer feedback is immediate.',
       author: 'Dr. David Adebayo, Optometrist, FCOptom',
-      specialty: 'Glaucoma & Pediatric Optometry',
+      specialty: 'Glaucoma & Pediatric Eye Care',
       location: 'London, United Kingdom',
       avatar: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=120&auto=format&fit=crop&q=80',
     },
@@ -34,13 +34,13 @@ export const CommunityPreview: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-50 dark:bg-blue-950/60 px-3 py-1 rounded-full border border-blue-200/60 dark:border-blue-800/60">
-            Voices of Optometry
+            Voices of the Community
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight mt-3">
-            Trusted by Optometrists Across the Globe
+            Trusted by Eye Care Professionals Across the Globe
           </h2>
           <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-3">
-            Hear why clinicians are choosing FocusLinks as their primary hub for clinical collaboration.
+            Hear why the eye care community is choosing FocusLinks as its primary hub for clinical collaboration.
           </p>
         </div>
 

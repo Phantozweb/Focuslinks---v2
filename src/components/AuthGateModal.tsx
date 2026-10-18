@@ -11,9 +11,12 @@ import {
   Trash2, 
   FileCheck, 
   IdCard,
-  Building
+  Building,
+  Users
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ECOSYSTEM_ROLES, ROLE_MAP } from '../data/ecosystem';
+import type { EcosystemRoleId } from '../data/ecosystem';
 
 interface AuthGateModalProps {
   isOpen: boolean;
@@ -43,9 +46,15 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
   const [docNumber, setDocNumber] = useState('');
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [isDragging, setIsDragging] = useState(false);
+
+  // Ecosystem profession — the role this member plays in the eye care ecosystem
+  // (optional at sign-up; all 12 roles from src/data/ecosystem.ts are welcome).
+  const [profession, setProfession] = useState<EcosystemRoleId | ''>('');
   
   const [status, setStatus] = useState<'idle' | 'verifying' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const selectedRole = profession ? ROLE_MAP[profession] : undefined;
 
   // Sync mode when modal opens
   useEffect(() => {
@@ -55,6 +64,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
       setStatus('idle');
       setErrorMessage('');
       setUploadedFileName('');
+      setProfession('');
     }
   }, [isOpen, initialMode]);
 
@@ -194,11 +204,11 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <h3 className="text-xl font-extrabold text-neutral-900 dark:text-white">
-                {mode === 'login' ? 'Medical Professional Sign-In' : 'Clinical Membership Onboarding'}
+                {mode === 'login' ? 'Eye Care Professional Sign-In' : 'Clinical Membership Onboarding'}
               </h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
                 {mode === 'login' 
-                  ? 'Authorized Optometrists only. Credential verification check active.' 
+                  ? 'Verified eye care professionals only. Credential verification check active.' 
                   : `Step ${onboardingStep} of 2: ${onboardingStep === 1 ? 'Clinical Profile Setup' : 'Mandatory ID Verification'}`}
               </p>
             </div>
@@ -365,6 +375,52 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                               placeholder="sarah.jenkins@gmail.com"
                               className="w-full pl-10 pr-4 py-3 bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200 dark:border-neutral-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all dark:text-white"
                             />
+                          </div>
+                        </div>
+
+                        {/* Profession picker — declares WHO the member is in the eye care ecosystem */}
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <label className="block text-xs font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
+                              Profession
+                            </label>
+                            {selectedRole ? (
+                              <span
+                                title={selectedRole.label}
+                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${selectedRole.badgeClasses}`}
+                              >
+                                <selectedRole.icon className="h-3 w-3" />
+                                {selectedRole.short}
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-semibold text-neutral-400 normal-case tracking-normal">
+                                All 12 eye care roles welcome
+                              </span>
+                            )}
+                          </div>
+                          <div className="relative">
+                            {selectedRole ? (
+                              <selectedRole.icon className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-400" />
+                            ) : (
+                              <Users className="absolute left-3.5 top-3.5 h-4 w-4 text-neutral-400" />
+                            )}
+                            <select
+                              value={profession}
+                              onChange={(e) => {
+                                setProfession(e.target.value as EcosystemRoleId | '');
+                                if (status === 'error') setStatus('idle');
+                              }}
+                              className="w-full pl-10 pr-4 py-3 bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200 dark:border-neutral-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all dark:text-white appearance-none cursor-pointer"
+                            >
+                              <option value="" disabled>
+                                Select your profession…
+                              </option>
+                              {ECOSYSTEM_ROLES.map((role) => (
+                                <option key={role.id} value={role.id}>
+                                  {role.label}
+                                </option>
+                              ))}
+                            </select>
                           </div>
                         </div>
 

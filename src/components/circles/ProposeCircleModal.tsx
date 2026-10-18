@@ -102,7 +102,7 @@ export const ProposeCircleModal: React.FC<ProposeCircleModalProps> = ({
                 Propose a Subspecialty Circle
               </h3>
               <p className="text-xs text-neutral-400">
-                Create a dedicated community with Discord-style channels
+                Create a dedicated community for any eye care role, with Discord-style channels
               </p>
             </div>
           </div>
@@ -144,8 +144,11 @@ export const ProposeCircleModal: React.FC<ProposeCircleModalProps> = ({
                 <option value="Clinical Pathology">Clinical Pathology</option>
                 <option value="Pediatrics">Pediatrics & Myopia</option>
                 <option value="Anterior Segment">Anterior Segment</option>
+                <option value="Posterior Segment">Posterior Segment & Retina</option>
                 <option value="Glaucoma & Neuro">Glaucoma & Neuro</option>
                 <option value="Practice Management">Practice Management</option>
+                <option value="Research & Academia">Research & Academia</option>
+                <option value="Public Health & Outreach">Public Health & Outreach</option>
               </select>
             </div>
 
@@ -172,7 +175,7 @@ export const ProposeCircleModal: React.FC<ProposeCircleModalProps> = ({
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Describe the clinical topics, diagnostic puzzles, and protocols this community will address..."
+              placeholder="Describe the clinical topics, diagnostic puzzles, and protocols this community will address — and the eye care roles it welcomes..."
               className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
             />
           </div>

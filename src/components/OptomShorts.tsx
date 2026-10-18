@@ -441,14 +441,14 @@ export const OptomShorts: React.FC<ClinicalPearlsProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-sm sm:text-base font-black tracking-tight text-neutral-900 dark:text-white">
-                  Focus Clinical Pearls
+                  Eye Care Shorts
                 </h2>
                 <span className="px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-wider">
                   Text Gems
                 </span>
               </div>
               <p className="text-xs text-neutral-600 dark:text-neutral-400">
-                Peer-verified chairside rules, diagnostic traps, and board-level pearls for daily optometric rounds
+                Peer-verified chairside rules, diagnostic traps, and board-level pearls from across the eye care community
               </p>
             </div>
           </div>
@@ -658,7 +658,7 @@ export const OptomShorts: React.FC<ClinicalPearlsProps> = ({
               <span>All {filteredPearls.length} clinical pearls loaded!</span>
             </div>
             <p className="text-xs text-neutral-400">
-              New diagnostic gems verified by the FocusLinks Optometry Editorial Board weekly.
+              New diagnostic gems verified by the FocusLinks Eye Care Editorial Board weekly.
             </p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

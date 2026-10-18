@@ -31,6 +31,21 @@ import {
 } from 'lucide-react';
 import { DoctorProfile, SpecialtyEndorsement, ClinicalPost } from '../types';
 import { DoctorAvatar } from './common/DoctorAvatar';
+import { ROLE_MAP, type EcosystemRole } from '../data/ecosystem';
+
+/** Small ecosystem role chip (e.g. "Ophthalmologist", "Optometrist") colored per role. */
+const RoleBadge: React.FC<{ role: EcosystemRole }> = ({ role }) => {
+  const RoleIcon = role.icon;
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${role.badgeClasses}`}
+      title={role.tagline}
+    >
+      <RoleIcon className="h-3.5 w-3.5" />
+      {role.label}
+    </span>
+  );
+};
 
 interface LinkedInProfileViewProps {
   profile: DoctorProfile;
@@ -90,6 +105,9 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
   };
 
   const doctorPosts = posts.filter((p) => p.author.id === profile.id);
+
+  // Ecosystem role for this persona (renders as a badge when tagged in the roster)
+  const professionRole = profile.profession ? ROLE_MAP[profile.profession] : undefined;
 
   return (
     <div className="w-full max-w-[1200px] mx-auto space-y-5">
@@ -204,7 +222,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
                     className="flex items-center gap-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#202024] px-3.5 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
                   >
                     <Download className="h-4 w-4 text-neutral-500" />
-                    <span>Export Optometric CV</span>
+                    <span>Export Clinical CV</span>
                   </button>
                 </>
               ) : (
@@ -277,6 +295,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
               <span className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2.5 py-0.5 rounded-md border border-blue-200 dark:border-blue-900/50">
                 {profile.credentials}
               </span>
+              {professionRole && <RoleBadge role={professionRole} />}
               {profile.verified && (
                 <span className="rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
                   <ShieldCheck className="h-3.5 w-3.5" /> Verified Member
@@ -311,7 +330,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
             <div className="flex items-center gap-3 pt-2 text-xs">
               <span className="font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer flex items-center gap-1">
                 <Users className="h-3.5 w-3.5" />
-                {connectionCount.toLocaleString()} Optometric Connections
+                {connectionCount.toLocaleString()} Peer Connections
               </span>
               <span className="text-neutral-300 dark:text-neutral-700">•</span>
               <span className="text-neutral-600 dark:text-neutral-400">
@@ -321,7 +340,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
                 <>
                   <span className="text-neutral-300 dark:text-neutral-700">•</span>
                   <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-                    58 Mutual Optometrists
+                    58 Mutual Connections
                   </span>
                 </>
               )}
@@ -384,7 +403,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
               <p className="text-xs text-neutral-500 dark:text-neutral-400">Private to you • Updated 2 hours ago</p>
             </div>
             <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">
-              +18% Optometric Engagement
+              +18% Peer Engagement
             </span>
           </div>
 
@@ -504,7 +523,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
                   Clinical Specialties & Peer Endorsements
                 </h2>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                  Endorsed by fellow Optometrists (ODs) and Ophthalmologist (MD) surgical co-managers
+                  Endorsed by ophthalmologists, optometrists, and allied eye care co-managers
                 </p>
               </div>
               <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-900/50">
@@ -640,7 +659,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
           <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#18181b] p-6 shadow-2xs space-y-4">
             <h2 className="text-base font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
               <GraduationCap className="h-5 w-5 text-indigo-600" />
-              Optometry Education & Subspecialty Residencies
+              Education & Subspecialty Training
             </h2>
 
             <div className="space-y-4">
@@ -849,7 +868,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
                 Peer-Reviewed Publications & Continuing Education (CE)
               </h2>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Indexed in PubMed / MEDLINE and American Academy of Optometry proceedings
+                Indexed in PubMed / MEDLINE and major eye care & vision science society proceedings
               </p>
             </div>
           </div>
@@ -898,15 +917,15 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
             <div>
               <h2 className="text-base font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
                 <ThumbsUp className="h-5 w-5 text-blue-600" />
-                Optometric Peer & Surgical Co-Management Recommendations
+                Peer & Surgical Co-Management Recommendations
               </h2>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Verified written endorsements from cornea surgeons, academic faculty, and optometric partners
+                Verified written endorsements from cornea surgeons, academic faculty, and clinical partners
               </p>
             </div>
             {isCurrentUser && (
               <button
-                onClick={() => alert('Recommendation request link generated for fellow ODs!')}
+                onClick={() => alert('Recommendation request link generated for your peers!')}
                 className="text-xs font-semibold text-blue-600 hover:underline"
               >
                 Request Recommendation
@@ -1014,7 +1033,7 @@ export const LinkedInProfileView: React.FC<LinkedInProfileViewProps> = ({
 
                   <div className="p-2.5 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-[11px] text-blue-700 dark:text-blue-300 flex items-center gap-1.5">
                     <ShieldCheck className="h-4 w-4 shrink-0" />
-                    <span>HIPAA Compliant encrypted channel between verified OD peers.</span>
+                    <span>HIPAA Compliant encrypted channel between verified eye care peers.</span>
                   </div>
 
                   <div className="flex items-center justify-end gap-2 pt-2">

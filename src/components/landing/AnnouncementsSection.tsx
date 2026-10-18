@@ -1,11 +1,37 @@
 import React, { useState } from 'react';
-import { Calendar, Tag, ChevronRight, Award, Newspaper, Star } from 'lucide-react';
+import { Calendar, Tag, ChevronRight, Award, Newspaper, Star, Users } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import type { LucideIcon } from 'lucide-react';
+
+type Announcement = {
+  id: number;
+  category: 'platform' | 'clinical' | 'event';
+  badge: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  author: string;
+  featured?: boolean;
+  icon?: LucideIcon;
+};
 
 export const AnnouncementsSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'platform' | 'clinical' | 'event'>('all');
 
-  const announcements = [
+  const announcements: Announcement[] = [
+    {
+      id: 0,
+      category: "platform",
+      badge: "Platform Milestone",
+      title: "FocusLinks is now open to the entire eye care ecosystem",
+      description: "FocusLinks now welcomes ophthalmologists, optometrists, opticians, orthoptists, ophthalmic nurses & technicians, vision scientists and researchers, educators, residents, fellows, and students. One verified home for the entire eye care community — connect across disciplines, ask and answer in the consult hubs, and learn from every corner of eye care.",
+      date: "Oct 20, 2026",
+      readTime: "2 min read",
+      author: "FocusLinks Team",
+      featured: true,
+      icon: Users
+    },
     {
       id: 1,
       category: "platform",
@@ -71,7 +97,7 @@ export const AnnouncementsSection: React.FC = () => {
               Latest Platform Updates
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-2xl">
-              Stay up-to-date with newly launched community features, specialty consult hubs, verification updates, and educational case webinars.
+              Stay up-to-date with newly launched community features, specialty consult hubs, verification updates, and educational case webinars for the entire eye care ecosystem.
             </p>
           </div>
 
@@ -124,8 +150,9 @@ export const AnnouncementsSection: React.FC = () => {
 
                 <div className="space-y-4">
                   {/* Category badge */}
-                  <span className="inline-block text-[10px] uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">
-                    {item.badge}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider text-blue-600 dark:text-blue-400">
+                    {item.icon && <item.icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />}
+                    <span>{item.badge}</span>
                   </span>
 
                   <h3 className="text-lg sm:text-xl font-extrabold text-neutral-900 dark:text-white leading-snug">

@@ -490,7 +490,7 @@ export const MOCK_TOPICS: QuestionTopic[] = [
     id: 'topic-students',
     name: 'Students & New Grads',
     slug: 'students-new-grads',
-    description: 'NBEO prep, residency applications, first-job contract review, and mentorship threads moderated by attending ODs.',
+    description: 'Board prep for every discipline (NBEO, USMLE & more), residency and fellowship applications, first-job contract review, and cross-discipline mentorship threads moderated by attending clinicians.',
     iconName: 'GraduationCap',
     bannerColor: 'from-emerald-500/20 to-teal-500/10 text-emerald-500 border-emerald-500/30',
     gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
@@ -536,6 +536,86 @@ export const MOCK_TOPICS: QuestionTopic[] = [
       'Material advice must include Abbe value and impact rating.',
     ],
   },
+
+  /* ---------------------------------------------------------------- */
+  /*  ECOSYSTEM CROSS-DISCIPLINE HUBS — where MDs, ODs, orthoptists,  */
+  /*  nurses, technicians, opticians and scientists co-manage         */
+  /* ---------------------------------------------------------------- */
+  {
+    id: 'topic-retina-surgery',
+    name: 'Retina & Vitreous Surgery',
+    slug: 'retina-vitreous-surgery',
+    description: 'Membrane peeling & macular hole face-down protocols, retinal detachment tamponade selection, endophthalmitis gatekeeping, and MD–OD post-op co-management.',
+    iconName: 'Microscope',
+    bannerColor: 'from-rose-500/20 to-red-500/10 text-rose-500 border-rose-500/30',
+    gradient: 'from-red-500 via-rose-500 to-orange-500',
+    imageUrl: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=600&q=80',
+    followersCount: 2140,
+    questionsCount: 156,
+    isFollowed: false,
+    isTrending: true,
+    isStudentFriendly: true,
+    trendingTags: ['#MacularHole', '#Tamponade', '#RDRepair', '#ScleralBuckle', '#FaceDown'],
+    recentActivity: 'Fellow-led OR debriefs • weekly surgical case reviews',
+    categoryId: 'cat-surgical',
+    weeklyAsks: 8,
+    acceptanceRate: 90,
+    hubRules: [
+      'State device, tamponade agent and post-op day with every ask.',
+      'Co-management questions: include the surgeon preference card first.',
+      'De-identify all OR videos and fundus photos before posting.',
+    ],
+  },
+  {
+    id: 'topic-lowvision',
+    name: 'Low Vision & Rehabilitation',
+    slug: 'low-vision-rehabilitation',
+    description: 'Magnification & eccentric viewing training, certified vision-rehab device fittings, driving and employment assessments, and multidisciplinary low-vision referrals.',
+    iconName: 'Accessibility',
+    bannerColor: 'from-teal-500/20 to-emerald-500/10 text-teal-500 border-teal-500/30',
+    gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
+    imageUrl: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=600&q=80',
+    followersCount: 1240,
+    questionsCount: 87,
+    isFollowed: false,
+    isRecommended: true,
+    isStudentFriendly: true,
+    trendingTags: ['#LowVisionAids', '#EccentricViewing', '#CertifiedVRT', '#DrivingAssessment', '#PediatricLV'],
+    recentActivity: 'New device-fitting templates shared by the community',
+    categoryId: 'cat-practice',
+    weeklyAsks: 4,
+    acceptanceRate: 85,
+    hubRules: [
+      'Document best-corrected acuity and the patient’s task goals, not just the Rx.',
+      'List devices already trialed before asking for escalation advice.',
+      'Remove patient-identifying details from home-visit stories.',
+    ],
+  },
+  {
+    id: 'topic-ophthalmic-assisting',
+    name: 'Ophthalmic Assisting & Imaging',
+    slug: 'ophthalmic-assisting-imaging',
+    description: 'Technician- and nurse-led workups, OCT & fundus photography protocols, JCAHPO/OSC skill growth, injection-day workflows, and clinic efficiency.',
+    iconName: 'Syringe',
+    bannerColor: 'from-sky-500/20 to-cyan-500/10 text-sky-500 border-sky-500/30',
+    gradient: 'from-cyan-500 via-sky-500 to-indigo-500',
+    imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80',
+    followersCount: 1680,
+    questionsCount: 121,
+    isFollowed: false,
+    isTrending: true,
+    isStudentFriendly: true,
+    trendingTags: ['#JCAHPO', '#ImagingProtocols', '#WorkupEfficiency', '#InjectionDay', '#TechTraining'],
+    recentActivity: 'Imaging protocol cheat-sheets refreshed for the new quarter',
+    categoryId: 'cat-tech',
+    weeklyAsks: 7,
+    acceptanceRate: 83,
+    hubRules: [
+      'Post raw image output with device settings, not screenshots of screenshots.',
+      'Scope-of-practice questions: name your state or country first.',
+      'De-identify every patient-facing document before sharing.',
+    ],
+  },
 ];
 
 export const MOCK_QUESTIONS: ClinicalQuestion[] = [
@@ -578,7 +658,7 @@ What clinical clues or in-office diagnostic maneuvers do colleagues use to deter
         questionId: 'q-retina-1',
         author: CURRENT_USER,
         createdAt: '1 hour ago',
-        content: `This is the quintessential pachychoroid dilemma that keeps ODs up at night. The "Double Layer Sign" (DLS) in pachychoroid disease harbors occult Type 1 neovascularization in up to 35-45% of cases even without massive exudation.
+        content: `This is the quintessential pachychoroid dilemma that keeps all of us in eye care up at night. The "Double Layer Sign" (DLS) in pachychoroid disease harbors occult Type 1 neovascularization in up to 35-45% of cases even without massive exudation.
 
 Here is my clinical rule of thumb when OCT-A is unavailable:
 
@@ -620,7 +700,7 @@ Here is my clinical rule of thumb when OCT-A is unavailable:
       {
         id: 'ans-r1-2',
         questionId: 'q-retina-1',
-        author: OTHER_DOCTORS[1], // Dr. Sarah Jenkins
+        author: OTHER_DOCTORS[11], // Dr. Rafael Dominguez (vitreoretinal surgeon)
         createdAt: '2 hours ago',
         content: `I would also add: look for the presence of **"Subretinal Fibrin" or "Shaggy Photoreceptors"** on the high-resolution B-scan. 
 
@@ -673,7 +753,7 @@ Questions for glaucoma subspecialists:
       {
         id: 'ans-g1-1',
         questionId: 'q-glaucoma-1',
-        author: OTHER_DOCTORS[3], // Dr. Tariq Al-Mansoor
+        author: OTHER_DOCTORS[12], // Dr. Hannah Weiss (glaucoma surgeon)
         createdAt: '4 hours ago',
         content: `The low corneal hysteresis (7.8 mmHg) and paracentral fixation scotoma in a patient with cold extremities and nocturnal hypotension screams **vascular dysregulation / Flammer syndrome component** on top of mechanical POAG.
 
@@ -805,7 +885,7 @@ Given the LAMP (Low-Concentration Atropine for Myopia Progression) study outcome
       {
         id: 'ans-m1-1',
         questionId: 'q-myopia-1',
-        author: OTHER_DOCTORS[0], // Dr. Marcus Chen
+        author: OTHER_DOCTORS[18], // Dr. Mateo Rivas (vision scientist, myopia research)
         createdAt: '10 hours ago',
         content: `The LAMP study Phase 1 & 2 demonstrated conclusively that **0.05% atropine is roughly double the efficacy of 0.01%** in slowing axial elongation (0.27mm vs 0.41mm elongation over 2 years), with negligible clinically significant adverse effects on photophobia or reading in Caucasian and Asian cohorts.
 
@@ -1368,7 +1448,7 @@ Given the evidence base:
       {
         id: 'ans-bvv1-1',
         questionId: 'q-bvvt-1',
-        author: OTHER_DOCTORS[6], // Dr. Jonathan Reyes
+        author: OTHER_DOCTORS[14], // Sofia Marchetti (orthoptist)
         createdAt: '20 hours ago',
         content: `The CITT trials settle this one: **office-based vergence/accommodative therapy with home reinforcement is the evidence-based standard** — it achieved normalized NPC and PFV in ~73% of children at 12 weeks, vs ~33-43% for home pencil push-ups alone (CITT Study Group, Arch Ophthalmol 2008; CITT-ART NEJM 2019 for the symptom outcomes).
 
@@ -1463,10 +1543,10 @@ PEDIG data suggests both work. How do you choose?
 
 The surgical center quotes him LASIK and SMILE; my instinct says the thin cornea + high myopia combination changes the conversation.
 
-For the co-mgmt ODs and the surgeons here:
+For the co-managing ODs, MDs and the surgeons here:
 1. With 498µm and -7.50D, does PRK + MMC beat SMILE on tissue budget, or am I overthinking it?
 2. What residual stromal bed / percent-tissue-altered numbers do you use as hard gates?
-3. Post-op protocol expectations for the comanaging OD: drop sequence, haze surveillance with MMC, dry eye management?`,
+3. Post-op protocol expectations for the comanaging clinician: drop sequence, haze surveillance with MMC, dry eye management?`,
     topicId: 'topic-refractive',
     topicName: 'Refractive Surgery Co-Mgmt',
     tags: ['PRK', 'SMILE', 'LASIK', 'CCT', 'Ectasia Risk', 'MMC'],
@@ -1617,7 +1697,7 @@ The workflow gap that has everyone nervous: the device result is documented in t
 
 For those who have deployed this:
 1. What handoff protocol do you use for AI-referred and ungradable patients (who owns the follow-up — PCP, screening program, or the eyecare provider)?
-2. What documentation protects the comanaging OD if a patient is lost to follow-up and presents with PDR two years later?
+2. What documentation protects the comanaging clinician if a patient is lost to follow-up and presents with PDR two years later?
 3. How do you audit the loop (metrics, cadence)?`,
     topicId: 'topic-ai',
     topicName: 'AI & Digital Health',
@@ -1649,10 +1729,10 @@ For those who have deployed this:
 **Protocol that survived our legal review:**
 1. **Same-day disposition, not a letter.** The AI-referred or ungradable patient leaves the PCP visit with a booked eye-care appointment (on-site scheduler) or a documented refusal. A letter with an 800 number is how PDR cases happen.
 2. **The FDA labeling is your floor, not your protocol.** The DeNovo labeling says positive/ungradable → dilated exam; it does not define WHO ensures that happens. Your policy document must: name the responsible party (screening program care coordinator), the follow-up window (e.g. 90 days), and the escalation ladder (call at 2 weeks, certified letter at 4 weeks, PCP escalation at 8 weeks).
-3. **Documentation that protects the OD:** every encounter charted as "referred from autonomous AI DR screening, result [X], appointment [date/refusal documented], patient counseled on risk of vision loss without exam." A signed patient-acknowledgment of the referral for refusals. This is what makes a 2-year-later PDR case defensible — the record shows a functioning loop and an informed patient who opted out.
+3. **Documentation that protects the comanaging clinician:** every encounter charted as "referred from autonomous AI DR screening, result [X], appointment [date/refusal documented], patient counseled on risk of vision loss without exam." A signed patient-acknowledgment of the referral for refusals. This is what makes a 2-year-later PDR case defensible — the record shows a functioning loop and an informed patient who opted out.
 4. **Audit metrics:** loop-closure rate (referred patients with completed exam / all referrals), ungradable rate, time-to-exam median. Review monthly at first, quarterly once stable. Loop closure <80% is a program failure regardless of the AI sensitivity.
 
-One more: put the OD community in the referral path early. If every AI-positive lands with "the nearest retina clinic in 6 weeks", patients float. Contract the overflow to local ODs who dilate same-month.`,
+One more: put the local eye care community in the referral path early. If every AI-positive lands with "the nearest retina clinic in 6 weeks", patients float. Contract the overflow to local optometric and ophthalmic practices that dilate same-month.`,
         upvotes: 38,
         downvotes: 0,
         isAcceptedAnswer: true,
@@ -1679,7 +1759,7 @@ Where does the evidence and practice actually land in 2025?
     topicId: 'topic-retinaimaging',
     topicName: 'Retina Imaging Roundtable',
     tags: ['UWF', 'ETDRS', 'Diabetic Retinopathy', 'Grading', 'Referral'],
-    author: OTHER_DOCTORS[0], // Dr. Marcus Chen
+    author: OTHER_DOCTORS[16], // Derek Santos (retina imaging specialist)
     createdAt: '4 days ago',
     upvotes: 61,
     downvotes: 0,
@@ -1753,7 +1833,7 @@ My billing team split on:
         questionId: 'q-billing-1',
         author: OTHER_DOCTORS[8], // Dr. Chloe Bennett
         createdAt: '2 days ago',
-        content: `This is the most-audited visit type in optometry, so let's be precise.
+        content: `This is the most-audited visit type in outpatient eye care, so let's be precise.
 
 **1. Code pairing.** You cannot pair 92004 (or 92002) with a separate E/M for the same date *when the comprehensive code already includes evaluation of the presenting problem* — payers deny that as bundled. The clean structure when a medical decision is made: **skip 9200x entirely and bill the E/M level you actually performed (99213/99214) with modifier -25 if anything minor-procedure-ish accompanies it**, plus the OCT. The refraction-with-diabetic-exam is exactly a medical decision-making visit (stable chronic illness + data review), so 92004 vs E/M should be decided by what you DOCUMENT, and the E/M route pays better and survives audit when documentation matches.
 
@@ -1805,7 +1885,7 @@ I keep hearing "new grads should take the base" but also that 25% is the real mo
       {
         id: 'ans-stu2-1',
         questionId: 'q-students-1',
-        author: CURRENT_USER,
+        author: OTHER_DOCTORS[19], // Dr. Alison Hartley (academic educator)
         createdAt: '4 days ago',
         content: `Congrats on two offers — let's make this arithmetic instead of folklore.
 

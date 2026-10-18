@@ -96,7 +96,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
 
   return (
     <div className="w-full space-y-7">
-      {/* Top Hero Banner - Global Optometry Community Hub Header */}
+      {/* Top Hero Banner - Global Eye Care Community Hub Header */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 via-neutral-950 to-blue-950 text-white p-6 sm:p-8 md:p-10 shadow-2xl border border-neutral-800">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/3 -mb-16 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -105,13 +105,13 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold tracking-wide border border-blue-500/30">
               <Sparkles className="h-3.5 w-3.5 text-blue-400" />
-              <span>Global Optometrists Clinical Exchange</span>
+              <span>Global Eye Care Clinical Exchange</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight font-['Plus_Jakarta_Sans',sans-serif]">
               Clinical Circles
             </h1>
             <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-              Connect with fellow optometrists worldwide. Join dedicated subspecialty channels for acute case triage, 
+              Connect with fellow eye care professionals worldwide. Join dedicated subspecialty channels for acute case triage, 
               evidence consensus polls, chairside case discussion, and collaborative learning.
             </p>
 
@@ -129,7 +129,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
               <span className="text-neutral-600 hidden sm:inline">•</span>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-indigo-300 text-base">Verified</span>
-                <span className="text-neutral-400">Optometrist Network</span>
+                <span className="text-neutral-400">Eye Care Network</span>
               </div>
             </div>
           </div>
@@ -176,7 +176,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
               </h2>
             </div>
             <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
-              Keep updated with continuing education credits, live case panels, and international clinical symposia hosted by verified optometric communities.
+              Keep updated with continuing education credits, live case panels, and international clinical symposia hosted by verified eye care communities.
             </p>
           </div>
 
@@ -319,7 +319,7 @@ export const CirclesHub: React.FC<CirclesHubProps> = ({
                     <span className="font-semibold text-neutral-800 dark:text-neutral-200">
                       {circle.membersCount.toLocaleString()}
                     </span>
-                    <span>optoms</span>
+                    <span>members</span>
                   </div>
 
                   <div className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform">

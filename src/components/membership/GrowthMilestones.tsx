@@ -76,7 +76,7 @@ const MILESTONES: MilestoneStage[] = [
     id: 'associate-od',
     stageNumber: '02',
     level: 'Early Practice',
-    title: 'Early Career Associate OD',
+    title: 'Early Career Clinician',
     yearsExperience: 'Years 1 - 3 Post-Licensure',
     shortDesc: 'Transitioning into full autonomous chair time, fine-tuning diagnostic efficiency, and managing acute ocular surface cases.',
     icon: Stethoscope,
@@ -96,7 +96,7 @@ const MILESTONES: MilestoneStage[] = [
       'Building professional co-management relationships with local corneal surgeons'
     ],
     platformPrivileges: [
-      'Verified Licensed Optometrist Directory listing',
+      'Verified Eye Care Professional Directory listing',
       'Submit complex cases for rapid second opinions from senior colleagues',
       'Direct peer-to-peer referral messaging without intermediaries',
       'Full voting rights on independent practice clinical surveys'
@@ -131,7 +131,7 @@ const MILESTONES: MilestoneStage[] = [
       'Featured regional listing in the peer referral network',
       'Host regional clinical study circles and journal reviews',
       'Contribute verified case files to the collective scan repository',
-      'Co-management export tools to simplify doctor-to-doctor transfer'
+      'Co-management export tools to simplify clinician-to-clinician transfer'
     ],
     diagnosticScope: 'Advanced Anterior Segment & Irregular Cornea Rehabilitation',
     advocacyRole: 'Regional Chapter Lead'
@@ -173,8 +173,8 @@ const MILESTONES: MilestoneStage[] = [
     stageNumber: '05',
     level: 'Leadership & Fellowship',
     title: 'Senior Fellow, Mentor & Leader',
-    yearsExperience: '15+ Years / Board Fellow (FAAO / FCOVD)',
-    shortDesc: 'Shaping the future of optometry through peer mentorship, fellowship committees, clinical education, and safeguarding independent practice.',
+    yearsExperience: '15+ Years / Board Fellow (FAAO, FCOVD, FACS)',
+    shortDesc: 'Shaping the future of eye care through peer mentorship, fellowship committees, clinical education, and safeguarding independent practice.',
     icon: Award,
     accentColor: {
       primary: 'text-purple-600 dark:text-purple-400',
@@ -184,12 +184,12 @@ const MILESTONES: MilestoneStage[] = [
       badge: 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300',
       tagBg: 'bg-purple-500'
     },
-    focusArea: 'Intergenerational Mentorship & Global Optometric Unity',
+    focusArea: 'Intergenerational Mentorship & Global Eye Care Unity',
     keyResponsibilities: [
       'Serving on credentialing and peer review fellowship panels',
-      'Mentoring early-career optometrists navigating private practice ownership',
+      'Mentoring early-career clinicians navigating private practice ownership',
       'Delivering peer-reviewed grand rounds and non-commercial clinical lectures',
-      'Championing independent optometry against corporate commoditization'
+      'Championing independent practice against corporate commoditization'
     ],
     platformPrivileges: [
       'Senior Fellow Gold Key Credential badge across all discussions',
@@ -226,10 +226,10 @@ export const GrowthMilestones: React.FC<GrowthMilestonesProps> = ({
           <span>Professional Career Continuum</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white tracking-tight">
-          Optometric Growth Milestones
+          Eye Care Growth Milestones
         </h2>
         <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium max-w-3xl leading-relaxed">
-          The journey of an independent optometrist is continuous. Explore how your clinical responsibilities, diagnostic autonomy, and FocusLinks community privileges expand as you progress from student extern to senior fellow.
+          The journey of an eye care professional is continuous. Explore how your clinical responsibilities, diagnostic autonomy, and FocusLinks community privileges expand as you progress from student extern to senior fellow — across every discipline in the ecosystem.
         </p>
       </div>
 

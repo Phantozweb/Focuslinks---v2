@@ -75,7 +75,7 @@ export const ConsultsScene: React.FC<{ t: number }> = ({ t: tG }) => {
                   <h3 className="text-[15px] font-black tracking-tight mt-0.5">
                     Peer Consults & Second Opinions
                     <span className="ml-2.5 text-[10px] font-medium text-neutral-400 hidden xl:inline">
-                      Crowdsourced from verified optometrists & ophthalmologists worldwide
+                      Crowdsourced from verified eye care professionals worldwide
                     </span>
                   </h3>
                 </div>

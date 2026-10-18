@@ -28,6 +28,8 @@ import {
   Cone,
   Focus,
   Crosshair,
+  Syringe,
+  Accessibility,
   Tag
 } from 'lucide-react';
 
@@ -66,6 +68,8 @@ const HUB_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> 
   cone: Cone,
   focus: Focus,
   crosshair: Crosshair,
+  syringe: Syringe,
+  accessibility: Accessibility,
 };
 
 export const resolveHubIcon = (iconName: string, className = 'h-4 w-4'): React.ReactElement => {

@@ -25,6 +25,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { DoctorProfile } from '../types';
+import { ROLE_MAP } from '../data/ecosystem';
+import type { EcosystemRoleId } from '../data/ecosystem';
 
 interface SettingsViewProps {
   currentUser: DoctorProfile;
@@ -60,9 +62,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
     setTimeout(() => setIsSavedToast(false), 3000);
   };
 
+  // Ecosystem profession — show the declared role; when absent, fall back to
+  // 'Optometrist' ONLY if the member's existing title/credential strings match
+  // an OD persona, otherwise omit the badge (never a wrong label).
+  const titleSignature = `${currentUser.name} ${currentUser.credentials} ${currentUser.currentRole} ${currentUser.headline}`;
+  const professionId: EcosystemRoleId | undefined =
+    currentUser.profession ?? (/\bOD\b|optometrist|optometric/i.test(titleSignature) ? 'optometrist' : undefined);
+  const professionRole = professionId ? ROLE_MAP[professionId] : undefined;
+
   const navItems = [
     { id: 'practice' as const, label: 'Practice & Specialty', icon: Building, desc: 'Clinic setup, referrals & clinical scope' },
-    { id: 'credentials' as const, label: 'Licensing & Verification', icon: ShieldCheck, desc: 'OD license, NPI & COPE ID' },
+    { id: 'credentials' as const, label: 'Licensing & Verification', icon: ShieldCheck, desc: 'License, NPI & council IDs' },
     { id: 'hipaa' as const, label: 'HIPAA & Diagnostic Vault', icon: Shield, desc: 'De-identification rules & scan formats' },
     { id: 'notifications' as const, label: 'Clinical Alerts', icon: Bell, desc: 'Consult mentions, pearls & rounds' },
     { id: 'appearance' as const, label: 'Display & DICOM Viewer', icon: Sliders, desc: 'Theme, high-contrast & viewport' },
@@ -89,9 +99,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             <span className="text-xs text-neutral-400 font-mono">
               ID: {currentUser.membershipId || 'FL-29841-OD'}
             </span>
+            {professionRole && (
+              <span
+                title={professionRole.label}
+                className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${professionRole.badgeClasses}`}
+              >
+                <professionRole.icon className="h-3 w-3" />
+                {professionRole.short}
+              </span>
+            )}
           </div>
           <h1 className="text-2xl font-black text-neutral-900 dark:text-white tracking-tight">
-            Doctor Practice & Account Settings
+            Practice & Account Settings
           </h1>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 mt-1">
             Manage your verified clinical profile, referral availability, HIPAA de-identification rules, and diagnostic display preferences.
@@ -208,7 +227,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-[#16161e] border border-neutral-200/70 dark:border-neutral-800 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-bold text-neutral-900 dark:text-white">Open to Direct Patient Referrals</p>
-                    <p className="text-[11px] text-neutral-500">Allow verified OD colleagues to send complex anterior/scleral referrals</p>
+                    <p className="text-[11px] text-neutral-500">Allow verified colleagues to send complex anterior/scleral referrals</p>
                   </div>
                   <input
                     type="checkbox"
@@ -252,7 +271,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             <div className="space-y-6 animate-in fade-in duration-150">
               <div>
                 <h2 className="text-base font-extrabold text-neutral-900 dark:text-white">
-                  Optometric Licensing & Professional Identity
+                  Professional Licensing & Identity
                 </h2>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
                   Your credentials are cross-referenced with national databases (NPI / ARBO) for sovereign platform verification.
@@ -265,12 +284,36 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 </div>
                 <div>
                   <p className="text-xs font-bold text-emerald-950 dark:text-emerald-300">
-                    Sovereign OD Credential Verified
+                    Sovereign Credential Verified
                   </p>
                   <p className="text-[11px] text-emerald-800 dark:text-emerald-400">
                     Membership ID: <span className="font-mono font-bold">{currentUser.membershipId || 'FL-29841-OD'}</span> • Status Active
                   </p>
                 </div>
+              </div>
+
+              {/* Profession — the member's declared role in the eye care ecosystem */}
+              <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-[#16161e] border border-neutral-200/70 dark:border-neutral-800 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-bold text-neutral-900 dark:text-white">Profession</p>
+                  <p className="text-[11px] text-neutral-500">Your declared role across the eye care ecosystem — edit anytime from your profile.</p>
+                </div>
+                {professionRole ? (
+                  <span className="flex items-center gap-2 shrink-0">
+                    <span
+                      title={professionRole.label}
+                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold border ${professionRole.badgeClasses}`}
+                    >
+                      <professionRole.icon className="h-3.5 w-3.5" />
+                      {professionRole.short}
+                    </span>
+                    <span className="hidden sm:inline text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                      {professionRole.label}
+                    </span>
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-semibold text-neutral-400 shrink-0">Not specified</span>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -350,7 +393,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-[#16161e] border border-neutral-200/70 dark:border-neutral-800 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-bold text-neutral-900 dark:text-white">Clinical Watermark on Export</p>
-                    <p className="text-[11px] text-neutral-500">Embeds non-destructive peer educational watermark with your OD ID</p>
+                    <p className="text-[11px] text-neutral-500">Embeds non-destructive peer educational watermark with your member ID</p>
                   </div>
                   <input
                     type="checkbox"
@@ -405,7 +448,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 <div className="p-4 rounded-2xl bg-neutral-50 dark:bg-[#16161e] border border-neutral-200/70 dark:border-neutral-800 flex items-center justify-between">
                   <div>
                     <p className="text-xs font-bold text-neutral-900 dark:text-white">Direct Clinical Consult Requests</p>
-                    <p className="text-[11px] text-neutral-500">Urgent peer review pings from fellow optometrists</p>
+                    <p className="text-[11px] text-neutral-500">Urgent peer review pings from fellow verified members</p>
                   </div>
                   <input
                     type="checkbox"

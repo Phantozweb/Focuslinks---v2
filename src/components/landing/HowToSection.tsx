@@ -8,7 +8,7 @@ interface HowToSectionProps {
 const QUICK_ANSWERS = [
   {
     q: 'How do I join and get verified?',
-    a: 'Submit your credentials — degree serial, registry entry (NPI, GOC, Indian State Council) or college ID — and the clinical review board verifies you, usually within 12 hours. Your Membership ID then unlocks the full workspace.',
+    a: 'Submit your credentials — a degree serial, registry entry (NPI, GOC, or your national or state council) or college ID — and the clinical review board verifies you, usually within 12 hours, whatever your role in eye care. Your Membership ID then unlocks the full workspace.',
   },
   {
     q: 'What can I actually do on FocusLinks?',
@@ -16,7 +16,7 @@ const QUICK_ANSWERS = [
   },
   {
     q: 'Is it free to use?',
-    a: 'Yes — core access is completely free for the global optometry community: reading the clinical feed, exploring diagnostic cases, participating in Circles and connecting in the directory.',
+    a: 'Yes — core access is completely free for the global eye care community: reading the clinical feed, exploring diagnostic cases, participating in Circles and connecting in the directory.',
   },
   {
     q: 'How is patient privacy protected?',
@@ -24,7 +24,7 @@ const QUICK_ANSWERS = [
   },
   {
     q: 'I practice outside the US. Can I still join?',
-    a: 'Absolutely. The Universal Verification Framework accepts college IDs, B.Optom / M.Optom degree serials and clinical letterhead — state council registration is NOT required to register.',
+    a: 'Absolutely. The Universal Verification Framework accepts college IDs, professional degree serials (B.Optom, M.Optom, MBBS/MD and other eye care qualifications) and clinical letterhead — state council registration is NOT required to register.',
   },
   {
     q: 'Where do I find every upcoming event?',
@@ -46,7 +46,7 @@ export const HowToSection: React.FC<HowToSectionProps> = ({ onOpenHowTo }) => {
           Learn How FocusLinks Works
         </h2>
         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-2">
-          Practical, step-by-step answers to the questions optometrists ask most — so you spend less time figuring out the platform and more time on clinical work.
+          Practical, step-by-step answers to the questions eye care professionals ask most — so you spend less time figuring out the platform and more time on clinical work.
         </p>
       </div>
 

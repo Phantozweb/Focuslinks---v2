@@ -55,7 +55,12 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-1',
         q: 'How do I join FocusLinks and get my Membership ID?',
-        a: 'From the landing page, choose "Free ID" (or Log In) and submit your professional credentials — a degree serial number, registry entry (NPI, GOC, Indian State Council) or college ID. The clinical review board vetts your application, and once approved your personal Membership ID (like FL-29841-OD) unlocks the full workspace: feed, consult hubs, Circles, directory and events.'
+        a: 'From the landing page, choose "Free ID" (or Log In) and submit your professional credentials — a degree serial number, registry entry (NPI, GOC, or your national or state council) or college ID. The clinical review board vets your application, and once approved your personal Membership ID (like FL-29841-OD) unlocks the full workspace: feed, consult hubs, Circles, directory and events.'
+      },
+      {
+        id: 'ht-1b',
+        q: 'Which professions can join FocusLinks?',
+        a: 'Every role in the eye care ecosystem is welcome: ophthalmologists, optometrists, opticians, orthoptists, ophthalmic nurses and technicians, vision scientists, academic faculty, residents and fellows, students, industry professionals, and public-health & vision rehabilitation specialists. Verification simply adapts to each pathway — clinicians submit degree serials or council and registry numbers, allied professionals use licensing or certification credentials, researchers and faculty verify through institutional affiliation, trainees register with a college ID, and industry and public-health members confirm their role with employer or organizational proof. The review board vets every pathway to the same verified standard.'
       },
       {
         id: 'ht-2',
@@ -65,17 +70,17 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-3',
         q: 'I practice outside the US (e.g., India) — which credentials can I use?',
-        a: 'FocusLinks runs a Universal Verification Framework precisely because registries are not standardised worldwide. State council registration is NOT required. You can activate your clinical profile with your college ID card, your B.Optom or M.Optom degree serial number, or clinical letterhead. The review board manually vets these submissions, so practitioners from any region get the same peer benefits.'
+        a: 'FocusLinks runs a Universal Verification Framework precisely because registries are not standardized worldwide. State council registration is NOT required. You can activate your clinical profile with your college ID card, your professional degree serial number (B.Optom, M.Optom, MBBS/MD and other eye care qualifications), or clinical letterhead. The review board manually vets these submissions, so professionals from any region get the same peer benefits.'
       },
       {
         id: 'ht-4',
         q: 'What is a Credential Sponsor Handshake and how do I use it?',
-        a: 'A currently verified, active optometrist on FocusLinks can sponsor a trusted colleague who is registering, vouching for their credentials. Sponsored applications bypass the manual queue and activate instantly. To use it, ask a verified peer to send you a sponsor handshake from their directory profile, then complete your registration with the handshake code they share.'
+        a: 'A currently verified, active member on FocusLinks can sponsor a trusted colleague who is registering, vouching for their credentials. Sponsored applications bypass the manual queue and activate instantly. To use it, ask a verified peer to send you a sponsor handshake from their directory profile, then complete your registration with the handshake code they share.'
       },
       {
         id: 'ht-5',
-        q: 'Can optometry students or residents join the workspace?',
-        a: 'Yes — academic registries are fully supported. Students, interns and clinical residents register with an active college ID card or university enrolment certificate and receive a Verified Student badge with educational read-and-participate access to case archives, diagnostic playbooks and peer discussions. Upgrade to practitioner verification automatically when you graduate.'
+        q: 'Can students, residents and fellows join the workspace?',
+        a: 'Yes — academic registries are fully supported across every training pathway. Optometry students and interns, ophthalmology and optometry residents and fellows, orthoptic students, and vision science PhD candidates all register with an active college ID card or university enrollment certificate and receive a Verified Student badge with educational read-and-participate access to case archives, diagnostic playbooks and peer discussions. Upgrade to practitioner verification automatically when you graduate.'
       }
     ]
   },
@@ -87,17 +92,17 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-6',
         q: 'How do I complete my profile so peers trust it?',
-        a: 'Open Settings and work top to bottom: add a clear profile photo, your credentials (OD, fellowship), current institution, city or region, and a short bio covering your clinical passions. Then select your Clinical Specialties — this is what the directory search and hub rankings read. A complete profile is what turns a Connect request into an instant accept.'
+        a: 'Open Settings and work top to bottom: add a clear profile photo, your credentials (degrees, fellowships, certifications), current institution, city or region, and a short bio covering your clinical passions. Then select your Clinical Specialties — this is what the directory search and hub rankings read. A complete profile is what turns a Connect request into an instant accept.'
       },
       {
         id: 'ht-7',
         q: 'How do peer endorsements actually work?',
-        a: 'When certified optometrists endorse a specialty on your profile (open their profile, navigate to Clinical Specialties, and tick the check), it contributes to your Platform Reputation. Members with high endorsement volume surface as "Specialty Contributors" in feed listings and directory searches — a verified signal of trusted expertise that no self-written bio can fake.'
+        a: 'When certified peers endorse a specialty on your profile (open their profile, navigate to Clinical Specialties, and tick the check), it contributes to your Platform Reputation. Members with high endorsement volume surface as "Specialty Contributors" in feed listings and directory searches — a verified signal of trusted expertise that no self-written bio can fake.'
       },
       {
         id: 'ht-8',
         q: 'What badges exist on FocusLinks and how do I earn them?',
-        a: 'Every verified member automatically receives a "Verified Practitioner" or "Verified Student" shield. On top of that: "Specialty Contributor" comes from peer endorsement volume, "Board Fellow (FAAO / FCOVD)" from verified fellowship credentials, and "Top Case Author" from consistently well-received case contributions. Badges appear across the feed, consult hubs and directory to highlight expertise.'
+        a: 'Every verified member automatically receives a "Verified Practitioner" or "Verified Student" shield. On top of that: "Specialty Contributor" comes from peer endorsement volume, "Board Fellow (FAAO, FCOVD, FACS)" from verified fellowship credentials, and "Top Case Author" from consistently well-received case contributions. Badges appear across the feed, consult hubs and directory to highlight expertise.'
       },
       {
         id: 'ht-9',
@@ -114,7 +119,7 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-10',
         q: 'What formats can I use to share a clinical case?',
-        a: 'The composer supports five post formats, each colour-coded in the feed: quick clinical pearls (amber), photo and media cases with per-image alt text, structured case reports (blue), multi-choice polls (purple), and long-form articles with repeatable sections and automatic read-time (emerald). Pick whichever format matches the teaching point — a one-line trick is a Pearl; a full workup is a Case Report.'
+        a: 'The composer supports five post formats, each color-coded in the feed: quick clinical pearls (amber), photo and media cases with per-image alt text, structured case reports (blue), multi-choice polls (purple), and long-form articles with repeatable sections and automatic read-time (emerald). Pick whichever format matches the teaching point — a one-line trick is a Pearl; a full workup is a Case Report.'
       },
       {
         id: 'ht-11',
@@ -173,7 +178,7 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-19',
         q: 'How do I join a Clinical Circle?',
-        a: 'Open the Circles hub and browse active specialty Circles — Scleral Contact Lenses, Myopia Control, Advanced Ocular Therapeutics, Neuro-Ophthalmology and more. Tap "Join" to enter the encrypted discussion space: organised channels like pinned-protocols, triage-guidelines and case-debates, plus the Circle\u2019s shared event board. You can join as many Circles as match your practice.'
+        a: 'Open the Circles hub and browse active specialty Circles — Scleral Contact Lenses, Myopia Control, Advanced Ocular Therapeutics, Neuro-Ophthalmology and more. Tap "Join" to enter the encrypted discussion space: organized channels like pinned-protocols, triage-guidelines and case-debates, plus the Circle\u2019s shared event board. You can join as many Circles as match your practice.'
       },
       {
         id: 'ht-20',
@@ -200,7 +205,7 @@ const CATEGORIES: HowToCategory[] = [
       {
         id: 'ht-23',
         q: 'How do I find the right specialist for a co-managed case?',
-        a: 'Open the Doctors Directory and combine the search box with the specialty filters to narrow the verified registry by subspecialty — neuro-optometry, low-vision rehabilitation, scleral fitters, and more. Open a profile first to review endorsed specialties, concordance, experience and certifications before reaching out, so your first message already has context.'
+        a: 'Open the Eye Care Directory and combine the search box with the profession and specialty filters to narrow the verified registry. Profession chips cover ophthalmology, optometry, optical, orthoptics/nursing/imaging, research & academia, students & residents, and industry & public health; specialty filters then drill into subspecialties — neuro-optometry, low-vision rehabilitation, scleral fitters, and more. Open a profile first to review endorsed specialties, concordance, experience and certifications before reaching out, so your first message already has context.'
       },
       {
         id: 'ht-24',
@@ -532,7 +537,7 @@ export const HowToPage: React.FC<HowToPageProps> = ({ onBackToHome, onEnterApp, 
               Now Put the Workspace to Work
             </h2>
             <p className="text-sm sm:text-base text-blue-100 leading-relaxed font-medium">
-              Open the clinical feed, ask your first consult, and RSVP to the next grand rounds — free for verified optometrists.
+              Open the clinical feed, ask your first consult, and RSVP to the next grand rounds — free for verified eye care professionals.
             </p>
           </div>
 

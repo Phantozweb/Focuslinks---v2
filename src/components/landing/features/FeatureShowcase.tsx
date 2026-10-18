@@ -230,7 +230,7 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({ onEnterApp }) 
           The Showreel
         </span>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight mt-4 leading-tight">
-          Features we designed for optometrists to <AnimatedTriad />
+          Features we designed for eye care to <AnimatedTriad />
         </h2>
         <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-4">
           Six scripted spots —{' '}

@@ -21,7 +21,7 @@ const SECTIONS: DocSection[] = [
       },
       {
         type: 'p',
-        text: 'FocusLinks uses as few of these technologies as possible. Because the platform is advertising-free and peer-only by design, there is no third-party advertising network, no social-media pixel and no data-broker script on this website whose cookies we would need to catalogue or consent-manage.'
+        text: 'FocusLinks uses as few of these technologies as possible. Because the platform is advertising-free and peer-only by design, there is no third-party advertising network, no social-media pixel and no data-broker script on this website whose cookies we would need to catalog or consent-manage.'
       },
       {
         type: 'callout',
@@ -37,7 +37,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'The table below describes every category of cookie and local-storage entry the Service uses. None of them follow you across other websites or build a behavioural profile.'
+        text: 'The table below describes every category of cookie and local-storage entry the Service uses. None of them follow you across other websites or build a behavioral profile.'
       },
       {
         type: 'sub',
@@ -116,7 +116,7 @@ const SECTIONS: DocSection[] = [
       },
       {
         type: 'p',
-        text: 'If we ever introduce a technology that would require consent under applicable law, we will ask for it first, granularly, and honour refusal — before the technology loads, not after.'
+        text: 'If we ever introduce a technology that would require consent under applicable law, we will ask for it first, granularly, and honor refusal — before the technology loads, not after.'
       }
     ]
   },

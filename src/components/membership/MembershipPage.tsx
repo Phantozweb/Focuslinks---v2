@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GrowthMilestones } from './GrowthMilestones';
+import { COMMUNITY_LABEL } from '../../data/ecosystem';
 
 interface MembershipPageProps {
   onBackToHome: () => void;
@@ -76,7 +77,7 @@ const COMPARISON_PERKS: PerkComparisonItem[] = [
     student: 'Read-Only Case Log',
     clinician: 'Direct Referrals & Messages',
     fellow: 'Complex Case Consultations',
-    detail: 'Secure doctor-to-doctor communication channel without corporate intermediaries.'
+    detail: 'Secure clinician-to-clinician communication channel without corporate intermediaries.'
   },
   {
     feature: 'Anterior Segment & OCT Scan Gallery',
@@ -92,7 +93,7 @@ const COMPARISON_PERKS: PerkComparisonItem[] = [
     student: 'Foundational Guides',
     clinician: 'Full Protocol Library',
     fellow: 'Authoring & Committee Review',
-    detail: 'Practical fitting guides, landing zone calculations, and dry eye staging algorithms.'
+    detail: 'Practical fitting guides, diagnostic imaging protocols, and dry eye staging algorithms.'
   },
   {
     feature: 'Regional Study Circles & Panels',
@@ -100,7 +101,7 @@ const COMPARISON_PERKS: PerkComparisonItem[] = [
     student: 'Student Chapter Access',
     clinician: 'Local Practice Circles',
     fellow: 'Panel Host & Moderator',
-    detail: 'Virtual peer rounds and regional optometric discussion chapters.'
+    detail: 'Virtual peer rounds and regional discussion chapters across every discipline.'
   },
   {
     feature: 'Independent Practice Advocacy Voice',
@@ -116,7 +117,7 @@ const COMPARISON_PERKS: PerkComparisonItem[] = [
     student: 'Mentee Placement',
     clinician: 'Peer Collaboration',
     fellow: 'Active Clinical Mentor',
-    detail: 'Connecting rising clinicians with experienced specialty lens fitters and practice owners.'
+    detail: 'Connecting rising clinicians with experienced specialists, mentors, and practice leaders.'
   }
 ];
 
@@ -141,7 +142,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [specialty, setSpecialty] = useState('Cornea & Specialty Lenses');
-  const [licenseType, setLicenseType] = useState('State/National Optometry License');
+  const [licenseType, setLicenseType] = useState('State/National License · Council Registration · Hospital Credential');
   const [licenseNumber, setLicenseNumber] = useState('');
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [isDragging, setIsDragging] = useState(false);
@@ -203,16 +204,16 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
 
   const FAQS = [
     {
-      q: 'Is FocusLinks membership genuinely free for optometrists?',
-      a: 'Yes, 100%. FocusLinks is structured as a non-commercial professional collective founded by and for optometrists. There are no monthly subscriptions, paywalled case discussions, or hidden fees. We believe peer clinical connection and patient co-management should be universally accessible.'
+      q: 'Is FocusLinks membership genuinely free for eye care professionals?',
+      a: 'Yes, 100%. FocusLinks is structured as a non-commercial professional collective founded by clinicians, built for the entire eye care ecosystem. There are no monthly subscriptions, paywalled case discussions, or hidden fees. We believe peer clinical connection and patient co-management should be universally accessible.'
     },
     {
       q: 'How does credential verification work, and why is it necessary?',
-      a: 'Because optometrists discuss real anterior segment pathologies, complex keratoconus management, and patient care workflows, keeping the community strictly verified eye-care professionals is vital. We verify credentials against active state, national, or collegiate registers to ensure a secure, trusted peer environment.'
+      a: 'Because members discuss real clinical cases — anterior segment pathology, surgical planning, complex keratoconus management, and patient care workflows — keeping the community strictly verified eye care professionals is vital. We verify credentials against active state, national, and council registers (medical boards, optometry and dispensing councils, hospital credentialing offices) to ensure a secure, trusted peer environment.'
     },
     {
-      q: 'Can optometry students and international residents join?',
-      a: 'Absolutely. We have a dedicated Academic Track for optometry students, interns, and academic residents. Students gain early exposure to rare anterior segment cases, clinical fitting pearls, and mentorship from seasoned clinicians worldwide.'
+      q: 'Can students, residents, and fellows across every discipline join?',
+      a: 'Absolutely. We have a dedicated Academic Track for students of optometry, ophthalmology, orthoptics, and vision science, plus interns, residents, and fellows. Trainees gain early exposure to rare clinical cases, diagnostic pearls, and mentorship from seasoned clinicians worldwide.'
     },
     {
       q: 'How does FocusLinks handle patient privacy and clinical images?',
@@ -220,7 +221,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
     },
     {
       q: 'What is the long-term vision of FocusLinks?',
-      a: 'Our long-term target is to build an independent digital harbor for optometry: a platform that preserves the clinical autonomy of independent practices, facilitates cross-regional patient referrals, provides non-commercial clinical education, and unites colleagues across the globe in genuine peer collaboration.'
+      a: 'Our long-term target is to build an independent digital harbor for the entire eye care ecosystem: a platform that preserves the clinical autonomy of independent practices, facilitates cross-regional referrals and co-management, provides non-commercial clinical education, and unites colleagues across every discipline and the globe in genuine peer collaboration.'
     }
   ];
 
@@ -252,15 +253,15 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
       <div className="relative max-w-4xl space-y-4 mb-12">
         <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
           <Stethoscope className="h-4 w-4" />
-          <span>Built By Optometrists, For Optometrists</span>
+          <span>Built by Clinicians, for the Entire Eye Care Ecosystem</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-900 dark:text-white tracking-tight leading-tight">
-          A Dedicated Digital Space for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500">Optometric Unity</span>
+          A Dedicated Digital Space for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500">Eye Care Unity</span>
         </h1>
         
         <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal max-w-3xl">
-          Independent eye-care professionals thrive when connected. FocusLinks was established as a non-commercial, practitioner-led movement to bring students, practicing clinicians, and specialty fellows together into one unified, transparent clinical workspace.
+          Eye care professionals thrive when connected — across ophthalmology, optometry, opticianry, orthoptics, nursing, research, and academia. FocusLinks was established as a non-commercial, practitioner-led movement to bring students, practicing clinicians, surgeons, scientists, and educators together into one unified, transparent clinical workspace.
         </p>
 
         {/* Real Core Value Pillars */}
@@ -276,7 +277,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
           <div className="p-3 rounded-2xl bg-white dark:bg-[#121219] border border-neutral-200/80 dark:border-neutral-800/80 text-left">
             <p className="text-xs font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
               <Shield className="h-3.5 w-3.5 text-emerald-500" />
-              <span>Verified Doctors Only</span>
+              <span>Verified Professionals Only</span>
             </p>
             <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">Authentic peer dialogue</p>
           </div>
@@ -329,7 +330,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               <div className="space-y-3.5 my-6">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">Member Name</span>
-                  <p className="text-lg font-bold text-white tracking-tight">{fullName || 'Verified Optometrist'}</p>
+                  <p className="text-lg font-bold text-white tracking-tight">{fullName || 'Verified Eye Care Professional'}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t border-neutral-800/80">
@@ -386,7 +387,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                     <span>Verified Colleague Directory</span>
                     <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </p>
-                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-1">Locate specialty cornea, scleral, and pediatrics peers for referral handshakes.</p>
+                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-1">Locate retina, cornea, pediatrics, dispensing, and imaging peers for referral handshakes.</p>
                 </button>
 
                 <button
@@ -433,15 +434,15 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white tracking-tight">
-            Why FocusLinks Exists: Breaking the Isolation in Optometry
+            Why FocusLinks Exists: Breaking the Isolation in Eye Care
           </h2>
 
           <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
-            For decades, independent optometrists have worked in silos. Private practice doctors navigate complex corneal pathologies and retail pressures alone. Meanwhile, commercial platforms monetize eye doctors, sell sponsored product placements, and fracture clinical referrals into corporate closed networks.
+            For decades, eye care professionals have worked in silos. Private-practice doctors and hospital teams navigate complex pathologies and commercial pressures alone. Meanwhile, commercial platforms monetize clinicians, sell sponsored product placements, and fracture clinical referrals into corporate closed networks.
           </p>
 
           <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
-            <strong className="text-neutral-900 dark:text-white">Our target vision is straightforward:</strong> to establish a permanent, non-commercial peer haven. A place where an optometrist fitting their first quadrant-specific scleral lens in São Paulo can get feedback from a veteran cornea fellow in Boston within two hours—without algorithms, paywalls, or marketing noise.
+            <strong className="text-neutral-900 dark:text-white">Our target vision is straightforward:</strong> to establish a permanent, non-commercial peer haven. A place where an optometrist fitting their first quadrant-specific scleral lens in São Paulo can get feedback from a veteran cornea specialist in Boston within two hours—without algorithms, paywalls, or marketing noise.
           </p>
         </div>
 
@@ -473,7 +474,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
             </div>
             <h4 className="text-sm font-bold text-neutral-900 dark:text-white">Intergenerational Mentorship</h4>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-              Connecting senior specialty fellows with residents so clinical expertise in specialty contact lenses and anterior segment disease is passed forward.
+              Connecting senior fellows with residents and new graduates so clinical expertise — from specialty lens fitting to surgical care and diagnostic imaging — is passed forward.
             </p>
           </div>
         </div>
@@ -503,7 +504,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
             Structured for Every Stage of Clinical Practice
           </h2>
           <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium max-w-2xl">
-            Whether you are in your final residency year or have chaired an optometry board for twenty years, FocusLinks provides a tailored, respected clinical role.
+            Whether you are in your final residency year or have chaired a clinical board for twenty years, FocusLinks provides a tailored, respected role for every discipline in the ecosystem.
           </p>
         </div>
 
@@ -539,7 +540,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
             </div>
             <div>
               <p className="text-xs font-bold">Practicing Clinicians</p>
-              <p className="text-[10px] text-neutral-500 dark:text-neutral-400">Independent & Hospital ODs</p>
+              <p className="text-[10px] text-neutral-500 dark:text-neutral-400">Optometry, Ophthalmology & Allied Care</p>
             </div>
           </button>
 
@@ -556,7 +557,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
             </div>
             <div>
               <p className="text-xs font-bold">Fellows & Mentors</p>
-              <p className="text-[10px] text-neutral-500 dark:text-neutral-400">FAAO, FCOVD & Clinical Leaders</p>
+              <p className="text-[10px] text-neutral-500 dark:text-neutral-400">FAAO, FCOVD, FACS & Clinical Leaders</p>
             </div>
           </button>
         </div>
@@ -570,7 +571,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
                     Academic Community Track
                   </span>
-                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1">Optometry Students & Academic Residents</h3>
+                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1">Eye Care Students & Academic Residents</h3>
                 </div>
                 <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">Requires Accredited University or Residency Verification</span>
               </div>
@@ -593,7 +594,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>Early mentorship matching with practicing optometrists in your desired practice area.</span>
+                      <span>Early mentorship matching with practicing clinicians in your desired practice area.</span>
                     </li>
                   </ul>
                 </div>
@@ -601,7 +602,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                 <div className="space-y-2">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400">What We Ask From Students</h4>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                    We ask that students approach discussions with academic rigor, cite recent literature where applicable, and respect patient de-identification guidelines. You represent the future of independent optometry.
+                    We ask that students approach discussions with academic rigor, cite recent literature where applicable, and respect patient de-identification guidelines. You represent the future of eye care.
                   </p>
                   <div className="p-3 bg-neutral-50 dark:bg-[#161621] rounded-xl border border-neutral-200/60 dark:border-neutral-800 text-[11px] text-neutral-600 dark:text-neutral-400 mt-2">
                     <strong>Verification requirement:</strong> Upload a valid college ID card or official university institutional email.
@@ -618,7 +619,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
                     Core Practitioner Track
                   </span>
-                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1">Licensed Clinical Optometrists</h3>
+                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white mt-1">Licensed Eye Care Clinicians</h3>
                 </div>
                 <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">Requires Active State or National License Vetting</span>
               </div>
@@ -629,7 +630,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                   <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-300">
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>Searchable profile in the Verified Optometrist Locator for peer-to-peer patient referrals.</span>
+                      <span>Searchable profile in the Verified Professional Locator for peer-to-peer patient referrals.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -649,7 +650,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                 <div className="space-y-2">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400">What We Ask From Clinicians</h4>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                    Actively collaborate, maintain respectful peer communication, and keep referrals patient-first. We ask doctors to share practical pearls from their chair time so our collective diagnostic capacity grows.
+                    Actively collaborate, maintain respectful peer communication, and keep referrals patient-first. We ask members to share practical pearls from their chair time so our collective diagnostic capacity grows.
                   </p>
                   <div className="p-3 bg-neutral-50 dark:bg-[#161621] rounded-xl border border-neutral-200/60 dark:border-neutral-800 text-[11px] text-neutral-600 dark:text-neutral-400 mt-2">
                     <strong>Verification requirement:</strong> Professional license number and practice email for standard registration checks.
@@ -689,7 +690,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                     </li>
                     <li className="flex items-start gap-2">
                       <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>Advisory Committee seat guiding independent optometry advocacy statements.</span>
+                      <span>Advisory Committee seat guiding independent-practice advocacy statements.</span>
                     </li>
                   </ul>
                 </div>
@@ -700,7 +701,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                     Provide mentorship to younger colleagues, moderate clinical discussions with constructive wisdom, and help uphold the highest standards of diagnostic accuracy across the network.
                   </p>
                   <div className="p-3 bg-neutral-50 dark:bg-[#161621] rounded-xl border border-neutral-200/60 dark:border-neutral-800 text-[11px] text-neutral-600 dark:text-neutral-400 mt-2">
-                    <strong>Verification requirement:</strong> Fellowship credentials (FAAO, FCOVD, Dip. Scleral, etc.) or academic faculty standing.
+                    <strong>Verification requirement:</strong> Fellowship or board credentials (FAAO, FCOVD, FACS, Dip. Scleral) or academic faculty standing.
                   </div>
                 </div>
               </div>
@@ -757,7 +758,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               </div>
               <h3 className="text-sm font-bold text-neutral-900 dark:text-white">Verified Peer Directory</h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                Connect and exchange direct referral handshakes with verified specialty optometrists. Search by region and clinical focus (Cornea, Scleral, Dry Eye, Myopia).
+                Connect and exchange direct referral handshakes with verified eye care professionals. Search by region, profession, and clinical focus (Retina, Cornea, Scleral, Myopia).
               </p>
             </div>
 
@@ -797,7 +798,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               </div>
               <h3 className="text-sm font-bold text-neutral-900 dark:text-white">Digital Verified Member ID</h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                A permanent, verified cryptographic credential indicating active verified standing in the independent optometric collective.
+                A permanent, cryptographic credential indicating active verified standing in the eye care community.
               </p>
             </div>
 
@@ -807,7 +808,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               </div>
               <h3 className="text-sm font-bold text-neutral-900 dark:text-white">Regional Practice Circles</h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                Join regional optometric study groups to coordinate on local referral channels, regional managed care updates, and clinical roundtables.
+                Join regional study groups to coordinate on local referral channels, regional managed care updates, and clinical roundtables.
               </p>
             </div>
           </div>
@@ -817,7 +818,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Target: Q3 2026</span>
               <h3 className="text-sm font-bold text-neutral-900 dark:text-white">Standardized EHR Referral Exporter</h3>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                A one-click, privacy-compliant summary generator that allows seamless export of co-management notes directly into common optometric EHR systems.
+                A one-click, privacy-compliant summary generator that allows seamless export of co-management notes directly into common eye care EHR systems.
               </p>
             </div>
 
@@ -924,7 +925,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
               Activate Your FocusLinks Practitioner Credential
             </h3>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 font-normal leading-relaxed">
-              To preserve authentic clinical dialogue and protect patient de-identification standards, we verify that all members are licensed eye-care professionals or registered optometry students.
+              To preserve authentic clinical dialogue and protect patient de-identification standards, we verify that all members are licensed eye care professionals or registered students in an accredited eye care program.
             </p>
           </div>
 
@@ -942,7 +943,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                 <div className="space-y-1">
                   <h4 className="text-sm font-bold text-neutral-900 dark:text-white">
                     {onboardingStatus === 'submitting' && 'Validating professional submission details...'}
-                    {onboardingStatus === 'verifying_db' && 'Cross-referencing credential against optometry registrar...'}
+                    {onboardingStatus === 'verifying_db' && 'Cross-referencing credential against professional registers...'}
                     {onboardingStatus === 'generating_id' && 'Issuing cryptographic FocusLinks Practitioner ID...'}
                   </h4>
                   <p className="text-[11px] text-neutral-400">
@@ -968,7 +969,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                         setFullName(e.target.value);
                         if (onboardingStatus === 'error') setOnboardingStatus('idle');
                       }}
-                      placeholder="e.g. Dr. Jennifer Hayes, OD"
+                      placeholder="e.g. Dr. Jennifer Hayes"
                       className="w-full px-3.5 py-2.5 bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all dark:text-white font-medium"
                     />
                   </div>
@@ -996,7 +997,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                   {/* Specialty Area */}
                   <div className="space-y-1 text-left">
                     <label className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                      Primary Clinical Specialty
+                      Primary Specialty or Discipline
                     </label>
                     <select
                       value={specialty}
@@ -1009,7 +1010,10 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                       <option value="Dry Eye & Ocular Surface">Dry Eye & Ocular Surface Disease</option>
                       <option value="Neuro-Optometry & Rehabilitation">Neuro-Optometric Rehabilitation</option>
                       <option value="Comprehensive Clinical Practice">Comprehensive Independent Practice</option>
-                      <option value="Optometry Student / Resident">Academic Student / Resident</option>
+                      <option value="Retina & Surgical Eye Care">Retina & Surgical Eye Care</option>
+                      <option value="Ophthalmic Nursing & Imaging">Ophthalmic Nursing, Orthoptics & Imaging</option>
+                      <option value="Research & Academic Faculty">Research & Academic Faculty</option>
+                      <option value="Academic Student / Resident">Academic Student / Resident</option>
                     </select>
                   </div>
 
@@ -1023,10 +1027,11 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                       onChange={(e) => setLicenseType(e.target.value)}
                       className="w-full px-3 py-2.5 bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all dark:text-white font-semibold"
                     >
-                      <option value="State/National Optometry License">State / National Optometry License</option>
-                      <option value="Hospital Staff Credential ID">Hospital / Surgical Center Staff Credential</option>
-                      <option value="Academic Institution / Student ID">College / University Student ID (Residents)</option>
-                      <option value="Fellowship Diploma (FAAO/FCOVD)">Fellowship Credential (FAAO, FCOVD)</option>
+                      <option value="State/National License · Council Registration · Hospital Credential">State / National License · Council Registration · Hospital Credential</option>
+                      <option value="Dispensing Registration (GOC/ABO/NCLE)">Dispensing & Optical Registration (GOC, ABO, NCLE)</option>
+                      <option value="Nursing & Allied Credential (JCAHPO/ASORN)">Nursing & Allied Health Credential (JCAHPO, ASORN, CO)</option>
+                      <option value="Academic Institution / Student ID">College / University Student or Resident ID</option>
+                      <option value="Fellowship or Research Credential (FAAO/FCOVD)">Fellowship or Research Credential (FAAO, FCOVD, PhD)</option>
                     </select>
                   </div>
                 </div>
@@ -1044,7 +1049,7 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
                       setLicenseNumber(e.target.value);
                       if (onboardingStatus === 'error') setOnboardingStatus('idle');
                     }}
-                    placeholder="e.g. OD-48192-MA, GOC-01-29184, or STU-88219"
+                    placeholder="e.g. OD-48192-MA, MD-77410-NY, GOC-01-29184, or STU-88219"
                     className="w-full px-3.5 py-2.5 bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all dark:text-white font-medium"
                   />
                 </div>
@@ -1160,10 +1165,10 @@ export const MembershipPage: React.FC<MembershipPageProps> = ({
       <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-blue-900 via-indigo-950 to-neutral-950 text-white text-center space-y-4 relative overflow-hidden">
         <div className="relative z-10 max-w-2xl mx-auto space-y-3">
           <h3 className="text-xl sm:text-2xl font-black tracking-tight">
-            Join the Movement Protecting Independent Optometry
+            Join the Movement Protecting Independent Eye Care
           </h3>
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            Whether you want to find trusted specialty co-management peers, discuss complex scleral fittings, or connect with the global optometric community—FocusLinks is your digital home.
+            Whether you want to find trusted co-management peers, discuss complex cases, or connect with {COMMUNITY_LABEL}—FocusLinks is your digital home.
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
             <button

@@ -66,8 +66,8 @@ export const Header: React.FC<HeaderProps> = ({
     qa: { title: 'Consults', subtitle: 'Peer case inquiries, second opinions & clinical consensus' },
     gallery: { title: 'Explore', subtitle: 'High-resolution imaging & case repository' },
     groups: { title: 'Circles', subtitle: 'Specialty peer rounds & clinical groups' },
-    doctors: { title: 'Directory', subtitle: 'Verified optometrist colleagues worldwide' },
-    analytics: { title: 'Analytics', subtitle: 'Peer impressions, case citations & COPE credits' },
+    doctors: { title: 'Directory', subtitle: 'Verified eye care professionals worldwide' },
+    analytics: { title: 'Analytics', subtitle: 'Peer impressions, case citations & CE credits' },
     profile: { title: 'My Profile', subtitle: 'Clinical CV, credentials & case publications' },
     settings: { title: 'Settings', subtitle: 'Practice preferences, HIPAA rules & notifications' },
   };
@@ -106,7 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
                   FocusLinks
                 </span>
                 <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-900/50">
-                  OD
+                  ECP
                 </span>
               </div>
             </button>
@@ -129,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search cases, OCTs, #Cornea, ODs..."
+              placeholder="Search the eye care community..."
               className="w-full rounded-xl border border-neutral-200/90 dark:border-neutral-800 bg-neutral-100/70 dark:bg-[#15151c] pl-9 pr-4 py-1.5 text-xs text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:border-blue-500 focus:bg-white dark:focus:bg-[#1a1a24] focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
             />
           </div>
@@ -231,7 +231,7 @@ export const Header: React.FC<HeaderProps> = ({
               autoFocus
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search cases, OCTs, #Cornea, ODs..."
+              placeholder="Search the eye care community..."
               className="w-full rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-[#202024] pl-9 pr-4 py-2 text-xs text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>

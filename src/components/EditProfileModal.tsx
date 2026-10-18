@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check, ShieldCheck, Briefcase, Award, Sparkles, Building2, MapPin, User, Stethoscope, Camera } from 'lucide-react';
+import { X, Check, ShieldCheck, Briefcase, Award, Sparkles, Building2, MapPin, User, Stethoscope, Camera, ChevronDown } from 'lucide-react';
 import { DoctorProfile } from '../types';
 import { DoctorAvatar } from './common/DoctorAvatar';
+import { ECOSYSTEM_ROLES, ROLE_MAP } from '../data/ecosystem';
+import type { EcosystemRoleId } from '../data/ecosystem';
 
 const AVATAR_PRESETS = [
   { label: 'Clinical Male (Lead)', url: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80' },
@@ -26,6 +28,9 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
 }) => {
   const [formData, setFormData] = useState<DoctorProfile>(profile);
 
+  // Selected ecosystem role (optional — falls back to "Not specified")
+  const selectedRole = formData.profession ? ROLE_MAP[formData.profession] : undefined;
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -48,7 +53,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <div>
               <h2 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
                 <Briefcase className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                Edit Professional Optometric Profile
+                Edit Professional Profile
               </h2>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
                 Update your verified credentials, clinical appointments, and licensure details
@@ -79,6 +84,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     className="h-18 w-18 rounded-full border-2 border-blue-500 shadow-md"
                     verified={formData.verified}
                     badgeSize="md"
+                    profession={formData.profession}
                   />
                   <span className="text-[10px] text-neutral-500 mt-1">Live Avatar</span>
                 </div>
@@ -136,6 +142,46 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
                     required
                   />
                 </div>
+              </div>
+
+              {/* Profession — declares WHO the member is in the eye care ecosystem */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label htmlFor="profession-select" className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+                    Profession
+                  </label>
+                  {selectedRole && (
+                    <span
+                      title={selectedRole.label}
+                      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${selectedRole.badgeClasses}`}
+                    >
+                      <selectedRole.icon className="h-3 w-3" />
+                      {selectedRole.short}
+                    </span>
+                  )}
+                </div>
+                <div className="relative">
+                  <select
+                    id="profession-select"
+                    value={formData.profession ?? ''}
+                    onChange={(e) => {
+                      const value = e.target.value as EcosystemRoleId | '';
+                      setFormData({ ...formData, profession: value || undefined });
+                    }}
+                    className="w-full appearance-none rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#202024] px-3 py-2 pr-9 text-sm text-neutral-900 dark:text-neutral-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                  >
+                    <option value="">Not specified</option>
+                    {ECOSYSTEM_ROLES.map((role) => (
+                      <option key={role.id} value={role.id}>
+                        {role.label} ({role.short})
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
+                </div>
+                <p className="text-[11px] text-neutral-400 mt-1">
+                  Your role across the eye care ecosystem — all 12 professions are welcome.
+                </p>
               </div>
 
               <div>

@@ -145,7 +145,7 @@ export const LEGAL_DOCS: LegalDocMeta[] = [
     shortLabel: 'Rules',
     icon: ScrollText,
     accent: DOC_ACCENTS.amber,
-    blurb: 'The six rules that keep FocusLinks a peer-only, de-identified, noise-free clinical sanctuary.',
+    blurb: 'The six rules that keep FocusLinks a verified, de-identified, noise-free clinical sanctuary for the entire eye care community.',
     lastUpdated: LAST_UPDATED,
     readingTime: '6 min read'
   },

@@ -205,7 +205,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
             </h1>
             
             <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
-              High-stakes clinical inquiries, differential diagnoses, and peer-consensus protocols crowdsourced from verified Optometrists and Ophthalmologists worldwide.
+              High-stakes clinical inquiries, differential diagnoses, and peer-consensus protocols crowdsourced from verified eye care professionals worldwide.
             </p>
           </div>
 
@@ -296,7 +296,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
               type="button"
               className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-extrabold shrink-0 shadow-sm cursor-pointer transition-colors active:scale-95"
             >
-              Ask ODs
+              Ask Peers
             </button>
           </div>
 
@@ -314,7 +314,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
                   </span>
                 </span>
                 <p className="text-[11px] text-neutral-600 dark:text-neutral-400 mt-0.5">
-                  Optometry students, interns, and residents are invited to propose differentials and cite textbook pearls. Attending ODs review and endorse top clinical reasoning.
+                  Students, interns, and residents across every eye care discipline are invited to propose differentials and cite textbook pearls. Attendings and senior specialists review and endorse top clinical reasoning.
                 </p>
               </div>
             </div>
@@ -425,7 +425,7 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
                     ? `No peer inquiries matching "${searchQuery}". Clear your search or initiate a new clinical consult!`
                     : filterType === 'saved'
                     ? "You haven't bookmarked any clinical consults to your study vault yet."
-                    : 'Be the first doctor to pose a second opinion request in this area.'}
+                    : 'Be the first member to pose a second opinion request in this area.'}
                 </p>
                 <button
                   onClick={() => setIsAskModalOpen(true)}
@@ -507,8 +507,8 @@ export const ConsultsView: React.FC<ConsultsViewProps> = ({
             <div className="space-y-3">
               {[
                 { name: currentUser.name, creds: 'OD, FAAO', answers: 24, upvotes: 512, avatar: currentUser.avatar, id: currentUser.id },
-                { name: 'Dr. Marcus Chen', creds: 'OD, FAAO', answers: 19, upvotes: 394, avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80', id: 'doc-marcus' },
-                { name: 'Dr. Elena Rostova', creds: 'OD, MS', answers: 16, upvotes: 348, avatar: 'https://images.unsplash.com/photo-1594824813580-c1143891d4e0?w=200&auto=format&fit=crop&q=80', id: 'doc-elena' },
+                { name: 'Dr. Marcus Chen', creds: 'OD, FAAO', answers: 19, upvotes: 394, avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80', id: 'doc-marcus-chen' },
+                { name: 'Dr. Hannah Weiss', creds: 'MD — Glaucoma Surgery', answers: 16, upvotes: 348, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80', id: 'doc-hannah-weiss' },
               ].map((faculty, idx) => (
                 <div key={idx} className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5 min-w-0">

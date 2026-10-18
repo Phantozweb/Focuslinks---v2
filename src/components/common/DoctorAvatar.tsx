@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, ShieldCheck } from 'lucide-react';
+import { ROLE_MAP, type EcosystemRoleId } from '../../data/ecosystem';
 
 interface DoctorAvatarProps {
   src?: string;
@@ -9,6 +10,9 @@ interface DoctorAvatarProps {
   className?: string;
   verified?: boolean;
   badgeSize?: 'sm' | 'md' | 'lg';
+  /** Ecosystem role (ophthalmologist, optometrist, optician, ...). When present,
+   *  the fallback-initials gradient is overridden with the role's brand gradient. */
+  profession?: EcosystemRoleId;
 }
 
 // Fallback high-reliability physician avatar URLs
@@ -22,11 +26,20 @@ export const DoctorAvatar: React.FC<DoctorAvatarProps> = ({
   className,
   verified = false,
   badgeSize = 'md',
+  profession,
 }) => {
   const [hasError, setHasError] = useState(false);
   const [fallbackFailed, setFallbackFailed] = useState(false);
 
   const displayName = name || alt || 'Doctor';
+
+  // Ecosystem role gradient override — falls back to the deterministic default
+  // gradient whenever no (or an unknown) profession is provided. Runtime-guarded
+  // so stale/unknown role ids never crash the avatar.
+  const role = profession ? ROLE_MAP[profession] ?? null : null;
+  const gradientClasses = role
+    ? `bg-gradient-to-tr ${role.gradient}`
+    : 'bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500';
 
   // Compute size classes if size is given and className is not custom
   const sizeClasses = {
@@ -49,7 +62,7 @@ export const DoctorAvatar: React.FC<DoctorAvatarProps> = ({
         .slice(0, 2)
         .join('')
         .toUpperCase()
-    : 'OD';
+    : 'ECP';
 
   const badgeSizeClasses = {
     sm: 'h-3.5 w-3.5 p-0.5 bottom-0 right-0',
@@ -75,7 +88,7 @@ export const DoctorAvatar: React.FC<DoctorAvatarProps> = ({
           className="w-full h-full rounded-full object-cover object-center shadow-xs"
         />
       ) : (
-        <div className="w-full h-full rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white font-bold text-xs select-none shadow-xs">
+        <div className={`w-full h-full rounded-full ${gradientClasses} flex items-center justify-center text-white font-bold text-xs select-none shadow-xs`}>
           {initials || <User className="w-1/2 h-1/2" />}
         </div>
       )}
@@ -83,7 +96,7 @@ export const DoctorAvatar: React.FC<DoctorAvatarProps> = ({
       {verified && (
         <div
           className={`absolute ${badgeSizeClasses[badgeSize]} bg-blue-600 text-white rounded-full border-2 border-white dark:border-[#121216] shadow-sm flex items-center justify-center`}
-          title="Verified Licensed Optometrist"
+          title="Verified Eye Care Professional"
         >
           <ShieldCheck className="w-full h-full" />
         </div>

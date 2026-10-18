@@ -16,9 +16,12 @@ import {
   Stethoscope, 
   ExternalLink,
   CheckCircle2,
-  RefreshCw
+  RefreshCw,
+  ChevronDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ECOSYSTEM_ROLES, ROLE_MAP, NETWORK_TAGLINE_SHORT } from '../../data/ecosystem';
+import type { EcosystemRoleId } from '../../data/ecosystem';
 
 export interface PopupLoginModalProps {
   isOpen: boolean;
@@ -48,10 +51,16 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
   const [securityPin, setSecurityPin] = useState('');
   const [showPin, setShowPin] = useState(false);
 
+  // Ecosystem profession — declares WHO the member is (optional; all 12
+  // roles from the eye care ecosystem are welcome, see src/data/ecosystem.ts).
+  const [profession, setProfession] = useState<EcosystemRoleId | ''>('');
+
   // Process states
   const [status, setStatus] = useState<'idle' | 'authenticating' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const selectedRole = profession ? ROLE_MAP[profession] : undefined;
 
   // Reset or initialize on open
   useEffect(() => {
@@ -63,6 +72,7 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
       setMembershipIdInput('');
       setSecurityPin('');
       setGmailPassword('');
+      setProfession('');
     }
   }, [isOpen, initialTab]);
 
@@ -144,7 +154,7 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
     setStatusMessage('Connecting with Google Identity Services...');
 
     setTimeout(() => {
-      setStatusMessage('Authenticating verified Optometrist credentials...');
+      setStatusMessage('Authenticating verified eye care professional credentials...');
       setTimeout(() => {
         setStatus('success');
         setStatusMessage('Google authentication verified. Entering workspace...');
@@ -182,10 +192,10 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
         }
 
         setStatus('success');
-        setStatusMessage(`ID ${finalId} verified. Welcome back, Doctor.`);
+        setStatusMessage(`ID ${finalId} verified. Welcome back.`);
 
         setTimeout(() => {
-          onSuccess(finalId, 'Verified Optometrist');
+          onSuccess(finalId, 'Verified Eye Care Professional');
           onClose();
         }, 1000);
       }, 900);
@@ -245,7 +255,7 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">
-                The Sovereign Clinical Hub for Optometrists
+                {NETWORK_TAGLINE_SHORT}
               </p>
             </div>
           </div>
@@ -291,6 +301,52 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
               <span>Membership ID</span>
             </button>
           </div>
+
+          {/* Profession picker — visible on both sign-in tabs while the form is idle */}
+          {status !== 'authenticating' && status !== 'success' && (
+            <div className="mt-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+                  Your Profession
+                </label>
+                {selectedRole ? (
+                  <span
+                    title={selectedRole.label}
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${selectedRole.badgeClasses}`}
+                  >
+                    <selectedRole.icon className="h-3 w-3" />
+                    {selectedRole.short}
+                  </span>
+                ) : (
+                  <span className="text-[10px] text-neutral-400">
+                    All 12 eye care roles welcome
+                  </span>
+                )}
+              </div>
+              <div className="relative">
+                {selectedRole ? (
+                  <selectedRole.icon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+                ) : (
+                  <Stethoscope className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+                )}
+                <select
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value as EcosystemRoleId | '')}
+                  className="w-full pl-10 pr-9 py-2.5 bg-neutral-50 dark:bg-[#161622] border border-neutral-200 dark:border-neutral-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-xl text-xs text-neutral-900 dark:text-white transition-all outline-hidden appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>
+                    Select your profession…
+                  </option>
+                  {ECOSYSTEM_ROLES.map((role) => (
+                    <option key={role.id} value={role.id}>
+                      {role.label}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-neutral-400 pointer-events-none" />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Tab Body Content */}
@@ -343,7 +399,7 @@ export const PopupLoginModal: React.FC<PopupLoginModalProps> = ({
                   {statusMessage}
                 </p>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                  Preparing your clinical case feed and doctor network...
+                  Preparing your clinical case feed and peer network...
                 </p>
               </div>
             </motion.div>

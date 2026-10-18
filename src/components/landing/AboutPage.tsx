@@ -78,9 +78,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       title: 'Dendritic Corneal Lesion (HSV Keratitis)',
       modality: 'Slit Lamp Fluorescein',
       doctor: {
-        name: 'Dr. Richard Chen, OD, FAAO',
+        name: 'Dr. Richard Chen, MD',
         avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=150',
-        credentials: 'UC Berkeley Optometry'
+        credentials: 'Bascom Palmer Eye Institute — Ophthalmology'
       },
       findings: 'Distinct terminal bulbing observed on staining. Prescribed Ganciclovir 0.15% ophthalmic gel 5x daily. Monitored for trophic thinning.',
       concordanceScore: 100,
@@ -95,7 +95,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       id: 'faq-1',
       category: 'licensing',
       question: "How does FocusLinks verify my license if I practice in India or outside the US?",
-      answer: "We support a highly flexible Universal Verification Framework. Since formal optometry registration is not universally formalized in India and many other regions, state council registration is NOT expected or required to register. You can activate your clinical profile using your college ID card, your B.Optom or M.Optom degree serial number, or clinical letterhead. Our clinical review board manual-vets these within 12 hours."
+      answer: "We support a highly flexible Universal Verification Framework for every eye care profession. Because formal optometry registration is not universally formalized in India and many other regions, state council registration is NOT expected or required to register. Optometrists can activate a clinical profile with a college ID card, B.Optom or M.Optom degree serial number, or clinical letterhead; MDs and DOs verify via medical council registration or a hospital ID; opticians via dispensing councils such as GOC or ABO; nurses and technicians via hospital or clinic credentials; and researchers and academics via institutional affiliation. Our clinical review board manual-vets these within 12 hours."
     },
     {
       id: 'faq-2',
@@ -107,7 +107,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       id: 'faq-3',
       category: 'licensing',
       question: "What is a 'Credential Sponsor Handshake' and how does it work?",
-      answer: "A Credential Sponsor Handshake allows currently verified, active optometrists on FocusLinks to sponsor and instantly vouch for trusted colleagues who are registering on the platform. If an active peer sponsors you, your credentials bypass the queue and activate instantly, allowing immediate collaborative discussions."
+      answer: "A Credential Sponsor Handshake allows currently verified, active members on FocusLinks to sponsor and instantly vouch for trusted colleagues who are registering on the platform. If an active peer sponsors you, your credentials bypass the queue and activate instantly, allowing immediate collaborative discussions."
     },
     {
       id: 'faq-4',
@@ -143,25 +143,25 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       id: 'faq-9',
       category: 'practice',
       question: "Can I directly refer patients or collaborate with neuro-optometrists on FocusLinks?",
-      answer: "Yes. Open the Doctors Directory and use the search box together with the specialty filters to find colleagues by subspecialty — neuro-optometry, low-vision rehabilitation, scleral fitters, and more. You can initiate direct secure discussions from any profile to coordinate specialized rehabilitation plans and co-manage patients."
+      answer: "Yes. Open the Doctors Directory and use the search box together with the specialty filters to find colleagues by subspecialty and profession — neuro-ophthalmology, neuro-optometry, low-vision rehabilitation, scleral fitters, imaging specialists, and more. You can initiate direct secure discussions from any profile to coordinate specialized rehabilitation plans and co-manage patients."
     },
     {
       id: 'faq-10',
       category: 'reputation',
       question: "What are 'Group Circles' and who can initiate them?",
-      answer: "Group Circles are encrypted clinical discussion hubs focusing on specific specialties (e.g., Specialty Scleral Contact Lenses, Myopia Control, Advanced Ocular Therapeutics). Any verified optometrist can join existing active Circles or request to initiate a new Circle to foster collaborative study groups and discuss recent literature."
+      answer: "Group Circles are encrypted clinical discussion hubs focusing on specific specialties (e.g., Specialty Scleral Contact Lenses, Retina Grand Rounds, Myopia Control, Advanced Ocular Therapeutics). Any verified member can join existing active Circles or request to initiate a new Circle to foster collaborative study groups and discuss recent literature."
     },
     {
       id: 'faq-11',
       category: 'reputation',
       question: "How do peer endorsements influence my clinical reputation on the platform?",
-      answer: "When certified optometrists check or endorse specific specialties on your professional profile, it contributes to your Platform Reputation. Peers with high endorsement volume are highlighted as 'Specialty Contributors' in feed listings and directory searches, establishing trusted expertise in their field."
+      answer: "When certified peers check or endorse specific specialties on your professional profile, it contributes to your Platform Reputation. Peers with high endorsement volume are highlighted as 'Specialty Contributors' in feed listings and directory searches, establishing trusted expertise in their field."
     },
     {
       id: 'faq-12',
       category: 'reputation',
-      question: "Can optometry students or residents join the FocusLinks workspace?",
-      answer: "Yes. Academic student registries are fully supported. Students, interns, and clinical residents can register using their active college ID card or university enrollment certificate. They receive educational read-access to case archives, diagnostic playbooks, and peer discussions to accelerate their clinical education."
+      question: "Can students, residents and fellows join the FocusLinks workspace?",
+      answer: "Yes. Academic student registries are fully supported. Optometry students and interns, ophthalmology residents and fellows, orthoptic students, and vision science PhD candidates can all register using an active college ID card or university enrollment certificate. They receive educational read-access to case archives, diagnostic playbooks, and peer discussions to accelerate their clinical education."
     },
     {
       id: 'faq-13',
@@ -177,7 +177,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       step: "01",
       title: "Universal Credentials Match",
       badge: "Verification Phase",
-      desc: "Practitioners submit their registry credentials (NPI, GOC, Indian State Councils, or Academic University degrees). Our background verification systems cross-reference records globally to secure a vetted, peer-only clinical sanctuary for all.",
+      desc: "Practitioners submit their registry credentials (NPI, medical council registration, GOC, Indian State Councils, or academic university degrees). Our background verification systems cross-reference records globally to secure a vetted, peer-only clinical sanctuary for all.",
       icon: <Lock className="h-5 w-5 text-blue-500" />
     },
     {
@@ -189,7 +189,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
     {
       step: "03",
       title: "Encrypted Direct Peer Handshake",
-      desc: "Need immediate secondary diagnostic clearance? Search peer listings by specialized fellowship (FAAO, FCOVD) and send an encrypted direct peer connection request accompanied by a structured, HIPAA-safe diagnostic note.",
+      desc: "Need immediate secondary diagnostic clearance? Search peer listings by profession, subspecialty, or specialized fellowship (FAAO, FCOVD) and send an encrypted direct peer connection request accompanied by a structured, HIPAA-safe diagnostic note.",
       icon: <Users className="h-5 w-5 text-indigo-500" />
     },
     {
@@ -223,7 +223,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
     {
       id: 'tip-4',
       title: "Peer Endorsements and Specialized Credibility",
-      summary: "Earn verified specialty ranks from clinical optometrists.",
+      summary: "Earn verified specialty ranks from verified clinical peers.",
       detail: "To endorse a peer, open their profile, navigate to 'Clinical Specialties' and click the checkmark. High endorsement volume grants specific diagnostic credentials, positioning you as an authority in the global registry."
     }
   ];
@@ -255,7 +255,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
         <div className="max-w-4xl space-y-6 mb-16 text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200/50 dark:border-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold shadow-sm">
             <Sparkles className="h-3.5 w-3.5 text-blue-500 animate-pulse" />
-            <span>Optometric Practice Playbook</span>
+            <span>Eye Care Practice Playbook</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-black text-neutral-900 dark:text-white tracking-tight leading-none">
@@ -476,9 +476,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                 className="space-y-12 text-left"
               >
                 <div className="max-w-3xl space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">Optometric Practice Use Cases</h3>
+                  <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">Clinical Practice Use Cases</h3>
                   <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                    Real scenarios demonstrating how global optometrists leverage FocusLinks to optimize high-order aberration fittings and diagnostic clearances.
+                    Real scenarios demonstrating how global eye care professionals leverage FocusLinks to optimize high-order aberration fittings and diagnostic clearances.
                   </p>
                 </div>
 
@@ -676,7 +676,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
               </div>
               
               <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white leading-tight">
-                Empowering Global Optometry: Bridging Emerging & Developed Practice
+                Empowering Global Eye Care: Bridging Emerging & Developed Practice
               </h2>
               
               <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed font-medium">
@@ -691,7 +691,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                   India & Regional Registries
                 </h4>
                 <p className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium leading-normal">
-                  Optometrists registered with Indian State Allied Health Councils, local clinics, or holding clinical degrees (B.Optom / M.Optom) from recognized universities can sign up instantly with their credentials.
+                  Eye care professionals — optometrists (B.Optom / M.Optom), ophthalmologists (MD / DO + medical council registration), opticians (GOC or dispensing diplomas), nurses and technicians (hospital or nursing council credentials), and researchers (institutional affiliation) — can all sign up instantly with their regional credentials.
                 </p>
               </div>
 
@@ -711,7 +711,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                   Global Peer Endorsements
                 </h4>
                 <p className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium leading-normal">
-                  Already verified colleagues can directly endorse and sponsor international optometrists to unlock the platform instantly, accelerating global peer-to-peer mentorship.
+                  Already verified colleagues can directly endorse and sponsor international peers to unlock the platform instantly, accelerating global peer-to-peer mentorship.
                 </p>
               </div>
             </div>
@@ -728,7 +728,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
             </div>
             
             <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 leading-relaxed font-medium">
-              Daily optometric practice is demanding. Co-managing irregular astigmatism, pediatric ortho-k clearance, or progressive glaucoma shouldn&apos;t require scrolling past generic social media posts or facing compliance risks in unencrypted messaging groups.
+              Daily eye care practice is demanding. Co-managing irregular astigmatism, pediatric ortho-k clearance, or progressive glaucoma shouldn&apos;t require scrolling past generic social media posts or facing compliance risks in unencrypted messaging groups.
             </p>
 
             <div className="space-y-4">

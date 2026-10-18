@@ -114,10 +114,10 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t: tG }) => {
                     <div className="flex items-center gap-2">
                       <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px] font-semibold border border-blue-400/30">
                         <ShieldCheck className="h-2.5 w-2.5 text-blue-400" />
-                        Verified Optometrist Network
+                        Verified Eye Care Network
                       </span>
                       <span className="text-[9px] text-neutral-400 font-mono">
-                        {tickNumber(t, 200, 900, 0, 1284).toLocaleString()} Optometrists On-Call
+                        {tickNumber(t, 200, 900, 0, 1284).toLocaleString()} Professionals On-Call
                       </span>
                     </div>
                     <h3 className="text-[15px] font-black tracking-tight mt-0.5">Peer Directory</h3>
@@ -175,7 +175,7 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t: tG }) => {
                 <span>
                   Showing{' '}
                   <strong className="text-neutral-900 dark:text-white font-bold">{results ? count : 1284}</strong>{' '}
-                  optometrists
+                  eye care professionals
                   {chipActive && ' (1 filter applied)'}
                 </span>
                 {chipActive && (
@@ -327,7 +327,7 @@ export const DirectoryScene: React.FC<{ t: number }> = ({ t: tG }) => {
             t={tG}
             beats={[
               [0, 2500, 'The right specialist exists. Finding them is the hard part.'],
-              [2500, 4600, 'Peer Directory — 1,284 verified optometrists, on-call'],
+              [2500, 4600, 'Peer Directory — 1,284 verified professionals, on-call'],
               [4600, 6600, 'Type. Filter. Two perfect matches.'],
               [6600, 9200, 'Real profiles — credentials, concordance, distance'],
               [9200, 11300, 'One tap to connect. Open the CV. Done.'],

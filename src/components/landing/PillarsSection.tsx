@@ -12,7 +12,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
       title: 'Connect',
       subtitle: 'Global Peer Exchange',
       description:
-        'Engage directly with fellow optometrists across private practice, academic institutions, and hospital clinics globally.',
+        'Engage directly with fellow eye care professionals across private practice, hospitals, academia and industry — globally.',
       icon: Users2,
       color: 'blue',
       badge: 'Peer Network',
@@ -24,7 +24,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
       title: 'Share',
       subtitle: 'Real Clinical Cases & Imaging',
       description:
-        'Post and inspect de-identified anterior and posterior scans, slit-lamp recordings, and surgical co-management outcomes.',
+        'Post and inspect de-identified anterior and posterior scans, slit-lamp recordings, and co-management outcomes shared by clinicians, surgeons and researchers alike.',
       icon: Layers3,
       color: 'indigo',
       badge: 'Clinical Imaging',
@@ -36,7 +36,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
       title: 'Grow',
       subtitle: 'Evidence-Based Practice',
       description:
-        'Stay at the forefront of myopia control, dry eye therapies, neuro-optometry, and advanced contact lens innovations.',
+        'Stay at the forefront of myopia control, retinal imaging, surgical innovation, AI diagnostics, lens craft and low-vision rehabilitation.',
       icon: TrendingUp,
       color: 'emerald',
       badge: 'Knowledge & Skills',
@@ -48,12 +48,12 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
       title: 'Network',
       subtitle: 'Professional Recognition',
       description:
-        'Establish your verified presence, find referral and co-management partners, and showcase your clinical achievements.',
+        'Establish your verified presence, find referral and co-management partners, and showcase your achievements across practice, research and education.',
       icon: Network,
       color: 'purple',
-      badge: 'Optometrist Profiles',
+      badge: 'Professional Profiles',
       target: 'doctors' as const,
-      actionText: 'Find Optometrists',
+      actionText: 'Find Colleagues',
     },
   ];
 
@@ -65,10 +65,10 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ onEnterApp }) =>
             Four Core Pillars
           </span>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white tracking-tight mt-3">
-            Everything Optometrists Need in One Dedicated Space
+            Everything Eye Care Needs in One Dedicated Space
           </h2>
           <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-3">
-            FocusLinks removes the noise of general platforms to give eye care professionals a focused, clinical-grade environment.
+            FocusLinks removes the noise of general platforms to give the entire eye care ecosystem a focused, clinical-grade environment — clinicians, surgeons, researchers, educators and trainees alike.
           </p>
         </div>
 

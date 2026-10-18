@@ -428,9 +428,9 @@ export const ConsultDetailDrawer: React.FC<ConsultDetailDrawerProps> = ({
           <div className="space-y-4 pt-4 border-t border-neutral-200 dark:border-neutral-800">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-neutral-900 dark:text-white flex items-center gap-2">
-                <span>{question.answersCount} Doctor {question.answersCount === 1 ? 'Opinion' : 'Opinions'}</span>
+                <span>{question.answersCount} Peer {question.answersCount === 1 ? 'Opinion' : 'Opinions'}</span>
                 <span className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-[10px] font-bold">
-                  Verified OD / MD
+                  Verified Peers
                 </span>
               </h3>
 

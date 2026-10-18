@@ -47,7 +47,7 @@ export const EventsCalendarModal: React.FC<EventsCalendarModalProps> = ({
   const handleDownloadIcs = (event: ClinicalEvent) => {
     const icsData = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Optoms Global Network//Clinical Calendar//EN
+PRODID:-//FocusLinks//Clinical Calendar//EN
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
 SUMMARY:${event.title}
@@ -71,7 +71,7 @@ END:VCALENDAR`;
   const handleShare = (event: ClinicalEvent) => {
     setCopiedId(event.id);
     navigator.clipboard?.writeText?.(
-      `Join ${event.title} on Optoms Global Network! Speaker: ${event.speaker.name}, ${event.speaker.credentials} (${event.ceCredits || 'COPE/CPD Accredited'})`
+      `Join ${event.title} on FocusLinks! Speaker: ${event.speaker.name}, ${event.speaker.credentials} (${event.ceCredits || 'COPE/CPD Accredited'})`
     );
     setTimeout(() => setCopiedId(null), 2500);
   };
@@ -123,7 +123,7 @@ END:VCALENDAR`;
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-400/30">
                 <Calendar className="h-3.5 w-3.5 text-blue-400" />
-                <span>Optoms Global Clinical Calendar</span>
+                <span>Global Clinical Calendar</span>
                 <span className="h-1 w-1 rounded-full bg-blue-300" />
                 <span>{events.length} Upcoming Events</span>
               </div>
@@ -131,7 +131,7 @@ END:VCALENDAR`;
                 Upcoming Webinars, Grand Rounds & Congresses
               </h2>
               <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl leading-relaxed">
-                Stay updated with accredited continuing education (COPE / CPD), live surgical & scleral lens masterclasses, and international optometric symposia.
+                Stay updated with accredited continuing education (COPE / CPD), live surgical & clinical masterclasses, and international eye care symposia.
               </p>
             </div>
 
@@ -369,7 +369,7 @@ END:VCALENDAR`;
                         )}
                         <div className="flex items-center gap-1.5">
                           <Users className="h-3.5 w-3.5 text-neutral-400" />
-                          <span>{evt.attendeesCount} Optoms attending</span>
+                          <span>{evt.attendeesCount} colleagues attending</span>
                         </div>
                       </div>
 
@@ -416,7 +416,7 @@ END:VCALENDAR`;
                           ) : (
                             <>
                               <Plus className="h-3.5 w-3.5" />
-                              <span>Register (Free for Optoms)</span>
+                              <span>Register (Free for Members)</span>
                             </>
                           )}
                         </button>

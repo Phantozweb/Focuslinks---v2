@@ -69,7 +69,7 @@ export const CirclesScene: React.FC<{ t: number }> = ({ t: tG }) => {
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px] font-semibold border border-blue-500/30">
                       <Sparkles className="h-2.5 w-2.5 text-blue-400" />
-                      Global Optometrists Clinical Exchange
+                      Global Eye Care Clinical Exchange
                     </span>
                     <span className="text-[9px] text-neutral-400">
                       <b className="text-emerald-400 font-black">6</b> Circles
@@ -249,7 +249,7 @@ export const CirclesScene: React.FC<{ t: number }> = ({ t: tG }) => {
                           <div className="flex items-center gap-2 mt-0.5">
                             <span className="flex items-center gap-1 text-[9px] text-neutral-300">
                               <Users className="h-2.5 w-2.5 text-blue-400" />
-                              <b className="text-white">12,400</b> optoms
+                              <b className="text-white">12,400</b> members
                             </span>
                             {['case-debates', 'diagnostic-puzzles'].map((ch) => (
                               <span
@@ -306,7 +306,7 @@ export const CirclesScene: React.FC<{ t: number }> = ({ t: tG }) => {
       <AdHook
         t={tG}
         revealAt={2400}
-        eyebrow="Every OD knows this"
+        eyebrow="Every clinician knows this"
         line="Your next grand rounds is buried in a group chat."
         accent="emerald"
         spotNo="02"

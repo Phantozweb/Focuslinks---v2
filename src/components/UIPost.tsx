@@ -25,6 +25,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import { DoctorProfile, ClinicalPost, ClinicalArticleSection } from '../types';
+import { ROLE_MAP, type EcosystemRoleId } from '../data/ecosystem';
 
 /* ================================================================== */
 /*  TYPES & CONSTANTS                                                  */
@@ -177,6 +178,21 @@ const FieldError: React.FC<{ id: string; message?: string }> = ({ id, message })
       <AlertCircle className="h-3 w-3 shrink-0" aria-hidden="true" />
       <span>{message}</span>
     </p>
+  );
+};
+
+/** Tiny inline ecosystem role badge — renders only when the profile carries a `profession`. */
+const AuthorRoleChip: React.FC<{ profession?: EcosystemRoleId }> = ({ profession }) => {
+  if (!profession) return null;
+  const role = ROLE_MAP[profession];
+  if (!role) return null;
+  return (
+    <span
+      title={role.label}
+      className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-bold leading-none ${role.badgeClasses}`}
+    >
+      {role.short}
+    </span>
   );
 };
 
@@ -727,6 +743,9 @@ export const UIPost: React.FC<UIPostProps> = ({
                     </span>
                     <span className="hidden sm:inline px-1.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-[10px] font-extrabold border border-blue-200/60 dark:border-blue-900/50">
                       {currentUser.credentials}
+                    </span>
+                    <span className="hidden sm:inline-flex">
+                      <AuthorRoleChip profession={currentUser.profession} />
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 mt-0.5">

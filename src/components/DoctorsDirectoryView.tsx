@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Search,
@@ -23,9 +23,49 @@ import {
   SlidersHorizontal,
   Compass,
   ArrowUpRight,
-  GraduationCap
+  GraduationCap,
+  Users
 } from 'lucide-react';
 import { DoctorProfile } from '../types';
+import {
+  DIRECTORY_FILTERS,
+  ROLE_MAP,
+  matchesDirectoryFilter,
+  type EcosystemRoleId
+} from '../data/ecosystem';
+
+/**
+ * `profession?: EcosystemRoleId` is landing on DoctorProfile via a parallel agent
+ * (eco-02). Read it through this defensive accessor so the view behaves correctly
+ * whether or not a member carries the field yet: members without a profession
+ * show under the 'All Professionals' filter only and render no role badge.
+ */
+type DoctorWithProfession = DoctorProfile & { profession?: EcosystemRoleId };
+const professionOf = (doc: DoctorProfile): EcosystemRoleId | undefined =>
+  (doc as DoctorWithProfession).profession;
+
+/** Resolved ecosystem role for a member, or null when absent/unknown. */
+const roleFor = (doc: DoctorProfile) => {
+  const id = professionOf(doc);
+  return (id && ROLE_MAP[id]) || null;
+};
+
+/** Small role badge chip shown on every member card (MD, OD, Dispensing, Nurse, ...). */
+const RoleBadge: React.FC<{ profession?: EcosystemRoleId }> = ({ profession }) => {
+  if (!profession) return null;
+  const role = ROLE_MAP[profession];
+  if (!role) return null; // defensive: unknown/stale role id
+  const Icon = role.icon;
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold whitespace-nowrap ${role.badgeClasses}`}
+      title={role.label}
+    >
+      <Icon className="h-2.5 w-2.5" aria-hidden="true" />
+      {role.short}
+    </span>
+  );
+};
 
 interface DoctorsDirectoryViewProps {
   currentUser: DoctorProfile;
@@ -41,6 +81,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
   onEditProfile,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProfessionFilter, setSelectedProfessionFilter] = useState<string>('all');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('all');
   const [onlyNearby, setOnlyNearby] = useState<boolean>(false);
   const [onlyHighConcordance, setOnlyHighConcordance] = useState<boolean>(false);
@@ -88,11 +129,13 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
     ).slice(0, 4);
   }, [allDoctors, currentUser]);
 
-  // Unified Filtered and sorted doctors (NO TABS!)
-  const filteredAndSortedDoctors = useMemo(() => {
-    const list = allDoctors.filter((doc) => {
-      // Search matching
+  // Search + specialty + quick-toggle predicate, shared by the result list and the
+  // profession chip counts (faceted counts ignore the profession chip itself).
+  const matchesBaseFilters = useCallback(
+    (doc: DoctorProfile) => {
+      // Search matching — name, credentials, clinic, city, tech, and profession label
       const q = searchQuery.toLowerCase().trim();
+      const role = roleFor(doc);
       const matchesSearch =
         !q ||
         doc.name.toLowerCase().includes(q) ||
@@ -100,6 +143,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
         doc.clinicName.toLowerCase().includes(q) ||
         doc.location.toLowerCase().includes(q) ||
         doc.subspecialtyCategory?.toLowerCase().includes(q) ||
+        (!!role && (role.label.toLowerCase().includes(q) || role.plural.toLowerCase().includes(q))) ||
         doc.diagnosticTechnologies.some((t) =>
           t.name.toLowerCase().includes(q)
         );
@@ -114,7 +158,17 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
       const matchesNewFellows = !onlyNewFellows || !!doc.isNew;
 
       return matchesSearch && matchesSpecialty && matchesNearby && matchesConcordance && matchesNewFellows;
-    });
+    },
+    [searchQuery, selectedSpecialty, onlyNearby, onlyHighConcordance, onlyNewFellows]
+  );
+
+  // Unified Filtered and sorted doctors (NO TABS!) — base filters × profession chip
+  const filteredAndSortedDoctors = useMemo(() => {
+    const list = allDoctors.filter(
+      (doc) =>
+        matchesBaseFilters(doc) &&
+        matchesDirectoryFilter(professionOf(doc), selectedProfessionFilter)
+    );
 
     // Sorting
     return list.sort((a, b) => {
@@ -130,9 +184,26 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
       // default: highest peer concordance
       return (b.peerConcordance ?? 0) - (a.peerConcordance ?? 0);
     });
-  }, [allDoctors, searchQuery, selectedSpecialty, onlyNearby, onlyHighConcordance, onlyNewFellows, sortBy]);
+  }, [allDoctors, matchesBaseFilters, selectedProfessionFilter, sortBy]);
+
+  // Faceted counts per profession chip: members matching the other active filters
+  // (search / specialty / toggles). Members without a profession only count toward
+  // 'All Professionals', mirroring matchesDirectoryFilter's defensive behavior.
+  const professionCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const filter of DIRECTORY_FILTERS) counts[filter.id] = 0;
+    for (const doc of allDoctors) {
+      if (!matchesBaseFilters(doc)) continue;
+      const p = professionOf(doc);
+      for (const filter of DIRECTORY_FILTERS) {
+        if (matchesDirectoryFilter(p, filter.id)) counts[filter.id] += 1;
+      }
+    }
+    return counts;
+  }, [allDoctors, matchesBaseFilters]);
 
   const activeFiltersCount =
+    (selectedProfessionFilter !== 'all' ? 1 : 0) +
     (selectedSpecialty !== 'all' ? 1 : 0) +
     (onlyNearby ? 1 : 0) +
     (onlyHighConcordance ? 1 : 0) +
@@ -141,6 +212,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
 
   const handleResetFilters = () => {
     setSearchQuery('');
+    setSelectedProfessionFilter('all');
     setSelectedSpecialty('all');
     setOnlyNearby(false);
     setOnlyHighConcordance(false);
@@ -166,17 +238,17 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-400/30">
                 <ShieldCheck className="h-3 w-3 text-blue-400" />
-                Verified Optometrist Network
+                Verified Eye Care Network
               </span>
               <span className="text-xs text-neutral-400">
-                {allDoctors.length} Optometrists On-Call
+                {allDoctors.length} Eye Care Professionals On-Call
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white font-['Plus_Jakarta_Sans',sans-serif]">
-              Peer Directory
+              Eye Care Directory
             </h1>
             <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl leading-relaxed">
-              Explore verified colleagues, co-management partners, and subspecialty leaders across the globe. Seamlessly connect, consult, or inspect full clinical CVs.
+              Find your colleagues across every discipline — ophthalmology, optometry, opticians, orthoptists, nurses, technicians, scientists, educators and trainees. Seamlessly connect, consult, or inspect full clinical CVs.
             </p>
           </div>
 
@@ -275,9 +347,12 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
                   <h3 className="font-bold text-sm text-neutral-900 dark:text-white line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {doc.name}
                   </h3>
-                  <p className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                    {doc.credentials}
-                  </p>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <p className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
+                      {doc.credentials}
+                    </p>
+                    <RoleBadge profession={professionOf(doc)} />
+                  </div>
                   <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1 line-clamp-1">
                     {doc.clinicName}
                   </p>
@@ -330,7 +405,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by doctor name, credential, clinic, city, or tech (e.g. Scleral, AS-OCT)..."
+              placeholder="Search by name, profession, credential, clinic, city, or tech (e.g. Scleral, AS-OCT)..."
               className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-xs sm:text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
             />
             {searchQuery && (
@@ -436,6 +511,39 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
           </div>
         </div>
 
+        {/* Profession Filter Chips (whole-ecosystem roles — sits above specialty filters) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-1 border-t border-neutral-100 dark:border-neutral-800/80">
+          <span className="text-[11px] font-semibold text-neutral-400 shrink-0 mr-1 flex items-center gap-1">
+            <Users className="h-3 w-3" /> Profession:
+          </span>
+          {DIRECTORY_FILTERS.map((filter) => {
+            const isActive = selectedProfessionFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                onClick={() => setSelectedProfessionFilter(filter.id)}
+                title={isActive ? `Showing all: ${filter.label}` : `Filter by ${filter.label}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all border ${
+                  isActive
+                    ? 'bg-blue-600 border-blue-600 text-white shadow-2xs font-semibold'
+                    : 'bg-neutral-100 dark:bg-neutral-800/60 border-transparent text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                {filter.label}
+                <span
+                  className={`px-1.5 py-px rounded-full text-[10px] font-bold ${
+                    isActive
+                      ? 'bg-white/20 text-white'
+                      : 'bg-neutral-200/80 dark:bg-neutral-700/60 text-neutral-500 dark:text-neutral-300'
+                  }`}
+                >
+                  {professionCounts[filter.id] ?? 0}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Specialty Filter Chips (Inline row) */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar pt-1 border-t border-neutral-100 dark:border-neutral-800/80">
           <span className="text-[11px] font-semibold text-neutral-400 shrink-0 mr-1 flex items-center gap-1">
@@ -459,7 +567,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
         {/* Active Filter Summary Bar */}
         <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 pt-1">
           <span className="font-medium">
-            Showing <strong className="text-neutral-900 dark:text-white font-bold">{filteredAndSortedDoctors.length}</strong> optometrists
+            Showing <strong className="text-neutral-900 dark:text-white font-bold">{filteredAndSortedDoctors.length}</strong> eye care professionals
             {activeFiltersCount > 0 && ` (${activeFiltersCount} filter applied)`}
           </span>
 
@@ -481,10 +589,10 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
             <Compass className="h-6 w-6" />
           </div>
           <h3 className="text-base font-bold text-neutral-900 dark:text-white">
-            No optometrists match your current criteria
+            No eye care professionals match your current criteria
           </h3>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-md mx-auto">
-            Try broadening your search term, clearing specialty filters, or expanding your referral proximity distance.
+            Try broadening your search, switching profession or specialty filters, or expanding your referral proximity distance.
           </p>
           <button
             onClick={handleResetFilters}
@@ -506,7 +614,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
                   {/* Card Banner Header */}
                   <div className="h-20 bg-gradient-to-r from-blue-600/15 via-indigo-600/15 to-purple-600/15 p-3 relative flex items-start justify-between">
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/90 dark:bg-black/80 backdrop-blur-xs text-neutral-700 dark:text-neutral-300 shadow-2xs">
-                      {doc.subspecialtyCategory || 'Optometry Specialist'}
+                      {doc.subspecialtyCategory || 'Eye Care Specialist'}
                     </span>
 
                     {doc.distanceMiles !== undefined && (
@@ -546,9 +654,12 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
                     <h3 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {doc.name}
                     </h3>
-                    <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
-                      {doc.credentials}
-                    </p>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                        {doc.credentials}
+                      </p>
+                      <RoleBadge profession={professionOf(doc)} />
+                    </div>
                     <p className="text-xs text-neutral-600 dark:text-neutral-300 mt-1 line-clamp-1">
                       {doc.clinicName} • {doc.location}
                     </p>
@@ -652,6 +763,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
                       <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
                         {doc.credentials}
                       </span>
+                      <RoleBadge profession={professionOf(doc)} />
                       <span className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
                         {doc.subspecialtyCategory}
                       </span>
@@ -779,7 +891,7 @@ export const DoctorsDirectoryView: React.FC<DoctorsDirectoryViewProps> = ({
                       <ShieldCheck className="h-3 w-3 text-emerald-500" />
                       HIPAA / Peer-to-Peer Encrypted
                     </span>
-                    <span>Direct Optometric Channel</span>
+                    <span>Direct Peer Channel</span>
                   </div>
 
                   <div className="flex items-center justify-end gap-2 pt-2">

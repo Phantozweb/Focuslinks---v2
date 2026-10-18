@@ -33,8 +33,11 @@ const TOPIC_BADGES: Record<string, string[]> = {
   'topic-ai': ['Algorithm Auditor', 'Digital Health Dean', 'Telehealth Tactician', 'Triaging Tools Chair', 'Model Bias Monitor', 'Data Privacy Pro', 'Workflow Wizard', 'Top Answerer'],
   'topic-retinaimaging': ['Imaging Roundtable Host', 'Ultra-Widefield Umpire', 'OCT-A Flow Master', 'En-Face Enthusiast', 'Montage Maestro', 'Pathology Spotter', 'Grading Guard', 'Top Answerer'],
   'topic-billing': ['Prior Auth Pathfinder', 'CPT Code Counsel', 'Medical Necessity Pro', 'Modifier Master', 'Audit Shield', 'Reimbursement Ranger', 'Compliance Captain', 'Top Answerer'],
-  'topic-students': ['Board Prep Captain', 'NBEO Ally', 'Resident Application Coach', 'Clinic First-Year Guide', 'Study Group Chair', 'Pearl Curator', 'Mentor-at-Large', 'Top Answerer'],
+  'topic-students': ['Board Prep Captain', 'Licensure Ally', 'Resident Application Coach', 'Clinic First-Year Guide', 'Study Group Chair', 'Pearl Curator', 'Mentor-at-Large', 'Top Answerer'],
   'topic-optics': ['Prism Perfectionist', 'Transposition Tutor', 'Progressive Pal', 'Vertex Virtuoso', 'Abbe Value Analyst', 'Anisometropia Arbiter', 'Lens Material Maven', 'Top Answerer'],
+  'topic-retina-surgery': ['Vitreoretinal Chair', 'Tamponade Tactician', 'Macular Hole Whisperer', 'Scleral Buckle Strategist', 'OR Co-Management Pro', 'Surgical Video Critic', 'Fellowship Mentor', 'Top Answerer'],
+  'topic-lowvision': ['Rehab Roundtable Host', 'Device Fitting Pro', 'Eccentric Viewing Coach', 'Certified VRT Champion', 'Accessibility Advocate', 'Driving Rehab Specialist', 'Pediatric LV Guide', 'Top Answerer'],
+  'topic-ophthalmic-assisting': ['Imaging Protocol Chair', 'Workup Workflow Wizard', 'JCAHPO Exam Coach', 'Injection Day Commander', 'Tech Training Lead', 'Diagnostic Imaging Pro', 'Clinic Flow Strategist', 'Top Answerer'],
 };
 
 const FALLBACK_BADGES = ['Top Answerer', 'Community Pillar', 'Consensus Builder', 'Clinical Pearl Curator', 'Rising Contributor', 'Fast Responder', 'Peer Endorsed', 'Discussion Driver'];

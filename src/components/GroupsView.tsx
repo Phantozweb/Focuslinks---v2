@@ -52,7 +52,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5 text-blue-600" />
             <h1 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100">
-              Optometrist Communities & Grand Rounds
+              Eye Care Communities & Grand Rounds
             </h1>
           </div>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
@@ -119,7 +119,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                   </p>
 
                   <div className="flex items-center justify-between pt-2 mt-2 border-t border-neutral-100 dark:border-neutral-800/60 text-[10px] text-neutral-400 font-medium">
-                    <span>{grp.membersCount.toLocaleString()} OD Colleagues</span>
+                    <span>{grp.membersCount.toLocaleString()} Peer Colleagues</span>
                     <span>{grp.activeDiscussions} Active Cases</span>
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                     {selectedGroup.name}
                   </h2>
                   <span className="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60">
-                    Verified OD Group
+                    Verified Peer Group
                   </span>
                 </div>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">
@@ -166,7 +166,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                   <span className="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider bg-purple-50 dark:bg-purple-950/40 px-2 py-0.5 rounded">
                     Pinned Grand Rounds Topic
                   </span>
-                  <span className="text-xs text-neutral-400">Today • 18 OD replies</span>
+                  <span className="text-xs text-neutral-400">Today • 18 peer replies</span>
                 </div>
 
                 <h3 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
@@ -190,10 +190,10 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                 </div>
               </div>
 
-              {/* Sample Answers from fellow Optometrists */}
+              {/* Sample Answers from fellow eye care professionals */}
               <div className="space-y-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-500 px-1">
-                  Peer Optometrist Perspectives
+                  Peer Perspectives from the Community
                 </h4>
 
                 <div className="p-3 rounded-xl border border-neutral-100 dark:border-neutral-800/80 bg-white dark:bg-[#161619] space-y-1">
@@ -297,7 +297,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                       rows={4}
                       value={caseBody}
                       onChange={(e) => setCaseBody(e.target.value)}
-                      placeholder="Include age, visual acuity, IOP, OCT parameters, and specific management question for OD peers..."
+                      placeholder="Include age, visual acuity, IOP, OCT parameters, and your specific management question for fellow peers..."
                       className="w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#202024] px-3 py-2 text-xs text-neutral-900 dark:text-neutral-100"
                       required
                     />
@@ -320,7 +320,7 @@ export const GroupsView: React.FC<GroupsViewProps> = ({
                       type="submit"
                       className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold"
                     >
-                      <Send className="h-3.5 w-3.5" /> Post to OD Forum
+                      <Send className="h-3.5 w-3.5" /> Post to Peer Forum
                     </button>
                   </div>
                 </form>

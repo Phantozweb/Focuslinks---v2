@@ -1068,7 +1068,7 @@ export const CircleWorkspace: React.FC<CircleWorkspaceProps> = ({
               {/* Online Doctors List */}
               <div className="space-y-3">
                 <span className="px-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider block">
-                  Online Clinicians & Fellows
+                  Online Members & Fellows
                 </span>
 
                 <div className="space-y-1">
@@ -1136,7 +1136,7 @@ export const CircleWorkspace: React.FC<CircleWorkspaceProps> = ({
                 <ShieldCheck className="h-3.5 w-3.5" />
                 <span>Verified Peer Network</span>
               </div>
-              <p>Only verified OD & MD clinicians are granted posting rights in this circle.</p>
+              <p>Only verified eye care professionals are granted posting rights in this circle.</p>
             </div>
           </div>
         )}

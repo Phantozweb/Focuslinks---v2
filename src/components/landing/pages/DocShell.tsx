@@ -317,7 +317,7 @@ export const DocShell: React.FC<DocShellProps> = ({
               Ready to Join the Verified Workspace?
             </h2>
             <p className="text-sm sm:text-base text-blue-100 leading-relaxed font-medium">
-              Explore de-identified cases, specialty consult hubs and grand rounds with 12,400+ verified optometrists.
+              Explore de-identified cases, specialty consult hubs and grand rounds with 12,400+ verified eye care professionals.
             </p>
           </div>
 

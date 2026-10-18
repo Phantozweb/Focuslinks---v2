@@ -54,7 +54,7 @@ export const FeedScene: React.FC<{ t: number }> = ({ t: tG }) => {
 
   const streams = [
     { id: 'for-you', label: 'For You', icon: <Compass className="h-3 w-3 text-blue-500" /> },
-    { id: 'following', label: 'Following Optometrists', icon: <UserCheck className="h-3 w-3 text-indigo-500" /> },
+    { id: 'following', label: 'Following Colleagues', icon: <UserCheck className="h-3 w-3 text-indigo-500" /> },
     { id: 'vault', label: 'Vault (3)', icon: <Bookmark className="h-3 w-3 text-amber-500 fill-current" /> },
   ];
 
@@ -383,7 +383,7 @@ export const FeedScene: React.FC<{ t: number }> = ({ t: tG }) => {
         t={tG}
         start={8700}
         end={PUNCH_AT - 200}
-        line="Your people. Your pace. Only optometry."
+        line="Your people. Your pace. Only eye care."
         accent="sky"
       />
       <AdPunchline

@@ -14,6 +14,7 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import type { LandingSubView } from './subViews';
+import { ECOSYSTEM_ROLES, NETWORK_SUBTAGLINE, NETWORK_TAGLINE_SHORT, COMMUNITY_LABEL } from '../../data/ecosystem';
 
 interface LandingFooterProps {
   onEnterApp: (destination?: 'feed' | 'gallery' | 'groups' | 'doctors') => void;
@@ -26,6 +27,9 @@ interface FooterLink {
   icon?: React.FC<{ className?: string }>;
   external?: boolean;
 }
+
+// Compact roles strip for the brand column — first 8 of the 12 ecosystem roles (MD · OD · Dispensing · ...).
+const ROLE_STRIP = ECOSYSTEM_ROLES.slice(0, 8);
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <h4 className="text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-3.5">
@@ -64,7 +68,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onEnterApp, onChan
     { label: 'Clinical Feed', onClick: () => onEnterApp('feed') },
     { label: 'Diagnostic Grid', onClick: () => onEnterApp('gallery') },
     { label: 'Specialty Circles', onClick: () => onEnterApp('groups') },
-    { label: 'Optometrist Directory', onClick: () => onEnterApp('doctors') },
+    { label: 'Eye Care Directory', onClick: () => onEnterApp('doctors') },
   ];
 
   const resourceLinks: FooterLink[] = [
@@ -98,13 +102,34 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onEnterApp, onChan
                   FocusLinks
                 </span>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                  The Global Platform for Optometrists
+                  {NETWORK_TAGLINE_SHORT}
                 </p>
               </div>
             </div>
-            <p className="text-xs text-neutral-400 dark:text-neutral-500 leading-relaxed max-w-xs">
-              A verified, peer-only clinical sanctuary — de-identified cases, specialty consult hubs, Circles and grand rounds for the worldwide optometry community.
+            <p className="text-xs text-neutral-400 dark:text-neutral-500 leading-relaxed max-w-sm">
+              {NETWORK_SUBTAGLINE}
             </p>
+            {/* Ecosystem roles strip — subtle chips, wraps on mobile */}
+            <div className="space-y-1.5 max-w-sm">
+              <div className="flex flex-wrap gap-1" aria-label="12 professional roles on FocusLinks">
+                {ROLE_STRIP.map((role) => {
+                  const RoleIcon = role.icon;
+                  return (
+                    <span
+                      key={role.id}
+                      title={role.label}
+                      className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md border text-[9px] font-bold tracking-wide opacity-80 ${role.badgeClasses}`}
+                    >
+                      <RoleIcon className="h-2.5 w-2.5 shrink-0" />
+                      {role.short}
+                    </span>
+                  );
+                })}
+              </div>
+              <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500">
+                12 professional roles · one verified community
+              </p>
+            </div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-300">
@@ -146,7 +171,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onEnterApp, onChan
 
         {/* Bottom bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400 dark:text-neutral-500">
-          <p>© {new Date().getFullYear()} FocusLinks. Built exclusively for the global optometry community.</p>
+          <p>© {new Date().getFullYear()} FocusLinks. Built for {COMMUNITY_LABEL}.</p>
 
           {/* Compact legal row for quick reach on mobile */}
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5">

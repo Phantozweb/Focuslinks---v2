@@ -94,7 +94,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <div>
               <div className="flex items-center gap-1">
                 <span className="text-sm font-black text-neutral-900 dark:text-white">FocusLinks</span>
-                <span className="px-1 py-0.2 rounded text-[9px] font-bold bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">OD</span>
+                <span className="px-1 py-0.2 rounded text-[9px] font-bold bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">ECP</span>
               </div>
             </div>
           </div>

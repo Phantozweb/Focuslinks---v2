@@ -17,11 +17,11 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'FocusLinks is a professional education and peer-collaboration platform for verified optometrists, residents and students. Its purpose is to accelerate clinical learning: sharing de-identified cases, exchanging pearls, debating diagnostic pathways in consult hubs, and practising the reasoning that makes chairside decisions better. It is a community of colleagues talking to colleagues.'
+        text: 'FocusLinks is a professional education and peer-collaboration platform for verified eye care professionals — physicians, optometrists, opticians, orthoptists, nurses, technicians, scientists, educators and trainees. Its purpose is to accelerate clinical learning: sharing de-identified cases, exchanging pearls, debating diagnostic pathways in consult hubs, and practicing the reasoning that makes chairside decisions better. It is a community of colleagues talking to colleagues.'
       },
       {
         type: 'p',
-        text: 'FocusLinks is not a clinic, a pharmacy, a diagnostic laboratory, a referral agency or an emergency service. It does not provide medical care, does not issue prescriptions, does not interpret images for any specific patient, and does not substitute for examination, licensure or the treating clinician\u2019s judgement.'
+        text: 'FocusLinks is not a clinic, a pharmacy, a diagnostic laboratory, a referral agency or an emergency service. It does not provide medical care, does not issue prescriptions, does not interpret images for any specific patient, and does not substitute for examination, licensure or the treating clinician\u2019s judgment.'
       },
       {
         type: 'callout',
@@ -97,7 +97,7 @@ const SECTIONS: DocSection[] = [
       },
       {
         type: 'p',
-        text: 'The Medical Disclaimer does not replace those obligations: even a brilliant teaching case is unacceptable on the platform if a patient could be identified from it. When in doubt, crop, generalise and describe — "62-year-old female" teaches the same pearl as a chart screenshot ever could.'
+        text: 'The Medical Disclaimer does not replace those obligations: even a brilliant teaching case is unacceptable on the platform if a patient could be identified from it. When in doubt, crop, generalize and describe — "62-year-old female" teaches the same pearl as a chart screenshot ever could.'
       }
     ]
   },
@@ -107,7 +107,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'Event listings, symposium sessions and grand rounds on the central board may reference continuing-education credits (for example COPE-style hours). Those references are supplied by event organisers for convenience. Whether a session counts toward your licence is decided solely by your licensing or registration board — verify eligibility with them before relying on any CE claim.'
+        text: 'Event listings, symposium sessions and grand rounds on the central board may reference continuing-education credits (for example COPE, CME or comparable hours). Those references are supplied by event organizers for convenience. Whether a session counts toward your license is decided solely by your licensing or registration board — verify eligibility with them before relying on any CE claim.'
       },
       {
         type: 'p',
@@ -127,7 +127,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'Some contributions may be produced with the assistance of AI tools, drafts or simulations. Regardless of how content is created, the member who posts it is responsible for its clinical accuracy and for labelling uncertainty. AI outputs must never be presented as confirmed diagnoses, imaging reads or peer-reviewed evidence.'
+        text: 'Some contributions may be produced with the assistance of AI tools, drafts or simulations. Regardless of how content is created, the member who posts it is responsible for its clinical accuracy and for labeling uncertainty. AI outputs must never be presented as confirmed diagnoses, imaging reads or peer-reviewed evidence.'
       },
       {
         type: 'p',
@@ -160,7 +160,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onBackToHome, on
       titleAccent="Disclaimer"
       icon={Stethoscope}
       accent={meta.accent}
-      intro="How clinical content on FocusLinks must and must not be used: peer education to sharpen your judgement — never a replacement for it, and never an emergency channel."
+      intro="How clinical content on FocusLinks must and must not be used: peer education to sharpen your judgment — never a replacement for it, and never an emergency channel."
       lastUpdated={meta.lastUpdated}
       readingTime={meta.readingTime}
       sections={SECTIONS}

@@ -169,7 +169,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'All discussion threads, diagnostic consults and case histories are stored on secure cloud environments with encryption in transit and at rest. Access to view any clinical discussion is locked strictly behind verified doctor login, preventing public exposure or indexing. Administrative access follows least-privilege principles, is logged, and is limited to trained staff who need it to run the Service.'
+        text: 'All discussion threads, diagnostic consults and case histories are stored on secure cloud environments with encryption in transit and at rest. Access to view any clinical discussion is locked strictly behind verified clinician login, preventing public exposure or indexing. Administrative access follows least-privilege principles, is logged, and is limited to trained staff who need it to run the Service.'
       },
       {
         type: 'list',
@@ -251,7 +251,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'The Service is intended exclusively for adult professionals and students in optometry programmes. We do not knowingly collect data from anyone under 18, and accounts discovered to belong to minors are closed and their data deleted. Patients of any age are never users of the Service, and identifiable data about them is prohibited under the Community Rules.'
+        text: 'The Service is intended exclusively for adult eye care professionals and students in eye care programmes (optometry, ophthalmology, orthoptics, vision science and allied disciplines). We do not knowingly collect data from anyone under 18, and accounts discovered to belong to minors are closed and their data deleted. Patients of any age are never users of the Service, and identifiable data about them is prohibited under the Community Rules.'
       },
       {
         type: 'callout',

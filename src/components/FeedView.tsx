@@ -32,6 +32,25 @@ import {
 import { ClinicalPost, DoctorProfile, ClinicalStory } from '../types';
 import { DoctorAvatar } from './common/DoctorAvatar';
 import { PostMediaGrid } from './feed/PostMediaGrid';
+import { ROLE_MAP, type EcosystemRoleId } from '../data/ecosystem';
+
+/* ------------------------------------------------------------------ */
+/*  AUTHOR ROLE CHIP — tiny inline ecosystem badge next to credentials */
+/*  Renders only when the author snapshot carries a `profession`.      */
+/* ------------------------------------------------------------------ */
+const AuthorRoleChip: React.FC<{ profession?: EcosystemRoleId }> = ({ profession }) => {
+  if (!profession) return null;
+  const role = ROLE_MAP[profession];
+  if (!role) return null;
+  return (
+    <span
+      title={role.label}
+      className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-bold leading-none ${role.badgeClasses}`}
+    >
+      {role.short}
+    </span>
+  );
+};
 
 interface FeedViewProps {
   posts: ClinicalPost[];
@@ -148,7 +167,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* ============================================================== */}
-      {/* 1. CLINICAL PEARLS (DAILY ROTATING OPTOMETRIC CASES)           */}
+      {/* 1. CLINICAL PEARLS (DAILY ROTATING CLINICAL CASES)              */}
       {/* ============================================================== */}
       <section
         aria-labelledby="feed-stories-heading"
@@ -173,7 +192,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 </span>
               </div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                High-yield cases, slit-lamp findings, and therapeutic protocols from verified optometrists
+                High-yield cases, slit-lamp findings, and therapeutic protocols from verified eye care professionals
               </p>
             </div>
           </div>
@@ -288,7 +307,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
           <div role="group" aria-label="Feed stream" className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-800/80 p-1 rounded-xl">
             {([
               { id: 'for-you', label: 'For You', icon: <Compass className="h-3.5 w-3.5 text-blue-500" aria-hidden="true" /> },
-              { id: 'following', label: 'Following Optometrists', icon: <UserCheck className="h-3.5 w-3.5 text-indigo-500" aria-hidden="true" /> },
+              { id: 'following', label: 'Following Professionals', icon: <UserCheck className="h-3.5 w-3.5 text-indigo-500" aria-hidden="true" /> },
               {
                 id: 'vault',
                 label: `Vault (${posts.filter((p) => p.bookmarked).length})`,
@@ -647,8 +666,9 @@ export const FeedView: React.FC<FeedViewProps> = ({
                         >
                           {post.author.name}
                         </button>
-                        <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400">
-                          {post.author.credentials}
+                        <span className="flex flex-wrap items-center gap-1.5 text-[10px] font-medium text-blue-600 dark:text-blue-400">
+                          <span>{post.author.credentials}</span>
+                          <AuthorRoleChip profession={post.author.profession} />
                         </span>
                       </div>
                     </div>
@@ -690,7 +710,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                       <div className="rounded-xl p-3 bg-gradient-to-br from-amber-50 via-rose-50 to-neutral-50 dark:from-amber-950/40 dark:via-rose-950/30 dark:to-neutral-900 border border-amber-200/70 dark:border-amber-900/50">
                         <div className="flex items-center gap-1.5 text-amber-700 dark:text-amber-300 text-[10px] font-extrabold uppercase tracking-wider mb-1">
                           <Sparkles className="h-3 w-3" aria-hidden="true" />
-                          Optometry Pearl
+                          Clinical Pearl
                         </div>
                         <p className="font-serif text-sm sm:text-base font-bold tracking-tight text-neutral-900 dark:text-neutral-100 leading-snug">
                           {post.pearlHeadline || 'High-Yield Clinical Practice Pearl'}
@@ -925,8 +945,11 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     <h3 id="case-detail-title" className="text-xs sm:text-sm font-bold text-neutral-900 dark:text-neutral-100 truncate">
                       {selectedCaseDetail.author.name}
                     </h3>
-                    <p className="text-[10px] text-blue-600 dark:text-blue-400 truncate">
-                      {selectedCaseDetail.author.credentials} • {selectedCaseDetail.author.clinicName}
+                    <p className="text-[10px] text-blue-600 dark:text-blue-400 flex flex-wrap items-center gap-1.5 min-w-0">
+                      <span className="truncate">
+                        {selectedCaseDetail.author.credentials} • {selectedCaseDetail.author.clinicName}
+                      </span>
+                      <AuthorRoleChip profession={selectedCaseDetail.author.profession} />
                     </p>
                   </div>
                 </div>
@@ -1005,7 +1028,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 via-rose-50 to-neutral-50 dark:from-amber-950/40 dark:via-rose-950/30 dark:to-neutral-900 border border-amber-200/70 dark:border-amber-900/50">
                     <div className="flex items-center gap-1.5 text-amber-700 dark:text-amber-300 text-[10px] font-extrabold uppercase tracking-wider mb-1">
                       <Sparkles className="h-3 w-3" aria-hidden="true" />
-                      Optometry Pearl
+                      Clinical Pearl
                     </div>
                     <p className="font-serif text-base font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
                       {selectedCaseDetail.pearlHeadline}

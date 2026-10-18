@@ -130,11 +130,11 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
                 FocusLinks
               </span>
               <span className="px-1.5 py-0.2 rounded-md text-[10px] font-black bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-200/60 dark:border-blue-900/60 uppercase">
-                OD
+                ECP
               </span>
             </div>
             <p className="text-[10px] text-neutral-400 font-medium">
-              Sovereign Clinical Network
+              For the Entire Eye Care Ecosystem
             </p>
           </div>
         </button>
@@ -339,7 +339,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           <div className="p-2.5 rounded-2xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/50 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black uppercase tracking-wider text-blue-700 dark:text-blue-300">
-                Demo OD Session
+                Demo Session
               </span>
               <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
             </div>

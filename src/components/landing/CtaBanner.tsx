@@ -20,11 +20,11 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onEnterApp }) => {
           </div>
 
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-            Ready to Connect with Optometrists Worldwide?
+            Ready to Connect with the Eye Care Community?
           </h2>
 
           <p className="text-sm sm:text-base lg:text-lg text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
-            Step into the dedicated digital home for optometry. Share complex cases, seek peer advice, and advance your clinical knowledge today.
+            Step into the digital home for the entire eye care ecosystem. Share complex cases, seek peer advice, and advance patient care together.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">

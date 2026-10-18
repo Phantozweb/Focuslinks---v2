@@ -27,7 +27,7 @@ const SECTIONS: DocSection[] = [
         type: 'callout',
         tone: 'info',
         title: 'Plain-language summary',
-        text: 'FocusLinks is a verified, peer-only community for optometrists. Use it professionally, protect patient privacy, stand behind your credentials, and treat peer content as peer opinion — never as a replacement for your own clinical judgement.'
+        text: 'FocusLinks is a verified, peer-only community for eye care professionals. Use it professionally, protect patient privacy, stand behind your credentials, and treat peer content as peer opinion — never as a replacement for your own clinical judgement.'
       }
     ]
   },
@@ -37,18 +37,18 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'FocusLinks exists to keep clinical discussion peer-only and advertising-free. Registration is therefore limited to optometry professionals and students in training, and every application passes through our verification workflow before workspace access is unlocked. You must be at least 18 years old and legally able to form a binding contract to hold an account.'
+        text: 'FocusLinks exists to keep clinical discussion peer-only and advertising-free. Registration is therefore limited to verified eye care professionals and students in training — ophthalmologists, optometrists, opticians, orthoptists, ophthalmic nurses and technicians, vision scientists, academics, residents and students — and every application passes through our verification workflow before workspace access is unlocked. You must be at least 18 years old and legally able to form a binding contract to hold an account.'
       },
       {
         type: 'sub',
         points: [
           {
             label: 'Practitioners',
-            text: 'Optometrists holding a recognised degree, licence, registry number (NPI, GOC, Indian State Council registration or equivalent) or academic credential may register as Verified Practitioners.'
+            text: 'Licensed practitioners — physicians (MD/DO), optometrists (OD), opticians, orthoptists, ophthalmic nurses and technicians — holding a recognised degree, licence or registry number (NPI, GOC, national or state councils, nursing or dispensing registries, or equivalent) may register as Verified Practitioners.'
           },
           {
             label: 'Students & residents',
-            text: 'Optometry students, interns and residents may register with an active college ID or enrolment certificate and receive Verified Student access with educational read-and-participate permissions.'
+            text: 'Students, interns and residents in eye care programmes — optometry, ophthalmology, orthoptics and vision science — may register with an active college ID or enrolment certificate and receive Verified Student access with educational read-and-participate permissions.'
           },
           {
             label: 'Universal verification',
@@ -162,7 +162,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'Circles are member-run and member-moderated specialty hubs. Events, grand rounds and symposia listed on the central event board are organised by Circles, institutions or FocusLinks itself. Where an event references continuing-education credits (for example COPE-style hours), those references are provided by the event organiser for convenience.'
+        text: 'Circles are member-run and member-moderated specialty hubs. Events, grand rounds and symposia listed on the central event board are organised by Circles, institutions or FocusLinks itself. Where an event references continuing-education credits (for example COPE- or CME-style hours), those references are provided by the event organiser for convenience.'
       },
       {
         type: 'callout',
@@ -182,7 +182,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'Core access to FocusLinks — reading the clinical feed, exploring diagnostic imagery, joining Circles, participating in consult hubs and connecting in the directory — is free for the verified global optometry community. Optional paid tiers, when offered, will always be described with their price, billing cycle and included benefits before you commit.'
+        text: 'Core access to FocusLinks — reading the clinical feed, exploring diagnostic imagery, joining Circles, participating in consult hubs and connecting in the directory — is free for the verified global eye care community. Optional paid tiers, when offered, will always be described with their price, billing cycle and included benefits before you commit.'
       },
       {
         type: 'list',

@@ -17,7 +17,7 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'FocusLinks exists because optometrists deserve a clinical space that is peer-only, de-identified and completely noise-free — no political rants, no advertisements, no algorithmic bait. These six Community Rules are the operating manual for keeping it that way. They apply everywhere on the platform: the feed, consult hubs, Q&A, Circles, Spotlight stories, Explore imagery, the directory, events and direct messages.'
+        text: 'FocusLinks exists because eye care professionals deserve a clinical space that is peer-only, de-identified and completely noise-free — no political rants, no advertisements, no algorithmic bait. These six Community Rules are the operating manual for keeping it that way. They apply everywhere on the platform: the feed, consult hubs, Q&A, Circles, Spotlight stories, Explore imagery, the directory, events and direct messages.'
       },
       {
         type: 'p',
@@ -42,7 +42,7 @@ const SECTIONS: DocSection[] = [
       {
         type: 'list',
         items: [
-          'Register only with your own degree, licence, registry or student credentials — never borrowed, altered or fabricated ones.',
+          'Register only with your own degree, license, registry or student credentials — never borrowed, altered or fabricated ones.',
           'Keep your profile truthful: name, credentials, institution, specialties and region must match reality.',
           'Students and residents must keep their Verified Student status accurate and upgrade upon graduation.',
           'Sponsors in a Credential Sponsor Handshake are accountable for the colleagues they vouch for.',
@@ -68,11 +68,11 @@ const SECTIONS: DocSection[] = [
       {
         type: 'list',
         items: [
-          'Crop or cover patient faces, tattoos, jewellery and any distinguishing marks from slit-lamp photos, OCT captures and fundus images.',
+          'Crop or cover patient faces, tattoos, jewelry and any distinguishing marks from slit-lamp photos, OCT captures and fundus images.',
           'Strip names, file numbers, MRNs, initials, birthdates, exact examination dates and practice serial numbers from images, files, EXIF-adjacent fields and text.',
           'Describe patients generically — "38-year-old male", "postmenopausal female" — never "my 9 a.m. Tuesday patient".',
           'Check device overlays: many imaging systems print patient identifiers by default; disable or mask them before capture.',
-          'When in doubt about a rare case, alter or omit details that could identify a patient to neighbours or colleagues in a small community.'
+          'When in doubt about a rare case, alter or omit details that could identify a patient to neighbors or colleagues in a small community.'
         ]
       },
       {
@@ -99,7 +99,7 @@ const SECTIONS: DocSection[] = [
           'No engagement bait: "like if you agree", karma farming, recycled listicles or AI-generated filler without clinical substance.',
           'No off-topic flood posting; one strong case teaches more than ten shallow ones.',
           'Disclose any relevant commercial relationship (e.g., you consult for a device maker) when discussing that product class.',
-          'Event and CE promotions belong in the designated channels and must state the organising body honestly.'
+          'Event and CE promotions belong in the designated channels and must state the organizing body honestly.'
         ]
       }
     ]
@@ -130,12 +130,12 @@ const SECTIONS: DocSection[] = [
     blocks: [
       {
         type: 'p',
-        text: 'Peer opinion is the engine of this platform, but it must be labelled as such. Confident, evidence-grounded answers are what make consult hubs worth opening between patients.'
+        text: 'Peer opinion is the engine of this platform, but it must be labeled as such. Confident, evidence-grounded answers are what make consult hubs worth opening between patients.'
       },
       {
         type: 'list',
         items: [
-          'Cite the study or guideline behind any protocol claim (LAMP, CITT, AOK, current consensus documents) whenever one exists.',
+          'Cite the study or guideline behind any protocol claim (LAMP, CITT, AREDS, AOK, current consensus documents) whenever one exists.',
           'Clearly mark speculation, personal preference and single-case experience as such — "in my hands" is a valid label.',
           'State drug names, concentrations, dosing and device parameters precisely; vagueness is a clinical risk.',
           'Do not misrepresent AI outputs, simulation tools or provisional findings as confirmed diagnoses.',

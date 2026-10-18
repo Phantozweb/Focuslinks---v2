@@ -140,7 +140,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
           ) : (
             <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-              Awaiting Doctor Opinion
+              Awaiting Peer Opinion
             </span>
           )}
         </div>
@@ -257,7 +257,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
             }`}
           >
             <MessageSquare className="h-3.5 w-3.5" />
-            <span>All Doctor Answers ({question.answersCount})</span>
+            <span>All Peer Answers ({question.answersCount})</span>
           </button>
 
           <button
@@ -339,7 +339,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
 
                 <div className="flex items-center justify-between pt-2 text-xs">
                   <div className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400">
-                    <span>▲ {topAnswer.upvotes} doctor upvotes</span>
+                    <span>▲ {topAnswer.upvotes} peer upvotes</span>
                     <span>•</span>
                     <span>{topAnswer.comments?.length || 0} peer comments</span>
                   </div>
@@ -370,7 +370,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
           </div>
         )}
 
-        {/* Tab 2: All Doctor Answers */}
+        {/* Tab 2: All Peer Answers */}
         {activeTab === 'all-answers' && (
           <div className="p-4 sm:p-5 space-y-3.5">
             {question.answers.length === 0 ? (
@@ -458,7 +458,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
               <div className="space-y-0.5">
                 <span className="font-extrabold block">All Training Levels Welcome (Students, Residents & Specialists):</span>
                 <p className="text-[11px] text-emerald-700 dark:text-emerald-400 leading-relaxed font-normal">
-                  Share your clinical reasoning, propose differential diagnoses, or cite textbook pearls. Attending ODs review and endorse top trainee contributions!
+                  Share your clinical reasoning, propose differential diagnoses, or cite textbook pearls. Attendings and senior specialists review and endorse top trainee contributions!
                 </p>
               </div>
             </div>
@@ -475,7 +475,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
                       : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
                   }`}
                 >
-                  Attending OD
+                  Attending Clinician
                 </button>
                 <button
                   type="button"
@@ -497,7 +497,7 @@ export const ConsultCard: React.FC<ConsultCardProps> = ({
                       : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
                   }`}
                 >
-                  🎓 Optom Student
+                  🎓 Student
                 </button>
               </div>
 

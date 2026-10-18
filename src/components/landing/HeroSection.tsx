@@ -21,6 +21,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ECOSYSTEM_ROLES } from '../../data/ecosystem';
 
 interface HeroSectionProps {
   onEnterApp: (destination?: 'feed' | 'gallery' | 'groups' | 'doctors') => void;
@@ -95,7 +96,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
               </div>
               <div className="flex items-center gap-2.5">
                 <span className="text-xs sm:text-sm font-extrabold text-neutral-900 dark:text-white tracking-tight">
-                  World&apos;s First Platform for Optometrists
+                  One Network for the Entire Eye Care Ecosystem
                 </span>
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
@@ -112,14 +113,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
               className="space-y-3.5"
             >
               <h1 className="text-display-lg xl:text-display-xl font-black tracking-tight text-neutral-900 dark:text-white leading-[1.12]">
-                The Global Platform for{' '}
+                Where Eye Care{' '}
                 <span className="glossy-shine-text-light dark:glossy-shine-text-dark font-black">
-                  Optometrists
+                  Connects
                 </span>
               </h1>
               <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-normal">
-                Connect chairside with optometrists worldwide. Share de-identified anterior & posterior scans, obtain peer case consults, explore clinical subspecialties, and form an international network.
+                Connect chairside with eye care professionals worldwide — across ophthalmology, optometry, opticianry, research & academia. Share de-identified scans, obtain peer case consults, join specialty Circles, and form an international network.
               </p>
+            </motion.div>
+
+            {/* Ecosystem Role Pill Strip — the "everyone is welcome" signal */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.12 }}
+              className="flex flex-wrap items-center gap-1.5"
+              aria-label="Open to all 12 eye care professional roles"
+            >
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-1">
+                All 12 roles welcome
+              </span>
+              {ECOSYSTEM_ROLES.slice(0, 8).map((role) => (
+                <span
+                  key={role.id}
+                  title={role.label}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-bold whitespace-nowrap cursor-default transition-transform duration-200 hover:scale-105 ${role.badgeClasses}`}
+                >
+                  <role.icon className="h-3 w-3" aria-hidden="true" />
+                  <span>{role.short}</span>
+                </span>
+              ))}
             </motion.div>
 
             {/* Dynamic Infinite-Looping Sliding Marquee Ticker */}
@@ -195,7 +219,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                   <span>Verified</span>
                 </div>
                 <span className="text-[11px] text-neutral-500 dark:text-neutral-400 mt-0.5">
-                  Optometrists Network
+                  Eye Care Network
                 </span>
               </div>
 
@@ -468,8 +492,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                       {showReplies && (
                         <div className="p-3 rounded-xl bg-neutral-50 dark:bg-[#1a1a24] border border-neutral-200/80 dark:border-neutral-800 text-xs space-y-2">
                           <div className="flex items-center gap-2">
-                            <span className="font-bold text-neutral-900 dark:text-white">Dr. Marcus Vance, Optometrist</span>
-                            <span className="text-[10px] text-neutral-400">FAAO • Cornea Fellow</span>
+                            <span className="font-bold text-neutral-900 dark:text-white">Dr. Marcus Vance, Ophthalmologist · Retina</span>
+                            <span className="text-[10px] text-neutral-400">MD • Vitreoretinal Fellow</span>
                           </div>
                           <p className="text-neutral-700 dark:text-neutral-300">
                             I recommend flattening the landing by 1.5 steps at the 3 o&apos;clock sector to relieve blanching without reducing central clearance.
@@ -498,7 +522,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                               Clinical Consensus Poll
                             </h4>
                             <p className="text-[11px] text-neutral-400">
-                              43 Optometrists Voted • Myopia Management Hub
+                              43 Professionals Voted • Myopia Management Hub
                             </p>
                           </div>
                         </div>
@@ -566,7 +590,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                           <h4 className="text-sm sm:text-base font-extrabold">
                             Scleral Lens & Irregular Cornea
                           </h4>
-                          <p className="text-xs text-blue-100">1,240 Optometrists Collaborating</p>
+                          <p className="text-xs text-blue-100">1,240 Professionals Collaborating</p>
                         </div>
                         <button
                           onClick={() => onEnterApp('groups')}
@@ -631,7 +655,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                 className="hidden sm:flex absolute -bottom-4 -right-4 items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 dark:bg-[#1c1c26]/95 border border-neutral-200/90 dark:border-neutral-700 shadow-xl backdrop-blur-md text-xs font-bold text-neutral-800 dark:text-white"
               >
                 <Award className="h-4 w-4 text-amber-500" />
-                <span>Verified Optometrists</span>
+                <span>Verified Professionals</span>
               </motion.div>
             </div>
           </div>

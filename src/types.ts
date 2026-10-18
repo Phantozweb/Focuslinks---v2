@@ -1,3 +1,5 @@
+import type { EcosystemRoleId } from './data/ecosystem';
+
 export interface DoctorProfile {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export interface DoctorProfile {
   avatar: string;
   bannerImage: string;
   verified: boolean;
+  profession?: EcosystemRoleId; // role in the eye care ecosystem — see src/data/ecosystem.ts
   membershipId?: string;
   email?: string;
   licenseNumber: string;

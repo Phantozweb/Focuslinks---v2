@@ -831,7 +831,7 @@ export const ExploreView: React.FC<ExploreViewProps> = ({
               Daily Diagnostic Challenge: Spot the Pathology
             </h3>
             <p className="text-[11px] text-neutral-500">
-              Test your clinical acumen against community concordance
+              Test your clinical acumen against the eye care community's concordance
             </p>
           </div>
         </div>

@@ -107,7 +107,7 @@ export const SpotlightScene: React.FC<{ t: number }> = ({ t: tG }) => {
                       </span>
                     </div>
                     <p className="text-[10px] text-neutral-500 dark:text-neutral-400 truncate">
-                      High-yield cases & protocols from verified optometrists
+                      High-yield cases & protocols from verified professionals
                     </p>
                   </div>
                 </div>

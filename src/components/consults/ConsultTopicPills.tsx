@@ -201,7 +201,7 @@ export const ConsultTopicPills: React.FC<ConsultTopicPillsProps> = ({
                 <div className="text-[11px] text-neutral-400 mt-1 flex items-center gap-3 flex-wrap">
                   <span className="font-mono">{activeTopic.questionsCount} inquiries recorded</span>
                   <span aria-hidden="true">•</span>
-                  <span>{activeTopic.followersCount.toLocaleString()} verified doctors following</span>
+                  <span>{activeTopic.followersCount.toLocaleString()} verified professionals following</span>
                   {typeof activeTopic.acceptanceRate === 'number' && (
                     <>
                       <span aria-hidden="true">•</span>
