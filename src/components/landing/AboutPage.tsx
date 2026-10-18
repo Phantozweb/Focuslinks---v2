@@ -113,13 +113,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       id: 'faq-4',
       category: 'compliance',
       question: "Is sharing Slit-Lamp photos and diagnostic scans safe on FocusLinks?",
-      answer: "Yes, fully. FocusLinks utilizes state-of-the-art browser-side WebAssembly to de-identify files before upload. When you select a Slit-Lamp photo or OCT scan, our local scripts instantly strip camera EXIF data, specific capture timestamps, and localized GPS coordinates in memory. No protected health information (PHI) is ever transmitted or stored on our servers."
+      answer: "Yes — as long as every case is de-identified before you upload it. Remove patient names, file numbers, and identifiable details from files and descriptions first, and never post images showing faces or identifying marks. Posting identifiable patient information (PII) is against community rules, keeping FocusLinks a privacy-safe, peer-only space."
     },
     {
       id: 'faq-5',
       category: 'compliance',
       question: "What specific guidelines must I follow to ensure 100% HIPAA and GDPR compliance?",
-      answer: "When posting patient cases, you must make sure that: (1) All patient faces, names, file numbers, and initials are cropped out or completely hidden. (2) Case descriptions state general age/gender (e.g., '62-year-old female') rather than birthdates. (3) Any internal practice serial numbers are excluded. FocusLinks automatically assigns randomized clinical hashes (e.g., 'CASE-491A') to protect your uploads."
+      answer: "When posting patient cases, you must make sure that: (1) All patient faces, names, file numbers, and initials are cropped out or completely hidden. (2) Case descriptions state general age/gender (e.g., '62-year-old female') rather than birthdates. (3) Any internal practice serial numbers are excluded from images and text before you upload."
     },
     {
       id: 'faq-6',
@@ -136,14 +136,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
     {
       id: 'faq-8',
       category: 'practice',
-      question: "How do the dynamic image filters work in the case study views?",
-      answer: "Our image viewer includes custom clinical excitation overlays: Toggle between Natural White, Cobalt Blue, and Fluorescein Yellow-Green filters. Hold 'Shift' and scroll on the active image to adjust the excitation filter opacity, which mathematically balances contrast to clearly highlight apical scars or pooling borders."
+      question: "What formats can I use to share a clinical case?",
+      answer: "The composer supports five post formats: quick clinical pearls, photo and media cases (with per-image alt text), structured case reports, multi-choice polls, and long-form articles with repeatable sections and automatic read-time. Pick whichever format best fits the teaching point of your case."
     },
     {
       id: 'faq-9',
       category: 'practice',
       question: "Can I directly refer patients or collaborate with neuro-optometrists on FocusLinks?",
-      answer: "Yes. The Doctors Directory allows you to filter the entire verified registry by specialized fellowship boards (such as [FAAO] or [FCOVD]) or tags (like #neuro, #lowvision, #sclerals). You can initiate direct secure discussions to coordinate specialized rehabilitation plans and co-manage patients."
+      answer: "Yes. Open the Doctors Directory and use the search box together with the specialty filters to find colleagues by subspecialty — neuro-optometry, low-vision rehabilitation, scleral fitters, and more. You can initiate direct secure discussions from any profile to coordinate specialized rehabilitation plans and co-manage patients."
     },
     {
       id: 'faq-10',
@@ -167,7 +167,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
       id: 'faq-13',
       category: 'reputation',
       question: "Who gets professional badges on FocusLinks and what do they unlock?",
-      answer: "Every registered clinician or verified student receives a 'Verified Practitioner' or 'Verified Student' badge on their profile. Specialty badges like 'Specialty Contributor', 'Board Fellow (FAAO / FCOVD)', or 'Top Case Author' are awarded based on verified fellowship credentials, case contributions, and high-concordance diagnostic scoring. These badges unlock advanced ocular diagnostic calculator suites and priority peer-consult routing."
+      answer: "Every registered clinician or verified student receives a 'Verified Practitioner' or 'Verified Student' badge on their profile. Specialty badges like 'Specialty Contributor', 'Board Fellow (FAAO / FCOVD)', or 'Top Case Author' are awarded based on verified fellowship credentials, case contributions, and community recognition. These badges highlight your expertise and help peers find you for consults and co-management."
     }
   ];
 
@@ -182,8 +182,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
     },
     {
       step: "02",
-      title: "Automatic HIPAA Metadata Scrubbing",
-      desc: "Upload slit-lamp photos, OCT scans, or fundus imaging safely. Our client-side code scrubs patient names, dates, GPS coordinates, and camera EXIF metadata directly inside your browser before the image is even transmitted. Zero patient information leaks.",
+      title: "De-Identify Cases Before You Share",
+      desc: "Upload slit-lamp photos, OCT scans, or fundus imaging responsibly. Always remove patient names, dates, and identifiable details from files and case descriptions before posting — de-identification is a manual step today, and it keeps FocusLinks a privacy-safe, peer-only clinical sanctuary.",
       icon: <ShieldCheck className="h-5 w-5 text-emerald-500" />
     },
     {
@@ -194,8 +194,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
     },
     {
       step: "04",
-      title: "Diagnose with Precision Web-Tools",
-      desc: "Interact with clinical cases using high-resolution built-in utilities: simulate cobalt blue dye staining with fluorescein toggles, measure anterior depths with precision digital calipers, and analyze multi-spectral ocular scans.",
+      title: "Discuss, Refer & Learn from Real Cases",
+      desc: "Engage with clinical cases shared by peers worldwide: comment with your diagnostic opinion, request structured referrals and consults, and continue the discussion through direct peer connections — practical learning powered by the community.",
       icon: <Activity className="h-5 w-5 text-pink-500" />
     }
   ];
@@ -204,21 +204,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
   const tipsAndShortcuts = [
     {
       id: 'tip-1',
-      title: "Search Operators & Specialty Filtering",
-      summary: "How to instantly isolate specialty scleral consultants vs. neuro-optometrists.",
-      detail: "In the Doctor Directory, use brackets to filter by fellowship boards. For example, typing '[FAAO]' or '[FCOVD]' isolates board-certified clinical fellows immediately. You can also append hashtags like '#cornea' or '#glaucoma' to locate specific case discussion histories."
+      title: "Specialty Filtering in the Directory",
+      summary: "How to quickly isolate the right specialist for a case.",
+      detail: "In the Doctor Directory, combine the search box with the specialty filters to narrow the verified registry by subspecialty — Cornea & Sclerals, Pediatric Myopia, Glaucoma & Neuro, Dry Eye & Aesthetics, and more. Open a profile first to review endorsed specialties, experience, and certifications before reaching out."
     },
     {
       id: 'tip-2',
-      title: "Anisotropic slitting and Slit-Lamp Presets",
-      summary: "Maximizing image resolution for fluorescein staining reviews.",
-      detail: "When viewing high-res case images, hold 'Shift' and scroll to fine-tune the blue filter intensity. Toggle between Natural White, Cobalt Blue, and Fluorescein Yellow-Green filters. Yellow filters are mathematically balanced to highlight high-contrast pooling borders."
+      title: "Follow Specialty Consult Hubs",
+      summary: "Get the most out of topic-based hubs.",
+      detail: "Browse hubs by category — Anterior Segment, Pediatrics, Surgical, Tech, and Practice — then open a hub for its own feed, ask a question in hub Q&A, and check the weekly and monthly leaderboards to see which peers are earning the most accepted answers."
     },
     {
       id: 'tip-3',
-      title: "Silent Co-Management Protocol (HIPAA Safe)",
-      summary: "Safely discussing sensitive high-order aberrations without revealing patient context.",
-      detail: "Before posting a case study, click 'Scrub Patient Identifiers'. Our browser-level web assembly parser replaces file names with non-sequential clinical hashes (e.g., 'CASE-82F3') and overrides embedded date timestamps. FocusLinks does not store patient names anywhere."
+      title: "De-Identify Before Posting (Privacy Safe)",
+      summary: "Safely discussing sensitive cases without revealing patient context.",
+      detail: "De-identification is manual today, so make it a habit before every upload: crop or cover patient faces, rename files to remove patient identifiers, and use general descriptors (e.g., '38-year-old male') instead of names, MRNs, or birthdates in your case description. FocusLinks does not store patient names anywhere."
     },
     {
       id: 'tip-4',
@@ -266,7 +266,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
           </h1>
           
           <p className="text-lg sm:text-xl text-neutral-500 dark:text-neutral-400 leading-relaxed font-medium">
-            From verified credentials boarding to custom anterior vault fluorescent clearance diagnostics—unlock every clinical tool, co-management standard, and power-user practice tip in one comprehensive guide.
+            From verified credential onboarding to sharing de-identified cases, getting peer second opinions, and growing your international network — learn every community workflow and power-user practice tip in one comprehensive guide.
           </p>
         </div>
 
@@ -358,7 +358,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                 <div className="max-w-3xl space-y-2">
                   <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">Advanced Diagnostic Protocols</h3>
                   <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                    Leverage advanced web assembly and image diagnostics to co-manage severe ocular pathology while keeping patient data fully protected.
+                    Leverage the community to co-manage severe ocular pathology with verified peers around the world while keeping patient data fully protected.
                   </p>
                 </div>
 
@@ -368,9 +368,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                     <div className="h-9 w-9 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                       <Sliders className="h-4.5 w-4.5" />
                     </div>
-                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">Spectral Lens Filters</h4>
+                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">Structured Case Posting</h4>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                      Toggle cobalt blue excitation overlays with fluorescein yellow filtration. Yellow barrier filters block excess background blue light to mathematically enhance raw green fluorescence border contrast.
+                      Share cases in the format that fits the teaching point: quick clinical pearls, photo and media posts with per-image alt text, structured case reports, multi-choice polls, or long-form articles with automatic read-time.
                     </p>
                   </div>
 
@@ -378,9 +378,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                     <div className="h-9 w-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                       <Scale className="h-4.5 w-4.5" />
                     </div>
-                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">Precision Digital Calipers</h4>
+                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">Peer Second Opinions</h4>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                      Assess anterior clearance heights on sagittal OCT slices. Measure distance from the cornea apex to the lens posterior surface directly within the image viewer. Optimal targets: 200-250 microns.
+                      Post a fitting challenge to the feed or the most relevant Specialty Consult Hub and receive diagnostic opinions, clearance-parameter advice, and co-management suggestions from registered specialists.
                     </p>
                   </div>
 
@@ -388,9 +388,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                     <div className="h-9 w-9 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 flex items-center justify-center">
                       <Cpu className="h-4.5 w-4.5" />
                     </div>
-                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">EXIF De-Identification</h4>
+                    <h4 className="text-sm font-black text-neutral-900 dark:text-white">Verified Peer Directory</h4>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                      Every JPEG/PNG upload passes through browser-level memory buffers to strip camera manufacturer names, capture timestamps, and highly precise localized GPS coordinate structures instantly.
+                      Search the verified registry by subspecialty, location, and clinical focus to find the right colleague for referrals, mentoring, and knowledge exchange — every profile shows endorsed specialties, experience, and education.
                     </p>
                   </div>
 
@@ -523,7 +523,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                 <div className="max-w-3xl space-y-3">
                   <h3 className="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white">Clinical FAQ & Support Portal</h3>
                   <p className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                    Search or browse verified guidelines, regulatory compliance standards, regional licensing details, and practice workflow guides.
+                    Search or browse answers on verification, privacy & compliance, co-management workflows, and community reputation.
                   </p>
                 </div>
 
@@ -534,7 +534,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBackToHome, onEnterApp, 
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400" />
                     <input
                       type="text"
-                      placeholder="Search FAQs (e.g., 'HIPAA', 'India', 'Filters', 'Endorsements')..."
+                      placeholder="Search FAQs (e.g., 'HIPAA', 'India', 'Verification', 'Endorsements')..."
                       value={faqSearch}
                       onChange={(e) => setFaqSearch(e.target.value)}
                       className="w-full pl-12 pr-5 py-4 bg-neutral-50 dark:bg-[#111116] border border-neutral-200 dark:border-neutral-800 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/80 outline-none transition-all placeholder-neutral-400 dark:placeholder-neutral-500"

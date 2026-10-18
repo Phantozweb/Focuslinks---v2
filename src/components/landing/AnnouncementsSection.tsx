@@ -10,22 +10,22 @@ export const AnnouncementsSection: React.FC = () => {
       id: 1,
       category: "platform",
       badge: "Feature Release",
-      title: "Anterior Segment OCT Precision Caliper Tool Released",
-      description: "Measure scleral sagittal depth, corneal clearance, and limbal vault direct from your browser using our new calibrated vector markers.",
+      title: "Specialty Consult Hubs Are Live",
+      description: "Nineteen topic hubs across six categories — from Anterior Segment to Practice & Tech — each with its own feed, Q&A, and community leaderboard. Join a hub and start the conversation.",
       date: "Sep 18, 2026",
       readTime: "3 min read",
-      author: "Product Team",
+      author: "FocusLinks Team",
       featured: true
     },
     {
       id: 2,
       category: "clinical",
-      badge: "Partnership",
-      title: "Automated Registration Board Credential Checking Active",
-      description: "We have partnered with global optometrist licensing registries to deliver secure, near-instant credential validation during registration.",
+      badge: "Trust & Safety",
+      title: "Manual Credential Verification Keeps the Directory Peer-Only",
+      description: "Our clinical review board continues to manually vet every registration — degrees, college IDs, and regional licenses alike — so the directory stays a verified, peer-only sanctuary. Most profiles are reviewed within 12 hours.",
       date: "Sep 10, 2026",
       readTime: "2 min read",
-      author: "Security & Trust Board"
+      author: "FocusLinks Team"
     },
     {
       id: 3,
@@ -40,12 +40,12 @@ export const AnnouncementsSection: React.FC = () => {
     {
       id: 4,
       category: "platform",
-      badge: "Optimization",
-      title: "Advanced Image Security & De-Identification Engine Upgrade",
-      description: "Our proprietary browser-level imaging tool now instantly checks and scrubs metadata, EXIF parameters, and patient labels before upload.",
+      badge: "Enhancement",
+      title: "Richer Case Posting Formats",
+      description: "Share cases your way: quick clinical pearls, photo and media posts with per-image alt text, structured case reports, multi-choice polls, and long-form articles with automatic read-time.",
       date: "Aug 29, 2026",
       readTime: "4 min read",
-      author: "Security Team"
+      author: "FocusLinks Team"
     }
   ];
 
@@ -71,7 +71,7 @@ export const AnnouncementsSection: React.FC = () => {
               Latest Platform Updates
             </h2>
             <p className="text-sm sm:text-base text-neutral-500 dark:text-neutral-400 max-w-2xl">
-              Stay up-to-date with newly implemented clinical tools, community integrations, security audits, and educational case webinars.
+              Stay up-to-date with newly launched community features, specialty consult hubs, verification updates, and educational case webinars.
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export const AnnouncementsSection: React.FC = () => {
           <div className="flex flex-wrap items-center gap-1.5 self-start md:self-end bg-neutral-200/60 dark:bg-neutral-800/80 p-1 rounded-2xl text-xs font-bold shrink-0">
             {[
               { id: 'all', label: 'All News' },
-              { id: 'platform', label: 'Platform Tools' },
+              { id: 'platform', label: 'Platform News' },
               { id: 'clinical', label: 'Security & Licensing' },
               { id: 'event', label: 'Webinars' }
             ].map((btn) => (

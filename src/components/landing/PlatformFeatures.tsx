@@ -70,19 +70,19 @@ export const PlatformFeatures: React.FC<PlatformFeaturesProps> = ({ onEnterApp }
       caption: 'International optometry directory and clinical credentials',
     },
     {
-      title: 'Diagnostic Grid & Imaging Viewer',
-      tag: 'Visual Clinical Archive',
+      title: 'Clinical Case Explorer',
+      tag: 'Visual Case Archive',
       description:
-        'Explore a visual gallery of real-world clinical findings. Zoom, inspect, and compare findings directly across diverse anterior and posterior pathologies.',
+        'Browse real-world clinical findings shared by the community across diverse anterior and posterior pathologies, and open any case to study the full discussion.',
       icon: ZoomIn,
       highlights: [
-        'Filter by imaging modality (OCT, Topography, Slit-Lamp, Fundus)',
-        'Full-screen high-resolution zoom and pan view',
-        'Quick comparison of normal vs. pathological scans',
+        'Search cases and browse curated category collections',
+        'Switch between grid and feed layouts while exploring',
+        'Open any case to read findings, differentials, and management pearls',
       ],
       destination: 'gallery' as const,
       image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&auto=format&fit=crop&q=80',
-      caption: 'Multimodal imaging viewer with full diagnostic metadata',
+      caption: 'Community case archive with rich clinical metadata',
     },
   ];
 

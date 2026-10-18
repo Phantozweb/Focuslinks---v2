@@ -413,7 +413,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
                             <ZoomIn className="h-3 w-3 text-sky-400" />
                             <span>
                               {selectedScan === 'oct'
-                                ? 'OCT Caliper: 240µm Central Clearance'
+                                ? 'Central Clearance: 240µm'
                                 : selectedScan === 'slitlamp'
                                 ? 'Sodium Fluorescein 16x'
                                 : 'Axial Tangential Elevation'}
