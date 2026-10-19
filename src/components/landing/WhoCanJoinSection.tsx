@@ -11,7 +11,7 @@ import { WhoJoinsScene } from './features/scenes/WhoJoinsScene';
  * video embed, drawn once on a fixed 1280×720 canvas, 16:9 everywhere.
  */
 
-const DURATION = 16000; // must match WhoJoinsScene's DURATION
+const DURATION = 20200; // must match WhoJoinsScene's DURATION (roll-call cut)
 
 interface WhoCanJoinSectionProps {
   /** e.g. open the free-membership signup flow */
@@ -88,8 +88,8 @@ export const WhoCanJoinSection: React.FC<WhoCanJoinSectionProps> = ({ onJoin }) 
             </span>
           </h2>
           <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mt-4">
-            Not one profession — the entire eye care ecosystem. Watch the real directory as every
-            discipline, from surgeons to students, takes its seat in one verified network.
+            Not one profession — the entire eye care ecosystem. Twelve seats, one network:
+            watch every role take the stage, from first-year students to global public health.
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export const WhoCanJoinSection: React.FC<WhoCanJoinSectionProps> = ({ onJoin }) 
         {/* share-copy line */}
         <p className="mt-5 text-center text-[10.5px] font-medium text-neutral-400 dark:text-neutral-500 flex items-center justify-center gap-1.5">
           <MousePointerClick className="h-3.5 w-3.5 shrink-0" />
-          Real interface, real members — every profession verified before it enters the network. Not a video file.
+          Real members, real roles — every frame coded, none of it a video file.
         </p>
       </div>
     </section>

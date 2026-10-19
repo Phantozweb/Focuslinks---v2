@@ -117,6 +117,47 @@ export const SceneImg: React.FC<{
  *  (AdHook / KineticBeat / AdPunchline) — z-layered above the window.
  * ================================================================ */
 
+/**
+ * Full-bleed cinematic backdrop WITHOUT the app window — for title-sequence
+ * spots (roll-call cut of the membership film) that play on the bare stage.
+ * Same glow drift / blueprint grid / vignette recipe as DemoWindow.
+ */
+export const StageBackdrop: React.FC<{ accent: SpotAccent; t: number }> = ({ accent, t }) => {
+  const a = SPOT_ACCENT[accent];
+  const drift1 = Math.sin(t / 2600) * 26;
+  const drift2 = Math.cos(t / 3400) * 22;
+  const drift3 = Math.sin(t / 4100 + 1.4) * 18;
+  return (
+    <>
+      <div
+        className={`absolute -top-32 left-[22%] h-[400px] w-[400px] rounded-full blur-[110px] ${a.glow}`}
+        style={{ opacity: 0.2, transform: `translate(${drift1}px, ${drift2 * 0.5}px)` }}
+      />
+      <div
+        className={`absolute -bottom-40 right-[6%] h-[360px] w-[360px] rounded-full blur-[120px] ${a.glow}`}
+        style={{ opacity: 0.13, transform: `translate(${drift2}px, ${drift1 * -0.4}px)` }}
+      />
+      <div
+        className="absolute top-[8%] right-[30%] h-[220px] w-[220px] rounded-full blur-[100px] bg-white"
+        style={{ opacity: 0.045, transform: `translate(${drift3}px, ${drift1 * 0.3}px)` }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.55) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          opacity: 0.045,
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(125% 95% at 50% 42%, transparent 52%, rgba(0,0,0,0.55) 100%)' }}
+      />
+    </>
+  );
+};
+
 export const DemoWindow: React.FC<{
   url: string;
   accent: SpotAccent;

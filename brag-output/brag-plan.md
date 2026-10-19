@@ -208,3 +208,49 @@ showreel is 100% code, and every frame is the actual app doing its job."
 - Every spot: hook readable ≥1.4s settled · wipe ≤0.7s · kinetic line holds ≥1.2s ·
   punchline lockup fully settled ≥1.2s.
 - tsc clean · build clean · dark + light + 390px smoke · no horizontal overflow.
+
+---
+
+# SPOT 07 — WHO CAN JOIN US? (membership film, standalone cut) — 20.2s — tone: proud roll-call
+
+User brief (v2 rewrite): drop the busy directory proof — play a SEQUENCE instead.
+Each role's card floats in, gets CLICKED, and zooms into the role's WORD; then the
+next role. Student → Intern → Practitioner → Researcher → … the whole ecosystem.
+Explainer-grade animation, buttery smooth, nothing cluttered.
+
+### Scene 1 — Hook — 0–2.4s
+Full-bleed takeover. Eyebrow: `THE MEMBERSHIP QUESTION`. Line: **"Who can join
+FocusLinks?"** Ghost community bubbles: "I'm an optician…", "Do residents count?",
+"I'm a nurse — me?", "What about PhDs?" Wipe at 2.4s.
+
+### Scene 2 — The Roll Call — 3.05–18.05s (12 beats × 1.25s, plays at 1×)
+Full-bleed dark stage — NO browser chrome; this is a title sequence, not a screen
+recording. Per beat (1250ms):
+  1. 0–0.34s   real member card floats in (photo, name, one-line cred, role glyph);
+               a second member card drifts behind where the roster has two
+  2. ~0.43s    cursor glides in and CLICKS the card (tap ripple)
+  3. 0.56–0.9s card zooms toward camera and the ROLE WORD slams in huge in the
+               role's own gradient, icon tile above, one-line explainer below
+  4. hold → word scales out as the next card rises (cross-beat overlap)
+Order (career arc → clinical team → knowledge → mission):
+  01 Student · 02 Resident & Fellow · 03 Optometrist · 04 Ophthalmologist ·
+  05 Optician · 06 Orthoptist · 07 Ophthalmic Nurse · 08 Ophthalmic Technician ·
+  09 Vision Scientist · 10 Academic Faculty · 11 Industry Professional ·
+  12 Public Health & Rehabilitation
+Cast (all real roster members): Nadia Rahmani · Andre Boucher + Maya Lin ·
+Amara Thorne + Sarah Jenkins · Hannah Weiss + Tariq Al-Mansoor · James Whitfield ·
+Sofia Marchetti · Grace Adeyemi · Derek Santos · Leila Haddad · Alison Hartley ·
+Michael Tran · Osazee Agbonlahor (initials tile — roster has no photo for him).
+A 12-dot progress rail above the caption strip fills with each role's gradient as
+the sequence advances. Contract deviation, documented: no mid-spot KineticBeat —
+the roll call IS the kinetic spine; the punchline provides the final slam.
+
+### Scene 3 — Punchline — 18.1–20.2s
+Brand lockup over dimmed stage: FocusLinks · **OPEN TO ALL** · "Everyone who moves
+eye care forward belongs here." CTA "Claim your free ID".
+
+Caption script (voiceover): hook question → "It starts with a student — then
+residency" → "Into practice — optometry and ophthalmology" → "The full clinical
+team: optical, orthoptics, nursing, imaging" → "The science and the teaching" →
+"Industry and global public health" → "FocusLinks — a seat for every eye care
+professional."
