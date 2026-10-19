@@ -370,7 +370,7 @@ export const SceneCaption: React.FC<{
  *  Every accent is a static Tailwind class — no dynamic class names.
  * ================================================================ */
 
-export type SpotAccent = 'blue' | 'emerald' | 'violet' | 'fuchsia' | 'amber' | 'sky';
+export type SpotAccent = 'blue' | 'emerald' | 'violet' | 'fuchsia' | 'amber' | 'sky' | 'rose';
 
 export const SPOT_ACCENT: Record<
   SpotAccent,
@@ -399,6 +399,10 @@ export const SPOT_ACCENT: Record<
   sky: {
     glow: 'bg-sky-500', text: 'text-sky-400', bar: 'bg-sky-500', dot: 'bg-sky-500',
     cta: 'bg-sky-600 hover:bg-sky-500', hex: '#0ea5e9', grad: 'from-sky-600 via-cyan-600 to-sky-400',
+  },
+  rose: {
+    glow: 'bg-rose-600', text: 'text-rose-400', bar: 'bg-rose-500', dot: 'bg-rose-500',
+    cta: 'bg-rose-600 hover:bg-rose-500', hex: '#e11d48', grad: 'from-rose-600 via-pink-600 to-rose-400',
   },
 };
 

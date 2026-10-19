@@ -123,7 +123,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
               </p>
             </motion.div>
 
-            {/* Ecosystem Role Pill Strip — the "everyone is welcome" signal */}
+            {/* Ecosystem Role Strip — quiet professional trust badges, full titles */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,17 +131,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
               className="flex flex-wrap items-center gap-1.5"
               aria-label="Open to all 12 eye care professional roles"
             >
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mr-1">
-                All 12 roles welcome
-              </span>
-              {ECOSYSTEM_ROLES.slice(0, 8).map((role) => (
+              {ECOSYSTEM_ROLES.map((role) => (
                 <span
                   key={role.id}
-                  title={role.label}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-bold whitespace-nowrap cursor-default transition-transform duration-200 hover:scale-105 ${role.badgeClasses}`}
+                  title={role.tagline}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-semibold whitespace-nowrap cursor-default transition-transform duration-200 hover:scale-105 ${role.badgeClasses}`}
                 >
                   <role.icon className="h-3 w-3" aria-hidden="true" />
-                  <span>{role.short}</span>
+                  <span>{role.label}</span>
                 </span>
               ))}
             </motion.div>
@@ -155,7 +152,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onEnterApp }) => {
             >
               <div className="flex items-center gap-2 text-xs font-extrabold text-neutral-500 dark:text-neutral-400 mb-2.5 px-1 uppercase tracking-wider">
                 <Sparkles className="h-3.5 w-3.5 text-blue-500 animate-pulse shrink-0" />
-                <span>Trending Clinical Focus Areas (Auto-Scroll):</span>
+                <span>Trending Clinical Focus Areas:</span>
               </div>
               
               <div className="relative w-full overflow-hidden bg-neutral-100/40 dark:bg-neutral-900/40 border border-neutral-200/50 dark:border-neutral-800/80 rounded-2xl py-3 px-3">

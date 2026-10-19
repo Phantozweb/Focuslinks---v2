@@ -4,7 +4,7 @@ export { HeroSection } from './HeroSection';
 export { AboutPage } from './AboutPage';
 export { PillarsSection } from './PillarsSection';
 export { FeatureShowcase } from './features/FeatureShowcase';
-export { VideoDemoSection } from './videodemo/VideoDemoSection';
+export { WhoCanJoinSection } from './WhoCanJoinSection';
 export { AnnouncementsSection } from './AnnouncementsSection';
 export { CommunityPreview } from './CommunityPreview';
 export { HowToSection } from './HowToSection';

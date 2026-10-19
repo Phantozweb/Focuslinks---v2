@@ -5,7 +5,7 @@ import { HeroSection } from './HeroSection';
 import { AboutPage } from './AboutPage';
 import { MembershipPage } from '../membership/MembershipPage';
 import { PillarsSection } from './PillarsSection';
-import { VideoDemoSection } from './videodemo/VideoDemoSection';
+import { WhoCanJoinSection } from './WhoCanJoinSection';
 import { FeatureShowcase } from './features/FeatureShowcase';
 import { AnnouncementsSection } from './AnnouncementsSection';
 import { CommunityPreview } from './CommunityPreview';
@@ -115,8 +115,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* 2. Hero Section with Standout Badge & Slow Shines */}
         <HeroSection onEnterApp={onEnterApp} />
 
-        {/* 2.5 Dynamic Interactive Video-like UI Simulator Demo */}
-        <VideoDemoSection />
+        {/* 2.5 Who Can Join Us? — brag-style membership film */}
+        <WhoCanJoinSection onJoin={onGetFreeId} />
 
         {/* 3. Four Core Pillars: Connect, Share, Grow, Network */}
         <PillarsSection onEnterApp={onEnterApp} />

@@ -114,6 +114,7 @@ const SPOT_UI: Record<SpotAccent, { dot: string; cta: string; text: string }> = 
   fuchsia: { dot: 'bg-fuchsia-500', cta: 'bg-fuchsia-600 hover:bg-fuchsia-500', text: 'text-fuchsia-400' },
   amber: { dot: 'bg-amber-500', cta: 'bg-amber-500 hover:bg-amber-400', text: 'text-amber-400' },
   sky: { dot: 'bg-sky-500', cta: 'bg-sky-600 hover:bg-sky-500', text: 'text-sky-400' },
+  rose: { dot: 'bg-rose-500', cta: 'bg-rose-600 hover:bg-rose-500', text: 'text-rose-400' },
 };
 
 /* ---------- animated Connect / Learn / Grow headline ---------- */
